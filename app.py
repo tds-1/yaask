@@ -8,14 +8,21 @@ from pickle import loads, dumps
 from flask_session import Session
 from flask_weasyprint import HTML, render_pdf
 import json
+import os
 from forms import LoginForm, RegisterForm, SubmitForm, QuizForm
 
 #Make the flash for submit() fade slowly so when the next question comes it lights up again
 
 #Create the app and configure it
 app = Flask(__name__)
-app.config.from_object('config.DevelopmentConfig')
-
+try:
+	app.config.from_object('config.DevelopmentConfig')
+except:
+	DEBUG = False
+	SECRET_KEY = os.environ.get('SECRET_KEY')
+	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+	SQLALCHEMY_TRACK_MODIFICATIONS = False
+	WTF_CSRF_SECRET_KEY = SECRET_KEY
 
 #Create Database object
 db = SQLAlchemy(app)
