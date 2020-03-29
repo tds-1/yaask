@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+   
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ 
+     <!-- Site Metas -->
+    <title></title>  
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+      
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{{url_for('static',filename='../static/css/style.css') }}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{{url_for('static',filename='../static/css/css/responsive.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<!-- JQUERY import -->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="{{ url_for('static', filename='jquery.min.js') }}">\x3C/script>')</script>
+
+
+	<!-- Materialize -->
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<style>
+	.brand-logo{
+		padding-left: 10px;
+	}
+	img#giticon {
+		padding-right: 5px;
+		height: 25px;
+		width: 25px;
+	}
+	img#giticon.hover {
+		opacity: 0.9;
+	}
+	#crown {
+		height: 20px;
+		width: 20px;
+	}
+
+	</style>
+
+	<script type='text/javascript'>
+		//sets the global variable to the prefix to the root of the application
+		
+		$(document).ready(function(){
+    		$('.collapsible').collapsible({
+      		accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    		});
+    		$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    		$(".button-collapse").sideNav();
+    		$('select').material_select();
+  		});
+	</script>
+
+
+</head>
+<body id="page-top" class="politics_version">
+
+
+    <nav class="#448aff teal accent-4">
+        <div class="nav-wrapper">
+            <a href="{{ url_for('home') }}" class="brand-logo">Quiz Engine</a>
+            <a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li > <a>Hello, {{current_user.name}}</a></li>
+                <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('submit') }}">Add Questions</a></li>
+                {% if current_user.name %}
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                {% endif %}
+            </ul>
+            <ul id="mobile-demo" class="side-nav">
+                <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('submit') }}">Add Questions</a></li>
+                {% if current_user.name %}
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    
+    <div id="gallery" class="section lb">
+        <div class="container">
+            <!-- <div class="section-title text-center">
+                <h3>Gallery</h3>
+            </div>end title -->
+            
+            
+            <div class="gallery-menu row">
+                <div class="col-md-12">
+                    <div class="button-group filter-button-group text-center">
+                        <button class="active" data-filter="*">All</button>
+                        {% for category in categoryList %}
+                            <button data-filter=".{{category}}">{{category}}</button>
+                        {% endfor %}
+                        <!--     -->
+                    </div>
+                </div>
+            </div>
+        </br>
+            <form action="" method='POST'>
+            <div style="color: black;">
+                {% for category in categoryList %}
+                    Add random 
+                    <input type="integer" name="{{category}}" placeholder="number of questions"> 
+                    questions of {{ category }} <br>
+                {% endfor %}
+            </div>
+            </br>
+                <div class="gallery-list row">        
+                    {% for question_to_display in questions_to_display %}
+                    <div class="gallery-grid {{question_to_display.category}}" style="padding:20px;  width: 100%;
+                    width: -moz-available;        
+                    width: -webkit-fill-available;
+                    width: stretch; 
+                    background: radial-gradient(white, #00bfa5);">
+                        <input type="checkbox" id="{{question_to_display.questionid}}" name="{{question_to_display.questionid}}" value="checked">
+                        <label for="{{question_to_display.questionid}}" style="display: unset; color: black; background-color:white;">
+                            <div class="{{ question_to_display.questionid }}">
+                                <div class="row">
+                                    <div class="col s12">
+                                        {{ question_to_display.question }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        A: {{ question_to_display.option1 }}
+                                    </div>
+                                    <div class="col s6">
+                                        B: {{ question_to_display.option2 }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        C: {{ question_to_display.option3 }}
+                                    </div>
+                                    <div class="col s6">
+                                        D: {{ question_to_display.option4 }}
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                            </br>
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+                <input class='button' type="submit" value="Add Selected Questions" style="color: black;">
+            </form>
+        </div>
+    </div>
+    
+
+  
+   
+    <!-- ALL JS FILES -->
+    <script src="{{url_for('static',filename='../static/js/all.js') }}"></script>
+    
+    <!-- Camera Slider -->
+    <script src="{{url_for('static',filename='../static/js/jquery.easing.1.3.js') }}"></script>
+    <script src="{{url_for('static',filename='../static/js/parallaxie.js') }}"></script>
+ 
+    <!-- ALL PLUGINS -->
+    <script src="{{url_for('static',filename='../static/js/custom1.js') }}"></script>
+
+</body>
+</html>
