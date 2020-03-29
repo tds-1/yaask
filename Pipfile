@@ -25,6 +25,8 @@ Jinja2 = "==2.7.3"
 gunicorn = "*"
 psycopg2-binary = "*"
 passlib = "*"
+flask-session = "*"
+flask-weasyprint = "*"
 
 [requires]
 python_version = "3.6"
