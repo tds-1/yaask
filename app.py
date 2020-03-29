@@ -17,8 +17,9 @@ from forms import LoginForm, RegisterForm, SubmitForm, QuizForm
 app = Flask(__name__)
 try:
 	app.config.from_object('config.DevelopmentConfig')
+	print ("try")
 except:
-	DEBUG = False
+	print ("except")
 	SECRET_KEY = os.environ.get('SECRET_KEY')
 	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
