@@ -59,8 +59,12 @@ def getStandings():
 @app.route('/')
 def home():
 	print ("This is the very first page of the yaask application")
-	return render_template('index.html')
-
+	try:
+		return render_template('index.html', users=getStandings())
+	except Exception as e:
+		print (e)
+		return '{{e}}'
+	
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	logout_user()
