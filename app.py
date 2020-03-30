@@ -28,6 +28,9 @@ except:
 #Create Database object
 db = SQLAlchemy(app)
 
+#secret key
+secret_key='hello_bhai'
+
 #Create encrypt object
 SCHEMES = 'pbkdf2_sha256'
 
