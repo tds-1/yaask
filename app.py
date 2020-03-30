@@ -300,13 +300,42 @@ def generated_test():
 	return render_template('chose_test.html',testid=testid)
 
 
-# @app.route('/online_test', methods=['GET','POST'])
-# @login_required
-# def print_test():
-# 	selected=session.get('selected')
-# 	questions_to_display = Questions.query.filter( Questions.questionid.in_(selected) ).all()
-# 	html= render_template("generate.html",questions_to_display=questions_to_display)
-# 	return render_pdf(HTML(string=html))
+@app.route('/online_test', methods=['GET','POST'])
+@login_required
+def online_test():
+	if request.method=='GET':
+		id=request.args.get('id')
+		selected=Test.query.filter(Test.testid==id).one()
+		selected=selected.selected
+		questions_to_display = Questions.query.filter( Questions.questionid.in_(selected) ).all()
+		return render_template("online_test.html",questions_to_display=questions_to_display,id=id)
+	if request.method=='POST':
+		id=request.args.get('id')
+		selected=Test.query.filter(Test.testid==id).one()
+		selected=selected.selected
+		print (selected)
+		score=0
+		questions_to_display = Questions.query.filter( Questions.questionid.in_(selected) ).all()
+		quest={}
+		for x in selected:
+			x=str(x)
+			z=request.form[x]
+
+			answer=Questions.query.filter(Questions.questionid==x).one()
+			ans=answer.answer
+			if(z=='N'):
+				quest[answer]='N'
+				pass
+			elif (z==ans):
+				quest[answer]='C'
+				score=score+4
+			else:
+				quest[answer]='W'
+				score=score-1
+		
+		for x in quest:
+			print (x,quest[x])
+		return  render_template('result.html',score=score,questions_to_display=quest)
 
 @app.route('/print_test', methods=['GET','POST'])
 @login_required
