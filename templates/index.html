@@ -98,7 +98,7 @@
 			<li><a href="{{ url_for('submit') }}">Add Questions</a></li>
 			<li><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
 			<li><a href="{{ url_for('test') }}">Create Test</a></li>
-		1	{% if current_user.name %}
+			{% if current_user.name %}
 				<li><a href="{{ url_for('logout') }}">Logout</a></li>
 			{% else %}
 				<li><a href="{{ url_for('login') }}">Login</a></li>
