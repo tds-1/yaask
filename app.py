@@ -62,7 +62,7 @@ def getStandings():
 @app.route('/')
 def home():
 	print ("This is the very first page of the yaask application")
-	return render_template('hello.html')
+	return "<html><body>hello ji</body></html>"
 	
 @app.route('/login', methods=['GET', 'POST'])
 def login():
