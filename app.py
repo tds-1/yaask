@@ -14,7 +14,7 @@ from forms import LoginForm, RegisterForm, SubmitForm, QuizForm
 #Make the flash for submit() fade slowly so when the next question comes it lights up again
 
 #Create the app and configure it
-app = Flask(__name__, template_folder='templates' , static_folder="static")
+app = Flask(__name__, template_folder='template' , static_folder="static")
 try:
 	app.config.from_object('config.DevelopmentConfig')
 	print ("try")
