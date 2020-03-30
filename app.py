@@ -66,6 +66,7 @@ def home():
 	
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+	print ("here we present the login pages")
 	logout_user()
 	form = LoginForm(request.form)
 	if request.method == 'POST':
