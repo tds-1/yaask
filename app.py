@@ -21,6 +21,8 @@ try:
 except:
 	print ("except")
 	SECRET_KEY = os.environ.get('SECRET_KEY')
+	DEBUG = os.environ.get('DEBUG')
+	TESTING = os.environ.get('TESTING')
 	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
 	WTF_CSRF_SECRET_KEY = SECRET_KEY
