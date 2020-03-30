@@ -4,8 +4,15 @@ import os
 
 from app import app, db
 
-
-app.config.from_object('config.DevelopmentConfig')
+try:
+	app.config.from_object('config.DevelopmentConfig')
+	print ("try")
+except:
+	print ("except")
+	SECRET_KEY = os.environ.get('SECRET_KEY')
+	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+	SQLALCHEMY_TRACK_MODIFICATIONS = False
+	WTF_CSRF_SECRET_KEY = SECRET_KEY
 
 migrate = Migrate(app, db)
 manager = Manager(app)
