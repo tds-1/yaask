@@ -14,7 +14,7 @@ from forms import LoginForm, RegisterForm, SubmitForm, QuizForm
 #Make the flash for submit() fade slowly so when the next question comes it lights up again
 
 #Create the app and configure it
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates' , static_folder="static")
 try:
 	app.config.from_object('config.DevelopmentConfig')
 	print ("try")
@@ -59,11 +59,7 @@ def getStandings():
 @app.route('/')
 def home():
 	print ("This is the very first page of the yaask application")
-	try:
-		return render_template('index.html', users=getStandings())
-	except Exception as e:
-		print (e)
-		return '{{e}}'
+	return render_template('index.html', users=getStandings())
 	
 @app.route('/login', methods=['GET', 'POST'])
 def login():
