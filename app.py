@@ -16,13 +16,13 @@ from forms import LoginForm, RegisterForm, SubmitForm, QuizForm
 #Create the app and configure it
 app = Flask(__name__, template_folder='templates' , static_folder="static")
 try:
-	app.config.from_object('config.DevelopmentConfig')
+	app.config.from_object('config.ProductionConfig')
 	print ("try")
 except:
 	print ("except")
 	app.config["SECRET_KEY"] = environ['SECRET_KEY']
 	app.config["DEBUG"] = environ['DEBUG']
-	app.config["TESTING"] = environ['TESTING']
+	app.config["TESTING"] = False
 	app.config["SQLALCHEMY_DATABASE_URI"] = environ['DATABASE_URL']
 	app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 	app.config["WTF_CSRF_SECRET_KEY"] = app.config["SECRET_KEY"]
@@ -116,25 +116,28 @@ def logout():
 @app.route('/submit', methods=['GET', 'POST'])
 @login_required
 def submit():
-	form = SubmitForm()
-	if form.validate_on_submit():
-		questiondata = Questions(
-			question=form.question.data,
-			option1=form.option1.data,
-			option2=form.option2.data,
-			option3=form.option3.data,
-			option4=form.option4.data,
-			answer=form.answer.data,
-			creatorid=current_user.id,
-			category=form.category.data,
-			difficulty=form.difficulty.data,
-			question_score=0,
-		)
-		db.session.add(questiondata)
-		db.session.commit()
-		flash('Your question has been nestled deep within the quizzing engine')
+	try:
+		form = SubmitForm()
+		if form.validate_on_submit():
+			questiondata = Questions(
+				question=form.question.data,
+				option1=form.option1.data,
+				option2=form.option2.data,
+				option3=form.option3.data,
+				option4=form.option4.data,
+				answer=form.answer.data,
+				creatorid=current_user.id,
+				category=form.category.data,
+				difficulty=form.difficulty.data,
+				question_score=0,
+			)
+			db.session.add(questiondata)
+			db.session.commit()
+			flash('Your question has been nestled deep within the quizzing engine')
+			return render_template('submit.html', form=form, users=getStandings())
 		return render_template('submit.html', form=form, users=getStandings())
-	return render_template('submit.html', form=form, users=getStandings())
+	except:
+		return redirect(url_for('login'))
 
 @app.route('/quiz', methods=['GET', 'POST'])
 @login_required
@@ -153,6 +156,7 @@ def quiz():
 		return render_template('quiz.html', questions_to_display=questions_to_display, form=form, users=getStandings())
 
 @app.route('/answer')
+@login_required
 def fetch_answer():
 	#id is the question id and userid is the User id
 	#Storing the data from the request
