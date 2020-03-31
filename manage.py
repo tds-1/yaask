@@ -9,8 +9,10 @@ try:
 	print ("try")
 except:
 	print ("except")
-	SECRET_KEY = os.environ.get('SECRET_KEY')
-	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+	SECRET_KEY = environ['SECRET_KEY']
+	DEBUG = environ['DEBUG']
+	TESTING = environ['TESTING']
+	SQLALCHEMY_DATABASE_URI = environ['DATABASE_URL']
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
 	WTF_CSRF_SECRET_KEY = SECRET_KEY
 

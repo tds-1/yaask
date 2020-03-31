@@ -8,7 +8,7 @@ from pickle import loads, dumps
 from flask_session import Session
 from flask_weasyprint import HTML, render_pdf
 import json
-import os
+from os import environ
 from forms import LoginForm, RegisterForm, SubmitForm, QuizForm
 
 #Make the flash for submit() fade slowly so when the next question comes it lights up again
@@ -20,10 +20,10 @@ try:
 	print ("try")
 except:
 	print ("except")
-	SECRET_KEY = os.environ.get('SECRET_KEY')
-	DEBUG = os.environ.get('DEBUG')
-	TESTING = os.environ.get('TESTING')
-	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+	SECRET_KEY = environ['SECRET_KEY']
+	DEBUG = environ['DEBUG']
+	TESTING = environ['TESTING']
+	SQLALCHEMY_DATABASE_URI = environ['DATABASE_URL']
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
 	WTF_CSRF_SECRET_KEY = SECRET_KEY
 
