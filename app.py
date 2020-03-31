@@ -25,7 +25,7 @@ except:
 	app.config["TESTING"] = environ['TESTING']
 	app.config["SQLALCHEMY_DATABASE_URI"] = environ['DATABASE_URL']
 	app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-	app.config["WTF_CSRF_SECRET_KEY"] = SECRET_KEY
+	app.config["WTF_CSRF_SECRET_KEY"] = app.config["SECRET_KEY"]
 
 #Create Database object
 db = SQLAlchemy(app)
