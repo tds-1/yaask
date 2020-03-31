@@ -261,11 +261,13 @@ def test():
 		random_questions=[]
 		for category in categoryList:
 			n=request.form[category]
+			# print (n, category)
 			if  len(n)>0:
 				temp=Questions.query.filter( ~Questions.questionid.in_(selected)).filter(Questions.category==category).order_by(Questions.question_score).limit(n).all()
+			# print (selected)
 				for t in temp:
-					selected.append(t)
-		
+					selected.append(t.questionid)
+		# print (selected)
 		for question in random_questions:
 			print (question.question, question.question_score)
 			selected.append(question.questionid)
