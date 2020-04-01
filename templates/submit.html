@@ -52,11 +52,11 @@
 		<a href="{{ url_for('home') }}" class="brand-logo"> Quiz Engine</a>
 		<a href="" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 		<ul id="nav-mobile" class="right hide-on-med-and-down">
-			<li><a class="center-align teal-text text-darken-4" href="{{ url_for('scoreboard') }}">
+			<li><a class="center-align teal-text text-darken-4">
 				{% if current_user.name %}
-					Your SCORE is {{ current_user.score }}
+					Hello, {{current_user.name}}
 					{% if current_user.name == users[0].name %}
-					<img src="/static/img/crown.svg" id="crown">
+						<img src="/static/img/crown.svg" id="crown">
 					{% endif %}
 				{% endif %}
 			</a>
@@ -68,10 +68,11 @@
 			<li><a href="{{ url_for('logout') }}">Logout</a></li>
 		</ul>
 		<ul id="mobile" class="side-nav">
-			<li><a class="center-align teal-text text-darken-4" href="{{ url_for('scoreboard') }}">{% if current_user.name %}
-					Your SCORE is {{ current_user.score }}
+			<li><a class="center-align teal-text text-darken-4">
+				{% if current_user.name %}
+					Hello, {{current_user.name}}
 					{% if current_user.name == users[0].name %}
-					<img src="/static/img/crown.svg" id="crown">
+						<img src="/static/img/crown.svg" id="crown">
 					{% endif %}
 				{% endif %}
 			</a>

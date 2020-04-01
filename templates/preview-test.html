@@ -101,77 +101,16 @@
             </ul>
         </div>
     </nav>
-    
-    <div id="gallery" class="section lb">
-        <div class="container">
-            <!-- <div class="section-title text-center">
-                <h3>Gallery</h3>
-            </div>end title -->
-            
-            
-            <div class="gallery-menu row">
-                <div class="col-md-12">
-                    <div class="button-group filter-button-group text-center">
-                        <button class="active" data-filter="*">All</button>
-                        {% for category in categoryList %}
-                            <button data-filter=".{{category}}">{{category}}</button>
-                        {% endfor %}
-                        <!--     -->
-                    </div>
-                </div>
-            </div>
-        </br>
-            <form action="" method='POST'>
-            <div style="color: black;">
-                {% for category in categoryList %}
-                    Add random 
-                    <input type="integer" name="{{category}}" placeholder="number of questions"> 
-                    questions of {{ category }} <br>
-                {% endfor %}
-            </div>
-            </br>
-                <div class="gallery-list row">        
-                    {% for question_to_display in questions_to_display %}
-                    <div class="gallery-grid {{question_to_display.category}}" style="padding:20px;  width: 100%;
-                    width: -moz-available;        
-                    width: -webkit-fill-available;
-                    width: stretch; 
-                    background: radial-gradient(white, #00bfa5);">
-                        <input type="checkbox" id="{{question_to_display.questionid}}" name="{{question_to_display.questionid}}" value="checked">
-                        <label for="{{question_to_display.questionid}}" style="display: unset; color: black; background-color:white;">
-                            <div class="{{ question_to_display.questionid }}">
-                                <div class="row">
-                                    <div class="col s12">
-                                        {{ question_to_display.question }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s6">
-                                        A: {{ question_to_display.option1 }}
-                                    </div>
-                                    <div class="col s6">
-                                        B: {{ question_to_display.option2 }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s6">
-                                        C: {{ question_to_display.option3 }}
-                                    </div>
-                                    <div class="col s6">
-                                        D: {{ question_to_display.option4 }}
-                                    </div>
-                                </div>
-                                <br>
-                            </div>
-                            </br>
-                        </label>
-                    </div>
-                    {% endfor %}
-                </div>
-                <input class='button' type="submit" value="Add Selected Questions" style="color: black;">
-            </form>
+
+    <form action="" method="POST">
+        {% for test in test %}
+        <div class="row">
+            <button name="button" value="{{test.testid}}">Generate Test - {{test.testid}} </button>
+            <button name="delete" value="{{test.testid}}">delete test </button>
+                
         </div>
-    </div>
+        {% endfor %}
+    </form>
     
 
   

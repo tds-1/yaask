@@ -27,12 +27,7 @@
 		
 		//sets the global variable to the prefix to the root of the application
 		$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-		//Calls the answer checking script with the variable argument
-		$(document).ready(function() {
-			$('select').material_select();
-			$(".button-collapse").sideNav(); 
-			startScript({{ current_user.id }}, {{ users[0].score }});
-		});
+		
 	</script>
 
 	<title>Quiz - Quizzing Engine</title>
@@ -65,9 +60,7 @@
 		<ul id="nav-mobile" class="right hide-on-med-and-down">
 			<li><a id="userscore" class="center-align teal-text text-darken-4" href="{{ url_for('scoreboard') }}">{% if current_user.name %}
 					Your SCORE is {{ current_user.score }}
-					{% if current_user.name == users[0].name %}
 					<img src="/static/img/crown.svg" id="crown">
-					{% endif %}
 				{% endif %}
 			</a>
 			</li>
@@ -80,9 +73,7 @@
 		<ul id="mobile" class="side-nav">
 			<li><a id="userscore" class="center-align teal-text text-darken-4" href="{{ url_for('scoreboard') }}">{% if current_user.name %}
 					Your SCORE is {{ current_user.score }}
-					{% if current_user.name == users[0].name %}
 					<img src="/static/img/crown.svg" id="crown">
-					{% endif %}
 				{% endif %}
 			</a>
 			</li>
@@ -99,12 +90,11 @@
 <h6>Choose your answer from the DROPDOWNS and click to submit</h6>
 <br>
 <form action="" method='POST'>
-	{{ form.csrf_token }}
 	{% for question_to_display in questions_to_display %}
 	<div class="{{ question_to_display.questionid }}">
 		<div class="row">
 			<div class="col s12">
-				{{ question_to_display.question }}
+				{{loop.index}}.) {{ question_to_display.question }}
 			</div>
 		</div>
 			<div class="row">
@@ -123,13 +113,11 @@
 					D: {{ question_to_display.option4 }}
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" style="background-color: wheat;">
 				<div class="input-field col s6">
-					{{ form.attempted_answer( class= question_to_display.questionid ) }}
-					<label for="attempted_answer">Select an Option:</label>					
+					Correct Answer: {{question_to_display.answer}}
 				</div>
 			</div>
-			<button class="btn waves-effect waves-light" type="submit" id="{{ question_to_display.questionid }}">Confirm Answer</button>
 			<br>
 			<br>
 		</div>

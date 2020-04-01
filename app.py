@@ -16,12 +16,12 @@ from forms import LoginForm, RegisterForm, SubmitForm, QuizForm
 #Create the app and configure it
 app = Flask(__name__, template_folder='templates' , static_folder="static")
 try:
-	app.config.from_object('config.ProductionConfig')
+	app.config.from_object('config.DevelopmentConfig')
 	print ("try")
 except:
 	print ("except")
 	app.config["SECRET_KEY"] = environ['SECRET_KEY']
-	app.config["DEBUG"] = environ['DEBUG']
+	app.config["DEBUG"] = True
 	app.config["TESTING"] = False
 	app.config["SQLALCHEMY_DATABASE_URI"] = environ['DATABASE_URL']
 	app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -133,8 +133,7 @@ def submit():
 			)
 			db.session.add(questiondata)
 			db.session.commit()
-			flash('Your question has been nestled deep within the quizzing engine')
-			return render_template('submit.html', form=form, users=getStandings())
+			return render_template('display.html', question_to_display=questiondata)
 		return render_template('submit.html', form=form, users=getStandings())
 	except:
 		return redirect(url_for('login'))
@@ -142,18 +141,8 @@ def submit():
 @app.route('/quiz', methods=['GET', 'POST'])
 @login_required
 def quiz():
-	form = QuizForm()
-	if current_user.answered is None:
-		current_user.answered = dumps([])
-		db.session.commit()
-		questions_to_display = Questions.query.filter().all()
-		return render_template('quiz.html', questions_to_display=questions_to_display, form=form, users=getStandings())
-
-	else:
-		alreadyAns = loads(current_user.answered)
-		#Check the questions to display
-		questions_to_display = Questions.query.filter().all()
-		return render_template('quiz.html', questions_to_display=questions_to_display, form=form, users=getStandings())
+	questions_to_display = Questions.query.filter().all()
+	return render_template('quiz.html', questions_to_display=questions_to_display)
 
 @app.route('/answer')
 @login_required
@@ -299,6 +288,33 @@ def test():
 		return redirect(url_for('generated_test'))
 
 
+
+@app.route('/preview-test', methods=['GET','POST'])
+@login_required
+def preview_test():
+	if request.method=='GET':
+		id=current_user.id
+		test= Test.query.filter(Test.creatorid==id).all()
+		return render_template ("preview-test.html",test=test)
+
+	if request.method=='POST':
+		print ("post")
+		try:
+			x=request.form['button']
+			session['testid']=x
+			return redirect(url_for('generated_test'))
+
+		except:
+			x=request.form['delete']
+			delet=Test.query.filter(Test.testid==x).one()
+			print (delet)
+			db.session.delete(delet)
+			print ("deleted")
+			db.session.commit()
+			return redirect(url_for('preview_test'))
+		
+
+
 @app.route('/generated_test', methods=['GET','POST'])
 @login_required
 def generated_test():
@@ -352,8 +368,6 @@ def print_test():
 	questions_to_display = Questions.query.filter( Questions.questionid.in_(selected) ).all()
 	html= render_template("generate.html",questions_to_display=questions_to_display)
 	return render_pdf(HTML(string=html))
-
-		
 
 #Starting the server with the run method
 if __name__ == '__main__':
