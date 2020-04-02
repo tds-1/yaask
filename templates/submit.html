@@ -187,4 +187,57 @@
 		<button class="valign btn-large waves-effect waves-light" type="submit">Add the Question     <i class="material-icons">send</i></button>
 	</div>
 </form>
+
+<h5 class="center-align">OR</h5>
+<br>
+<form action="" method='POST'>
+	{{ form1.csrf_token }}
+	<div class="input-field">
+		{{ form1.question1(placeholder="Question") }}
+		<label for="question">Question:</label>
+		<span class="error">
+			{% if form1.question1.errors %}
+				{% for error in form1.question1.errors %}
+					{{ error }}
+				{% endfor %}
+			{% endif %}
+		</span>
+	</div>
+	<div class="input-field">
+		{{ form1.answer1(placeholder="Answer") }}
+		<label for="answer">Correct Answer:</label>
+		<span class="error">
+			{% if form1.answer1.errors %}
+				{% for error in form1.answer1.errors %}
+					{{ error }}
+				{% endfor %}
+			{% endif %}
+		</span>
+	</div>
+	<div class="input-field">
+		{{ form1.category1(placeholder="Category") }}
+		<label for="category">Category:</label>
+		<span class="error">
+			{% if form1.category1.errors %}
+				{% for error in form1.category1.errors %}
+					{{ error }}
+				{% endfor %}
+			{% endif %}
+		</span>
+	</div>
+	<div class="input-field">
+		{{ form1.difficulty1(placeholder="Difficulty") }}
+		<label for="difficulty">Difficulty:</label>
+		<span class="error">
+			{% if form1.difficulty1.errors %}
+				{% for error in form1.difficulty1.errors %}
+					{{ error }}
+				{% endfor %}
+			{% endif %}
+		</span>
+	</div>
+	<div class="valign-wrapper">
+		<button class="valign btn-large waves-effect waves-light" type="submit">Add the Question<i class="material-icons">send</i></button>
+	</div>
+</form>
 {% endblock content %}

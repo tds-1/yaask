@@ -64,31 +64,34 @@
 <h5 class="center-align">YOUR SCORE IS: {{score}}</h5>
 <br>
 <form action="/online_test?id={{id}}" method='POST'>
-	{% for key, value in questions_to_display.items() %}
-	<div class="{{value}}">
-		<div class="row">
-			<div class="col s12">
-				{{loop.index}}) {{ key.question }}
+	{% for key, value in questions_to_display.items() %}                                
+		<div class="{{value}}">
+			<div class="row">
+				<div class="col s12">
+					{{loop.index}}) {{ key.question }}
+				</div>
 			</div>
+			{% if ((key.option1=='-1') and (key.option2=='-1') and (key.option3=='-1') and (key.option4=='-1')) %}
+			{% else %}
+			<div class="row">
+				<div class="col s6">
+					A: {{ key.option1 }}
+				</div>
+				<div class="col s6">
+					B: {{ key.option2 }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					C: {{ key.option3 }}
+				</div>
+				<div class="col s6">
+					D: {{ key.option4 }}
+				</div>
+			</div>
+			{% endif %}
+			<div class="row" style="background-color: grey;"> Correct Answer: {{key.answer}}</div>
 		</div>
-        <div class="row">
-            <div class="col s6">
-                A: {{ key.option1 }}
-            </div>
-            <div class="col s6">
-                B: {{ key.option2 }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s6">
-                C: {{ key.option3 }}
-            </div>
-            <div class="col s6">
-                D: {{ key.option4 }}
-            </div>
-        </div>
-        <div class="row" style="background-color: grey;"> Correct Answer: {{key.answer}}</div>
-    </div>
     <br>
 	{% endfor %}
  			

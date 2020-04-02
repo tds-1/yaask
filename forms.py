@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import TextField, PasswordField, SelectField, BooleanField
+from wtforms import TextField, PasswordField, SelectField, BooleanField, IntegerField, FloatField
 from wtforms.validators import DataRequired, Length, EqualTo
 
 class RegisterForm(Form):
@@ -41,6 +41,20 @@ class SubmitForm(Form):
 		validators=[DataRequired()]
 	)
 	difficulty = SelectField(
+		'Difficulty', 
+		choices=[('easy', 'Easy'), ('moderate', 'Moderate'), ('hard', 'Hard'), ('insane', 'Insane')],
+		validators=[DataRequired()]
+	)
+
+class SubmitForm2(Form):
+	question1 = TextField('question', validators=[DataRequired()])
+	answer1 = FloatField('answer', validators=[DataRequired()])
+	category1 = SelectField(
+		'category', 
+		choices=[('math', 'Math'), ('chemistry', 'Chemistry'), ('physics', 'Physics'), ('biology', 'Biology'), ('other', 'Other')], 
+		validators=[DataRequired()]
+	)
+	difficulty1 = SelectField(
 		'Difficulty', 
 		choices=[('easy', 'Easy'), ('moderate', 'Moderate'), ('hard', 'Hard'), ('insane', 'Insane')],
 		validators=[DataRequired()]

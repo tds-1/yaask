@@ -62,9 +62,12 @@
 	<div class="{{ question_to_display.questionid }}">
 		<div class="row">
 			<div class="col s12">
-				{{ question_to_display.question }}
+				{{loop.index}}.) {{ question_to_display.question }}
 			</div>
 		</div>
+		{% if ((question_to_display.option1=='-1') and (question_to_display.option2=='-1') and (question_to_display.option3=='-1') and (question_to_display.option4=='-1')) %}
+			<input name="{{question_to_display.questionid}}" style="background-color: silver; display: unset ;" type="number" step="any" placeholder="Enter your answer here" value="N">
+		{% else %}
 			<div class="row">
 				<div class="col s6">
 					A: {{ question_to_display.option1 }}
@@ -88,7 +91,8 @@
                 <option value="option2">B</option>
                 <option value="option3">C</option>
                 <option value="option4">D</option>
-            </select>					
+			</select>
+		{% endif %}					
 			<br>
 			<br>
 		</div>

@@ -9,7 +9,7 @@ from flask_session import Session
 from flask_weasyprint import HTML, render_pdf
 import json
 from os import environ
-from forms import LoginForm, RegisterForm, SubmitForm, QuizForm
+from forms import LoginForm, RegisterForm, SubmitForm, QuizForm, SubmitForm2
 
 #Make the flash for submit() fade slowly so when the next question comes it lights up again
 
@@ -118,7 +118,27 @@ def logout():
 def submit():
 	try:
 		form = SubmitForm()
+		form1= SubmitForm2()
+		if form1.validate_on_submit():
+			print ("idhr")
+			questiondata = Questions(
+				question=form1.question1.data,
+				option1=-1,
+				option2=-1,
+				option3=-1,
+				option4=-1,
+				answer=form1.answer1.data,
+				creatorid=current_user.id,
+				category=form1.category1.data,
+				difficulty=form1.difficulty1.data,
+				question_score=0,
+			)
+			db.session.add(questiondata)
+			db.session.commit()
+			return render_template('display_int.html', question_to_display=questiondata)
+			
 		if form.validate_on_submit():
+			print ("udhr")
 			questiondata = Questions(
 				question=form.question.data,
 				option1=form.option1.data,
@@ -133,8 +153,8 @@ def submit():
 			)
 			db.session.add(questiondata)
 			db.session.commit()
-			return render_template('display.html', question_to_display=questiondata)
-		return render_template('submit.html', form=form, users=getStandings())
+			return render_template('display_mcq.html', question_to_display=questiondata)
+		return render_template('submit.html', form=form, form1=form1, users=getStandings())
 	except:
 		return redirect(url_for('login'))
 
@@ -347,15 +367,33 @@ def online_test():
 
 			answer=Questions.query.filter(Questions.questionid==x).one()
 			ans=answer.answer
-			if(z=='N'):
-				quest[answer]='N'
-				pass
-			elif (z==ans):
-				quest[answer]='C'
-				score=score+4
+			
+			if ((answer.option1=='-1') and (answer.option2=='-1') and (answer.option3=='-1') and (answer.option4=='-1')):
+				try:
+					z=str(int(float(z)))
+				except:
+					z=""
+				ans=str(int(float(ans)))
+				if(len(z)==0):
+					quest[answer]='N'
+					pass
+				elif (z==ans):
+					quest[answer]='C'
+					score=score+4
+				else:
+					quest[answer]='W'
+					score=score-1
+		
 			else:
-				quest[answer]='W'
-				score=score-1
+				if(z=='N'):
+					quest[answer]='N'
+					pass
+				elif (z==ans):
+					quest[answer]='C'
+					score=score+4
+				else:
+					quest[answer]='W'
+					score=score-1
 		
 		for x in quest:
 			print (x,quest[x])

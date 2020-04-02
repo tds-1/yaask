@@ -147,10 +147,15 @@ body {margin-top: 0px;margin-left: 0px;align-self: center;}
 {% for question_to_display in questions_to_display %}
 
 	<P class="p8 ft8"><SPAN class="ft8" style="font-weight: bold;">{{ loop.index }}</SPAN><SPAN class="ft9" style="font-weight: bold;">{{ question_to_display.question }}</SPAN></P>
-	<P class="p6 ft8"><SPAN class="ft8">a)</SPAN><SPAN class="ft10">{{ question_to_display.option1 }}</SPAN></P>
-	<P class="p9 ft8"><SPAN class="ft8">b)</SPAN><SPAN class="ft9">{{ question_to_display.option2 }}</SPAN></P>
-	<P class="p6 ft8"><SPAN class="ft8">c)</SPAN><SPAN class="ft10">{{ question_to_display.option3 }}</SPAN></P>
-	<P class="p6 ft8"><SPAN class="ft8">d)</SPAN><SPAN class="ft10">{{ question_to_display.option4 }}</SPAN></P>
+	{% if ((question_to_display.option1=='-1') and (question_to_display.option2=='-1') and (question_to_display.option3=='-1') and (question_to_display.option4=='-1')) %}
+	<br>____________________________
+	<br>
+	{% else %}
+		<P class="p6 ft8"><SPAN class="ft8">a)</SPAN><SPAN class="ft10">{{ question_to_display.option1 }}</SPAN></P>
+		<P class="p9 ft8"><SPAN class="ft8">b)</SPAN><SPAN class="ft9">{{ question_to_display.option2 }}</SPAN></P>
+		<P class="p6 ft8"><SPAN class="ft8">c)</SPAN><SPAN class="ft10">{{ question_to_display.option3 }}</SPAN></P>
+		<P class="p6 ft8"><SPAN class="ft8">d)</SPAN><SPAN class="ft10">{{ question_to_display.option4 }}</SPAN></P>
+	{% endif %}
 {% endfor %}	
 </BODY>
 </HTML>
