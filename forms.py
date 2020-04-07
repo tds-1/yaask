@@ -1,0 +1,68 @@
+from flask_wtf import Form
+from wtforms import TextField, PasswordField, SelectField, BooleanField, IntegerField, FloatField
+from wtforms.validators import DataRequired, Length, EqualTo
+
+class RegisterForm(Form):
+	name = TextField(
+		'name',
+		validators=[DataRequired()]
+	)
+	username = TextField(
+		'username',
+		validators=[DataRequired(), Length(min=3, max=25)]
+	)
+	password = PasswordField(
+		'password',
+		validators=[DataRequired(), Length(min=3, max=25)]
+	)
+	confirm = PasswordField(
+		'confirm',
+		validators=[DataRequired(), EqualTo('password', message='Passwords must match.')]
+	)
+
+class LoginForm(Form):
+	username = TextField('username', validators=[DataRequired()])
+	password = PasswordField('password', validators=[DataRequired()])
+
+class SubmitForm(Form):
+	question = TextField('question', validators=[DataRequired()])
+	option1 = TextField('option1', validators=[DataRequired()])
+	option2 = TextField('option2', validators=[DataRequired()])
+	option3 = TextField('option3', validators=[DataRequired()])
+	option4 = TextField('option4', validators=[DataRequired()])
+	answer = SelectField(
+		'answer', 
+		choices=[('option1', 'A'), ('option2', 'B'), ('option3', 'C'), ('option4', 'D')], 
+		validators=[DataRequired()]
+	)
+	category = SelectField(
+		'category', 
+		choices=[('math', 'Math'), ('chemistry', 'Chemistry'), ('physics', 'Physics'), ('biology', 'Biology'), ('other', 'Other')], 
+		validators=[DataRequired()]
+	)
+	difficulty = SelectField(
+		'Difficulty', 
+		choices=[('easy', 'Easy'), ('moderate', 'Moderate'), ('hard', 'Hard'), ('insane', 'Insane')],
+		validators=[DataRequired()]
+	)
+
+class SubmitForm2(Form):
+	question1 = TextField('question', validators=[DataRequired()])
+	answer1 = FloatField('answer', validators=[DataRequired()])
+	category1 = SelectField(
+		'category', 
+		choices=[('math', 'Math'), ('chemistry', 'Chemistry'), ('physics', 'Physics'), ('biology', 'Biology'), ('other', 'Other')], 
+		validators=[DataRequired()]
+	)
+	difficulty1 = SelectField(
+		'Difficulty', 
+		choices=[('easy', 'Easy'), ('moderate', 'Moderate'), ('hard', 'Hard'), ('insane', 'Insane')],
+		validators=[DataRequired()]
+	)
+
+class QuizForm(Form):
+	attempted_answer = SelectField(
+		'attempted_answer',
+		choices=[('option1', 'A'), ('option2', 'B'), ('option3', 'C'), ('option4', 'D')],
+		validators=[DataRequired()]
+	)

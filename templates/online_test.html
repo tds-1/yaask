@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block head %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="{{ url_for('static', filename='jquery.min.js') }}">\x3C/script>')</script>
+
+	<!-- Answer Checking Script -->
+	<script type='text/javascript' src="{{ url_for('static', filename='anscheck.js') }}">
+	</script>
+
+	<!-- Materialize, note: the js has to be loaded AFTER Jquery -->
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<style>
+	#crown {
+		height: 20px;
+		width: 20px;
+	}
+	</style>
+	<!-- Required for the page -->
+	<script type='text/javascript'>
+		
+		//sets the global variable to the prefix to the root of the application
+		$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+		//Calls the answer checking script with the variable argument
+		
+	</script>
+
+	<title>Quiz - Quizzing Engine</title>
+{% endblock head %}
+{% block content %}
+<!-- NavBar -->
+
+<nav class="#448aff teal accent-4">
+	<div class="nav-wrapper">
+		<a href="{{ url_for('home') }}" class="brand-logo"> Quiz Engine</a>
+		<a href="" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+		<ul id="nav-mobile" class="right hide-on-med-and-down">
+			<li><a href="{{ url_for('home') }}">Home</a></li>
+			<li><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
+			<li><a href="{{ url_for('logout') }}">Logout</a></li>
+		</ul>
+		<ul id="mobile" class="side-nav">
+			
+			<li><a href="{{ url_for('home') }}">Home</a></li>
+			<li><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
+			<li><a href="{{ url_for('logout') }}">Logout</a></li>
+		</ul>
+	</div>
+</nav>
+
+<h5 class="center-align">Answer the Questions</h5>
+<h6>Choose your answer from the DROPDOWNS and click to submit</h6>
+<br>
+<form action="/online_test?id={{id}}" method='POST'>
+	{% for question_to_display in questions_to_display %}
+	<div class="{{ question_to_display.questionid }}">
+		<div class="row">
+			<div class="col s12">
+				{{loop.index}}.) {{ question_to_display.question }}
+			</div>
+		</div>
+		{% if ((question_to_display.option1=='-1') and (question_to_display.option2=='-1') and (question_to_display.option3=='-1') and (question_to_display.option4=='-1')) %}
+			<input name="{{question_to_display.questionid}}" style="background-color: silver; display: unset ;" type="number" step="any" placeholder="Enter your answer here" value="N">
+		{% else %}
+			<div class="row">
+				<div class="col s6">
+					A: {{ question_to_display.option1 }}
+				</div>
+				<div class="col s6">
+					B: {{ question_to_display.option2 }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					C: {{ question_to_display.option3 }}
+				</div>
+				<div class="col s6">
+					D: {{ question_to_display.option4 }}
+				</div>
+			</div>
+            <div>Select an Option:</div>
+            <select name="{{question_to_display.questionid}}" style="background-color: silver; display: unset ;">
+                <option value="N">Select an option</option>
+                <option value="option1">A</option>
+                <option value="option2">B</option>
+                <option value="option3">C</option>
+                <option value="option4">D</option>
+			</select>
+		{% endif %}					
+			<br>
+			<br>
+		</div>
+	{% endfor %}
+    <button class="btn waves-effect waves-light" type="submit" >Submit Answers</button>
+			
+</form>
+{% endblock content %}
+
+<!-- Add the ajax answer submission
+	Add the logic to exclude the answered questions -->

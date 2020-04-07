@@ -1,0 +1,32 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+alembic = "==0.7.6"
+flask-bcrypt = "==0.6.2"
+flask-login = "==0.2.11"
+flask-migrate = "==1.4.0"
+flask-script = "==2.0.5"
+flask-sqlalchemy = "==2.0"
+flask-wtf = "==0.11"
+itsdangerous = "==0.24"
+mako = "==1.0.1"
+markupsafe = "==0.23"
+python-bcrypt = "==0.3.1"
+sqlalchemy = "==1.0.6"
+werkzeug = "==0.10.4"
+wtforms = "==2.0.2"
+Flask = "==0.10.1"
+Jinja2 = "==2.7.3"
+gunicorn = "*"
+psycopg2-binary = "*"
+passlib = "==1.6.1"
+flask-session = "*"
+flask-weasyprint = "*"
+
+[requires]
+python_version = "3.6"
