@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Yaask Labs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{url_for('static',filename='../static/css/about.css') }}">
+    <style>
+        .header{
+            grid-row: 1 / 2;
+            grid-column: 2 / 3;
+            line-height: 12vh;
+            font-size: 6vh;
+            justify-self: center;
+            background-image: url({{url_for('static',filename='../static/assets/yaask.png') }});
+            background-size: 20%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .mhead{
+            grid-row : 2 / 3;
+            grid-column : 2 / 3;
+            font-size : 5vh;
+            line-height : 5vh;
+            background : yellow;
+            color: #131313;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Yaask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Labs&nbsp;&nbsp;&nbsp;</div>
+        <div class="mhead">Mission</div>
+        <div class="mcontent"></div>
+        <div class="memberHead">Members</div>
+        <div class="members"></div>
+    <div class="navbar">
+
+        {% if current_user.name %}
+            <a href="/" class='bounce'>Home</a>
+            <a href="/logout" class="bounce">Logout</a>
+        {% else %} 
+            <a href="/" class='bounce'>Home</a>
+            <a href="/" class="bounce">Login</a>
+            <a href="services.html" class="bounce">Register</a>
+        {% endif %}
+
+    </div> 
+    </div>
+</body>
+<script>
+    let mission = document.getElementsByClassName('mcontent')[0];
+    mission.innerText = "We at Yaask believe that the touchstone for education must be its utility - in solving real world problems, connecting better to our surroundings and finding fulfillment in the things we do. We focus particularly on Mathematics, Language, and Programming, subjects that can be powerful tools to forward one’s ambitions in life, but are often lost to ‘knowledge centric learning’ - being treated as facts and formulae to be memorized and repeated in tests. At Yaask, by focussing on skill based learning,  we aim to make sinister sounding subjects more real and intuitive, without losing their curricular relevance. We aim to enable students to see their curriculum as something they can engage with practically in a tangible setting, allowing them to learn with greater comprehension and retention, guiding them to success not only in test scores, but also in putting their knowledge to work for the benefit of themselves and the world.";
+
+    let members = document.getElementsByClassName('members')[0];
+
+    let bois = [
+        
+        {
+            name : "Soaham Sharma",
+            info : "Soaham Sharma (IIT Delhi) had his first teaching experience in his own twelfth grade, when due to the prolonged absence of the physics teacher he volunteered to take classes for his juniors. He was a founding member of Radiant eduventures - an institute for the sciences based in Rohini - and taught physics for school and competitive examinations before a desire to do something with a wider impact attracted him to the edtech sector. Prior to founding Yaask Labs soaham was most recently engaged at Excelsior American School, Gurgaon as a teacher for Mathematics and Physics - where he had been researching the school education scene from the inside, to better understand its challenges and opportunities.",
+            pic  : "{{url_for('static',filename='../static/assets/soaham.jpg') }}",
+            size : "130%"
+        },
+    ];
+
+    bois.map(x=>{
+        let member = document.createElement('div');
+        member.className = "member";
+        let nameDiv = document.createElement('div');
+        nameDiv.className = 'name';
+        nameDiv.innerText = x.name;
+        let infoContainer = document.createElement('div');
+        infoContainer.className = 'infoContainer';
+        let picDiv = document.createElement('img');
+        picDiv.className = 'pic';
+        picDiv.style.background  = "url(" + x.pic + ")";
+        picDiv.style.backgroundSize  = x.size;
+        let infoDiv = document.createElement('p');
+        infoDiv.className = 'info';
+        infoDiv.innerText = x.info;
+        member.appendChild(nameDiv);
+        infoContainer.appendChild(picDiv);
+        infoContainer.appendChild(infoDiv);
+        member.appendChild(infoContainer);
+        members.appendChild(member);
+    })
+    
+
+</script>
+
+</html>

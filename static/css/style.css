@@ -24,6 +24,8 @@ navbar-dark .navbar-brand {
 }
 
 
+
+
 .blink {
     animation: blinker 0.6s linear infinite;
     /*color: #1c87c9;*/
@@ -65,11 +67,7 @@ navbar-dark .navbar-brand {
 }
 
 .dropdown-content {
-<<<<<<< HEAD
-  display: inline-block;
-=======
   display: none;
->>>>>>> 6dd2585aab3784dac0fd3d74d0651201bb35a13e
   position: absolute;
   background-color: #f1f1f1;
   min-width: 160px;
@@ -81,11 +79,7 @@ navbar-dark .navbar-brand {
   color: black;
   padding: 10px;
   text-decoration: none;
-<<<<<<< HEAD
-  background: #faf773;
-=======
   background: white;
->>>>>>> 6dd2585aab3784dac0fd3d74d0651201bb35a13e
   display: block;
 }
 
@@ -154,10 +148,12 @@ body {
     font-size: 14px;
     font-family: 'Poppins', sans-serif;
     line-height: 1.80857;
+    
 }
 
 html, body{
-	height: 100%;
+    height: 100%;
+    background : linear-gradient(45deg,indigo -100%,#131313) ;
 }
 
 body.demos .section {
