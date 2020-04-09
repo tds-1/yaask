@@ -114,7 +114,7 @@ def register():
 def logout():
 	logout_user()
 	flash('You have been logged out')
-	return redirect(url_for('login'))
+	return redirect(url_for('home'))
 
 @app.route('/submit', methods=['GET', 'POST'])
 @login_required

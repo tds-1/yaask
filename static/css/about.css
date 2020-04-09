@@ -16,14 +16,6 @@ html,body{
     font-family : 'Bangers',sans-serif;
 }
 
-.mhead{
-    grid-row : 2 / 3;
-    grid-column : 2 / 3;
-    font-size : 5vh;
-    line-height : 5vh;
-    background : yellow;
-    color: #131313;
-}
 .mcontent{
     grid-row : 3 / 4;
     grid-column : 2 / 3;
