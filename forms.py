@@ -42,9 +42,11 @@ class SubmitForm(Form):
 	)
 	difficulty = SelectField(
 		'Difficulty', 
-		choices=[('easy', 'Easy'), ('moderate', 'Moderate'), ('hard', 'Hard'), ('insane', 'Insane')],
+		choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
 		validators=[DataRequired()]
 	)
+	comment = TextField('comment')
+
 
 class SubmitForm2(Form):
 	question1 = TextField('question', validators=[DataRequired()])
@@ -56,9 +58,10 @@ class SubmitForm2(Form):
 	)
 	difficulty1 = SelectField(
 		'Difficulty', 
-		choices=[('easy', 'Easy'), ('moderate', 'Moderate'), ('hard', 'Hard'), ('insane', 'Insane')],
+		choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
 		validators=[DataRequired()]
 	)
+	comment1 = TextField('comment')
 
 class QuizForm(Form):
 	attempted_answer = SelectField(

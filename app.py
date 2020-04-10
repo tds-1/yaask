@@ -135,6 +135,7 @@ def submit():
 				category=form1.category1.data,
 				difficulty=form1.difficulty1.data,
 				question_score=0,
+				comment=form1.comment1.data,
 			)
 			db.session.add(questiondata)
 			db.session.commit()
@@ -153,6 +154,7 @@ def submit():
 				category=form.category.data,
 				difficulty=form.difficulty.data,
 				question_score=0,
+				comment=form.comment.data,
 			)
 			db.session.add(questiondata)
 			db.session.commit()

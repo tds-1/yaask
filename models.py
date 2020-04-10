@@ -55,8 +55,9 @@ class Questions(db.Model):
 	category = db.Column(db.String, nullable=False)
 	difficulty = db.Column(db.String, nullable=False)
 	question_score=db.Column(db.Integer,nullable=False)
-
-	def __init__(self, question, option1, option2, option3, option4, answer, creatorid, category, difficulty,question_score):
+	comment=db.Column(db.String,nullable=True)
+	
+	def __init__(self, question, option1, option2, option3, option4, answer, creatorid, category, difficulty,question_score,comment):
 		self.question = question
 		self.option1 = option1
 		self.option2 = option2
@@ -67,7 +68,8 @@ class Questions(db.Model):
 		self.category = category
 		self.difficulty = difficulty
 		self.question_score=question_score
-
+		self.comment=comment
+			
 	def __repr__(self):
 		return "<Question id is %s and creatorid is %s" % (self.questionid, self.creatorid)
 
