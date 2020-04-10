@@ -1,6 +1,6 @@
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-import os import environ
+from os import environ
 
 from app import app, db
 
