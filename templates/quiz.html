@@ -1,42 +1,81 @@
 {% extends "base.html" %}
 {% block head %}
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="{{ url_for('static', filename='jquery.min.js') }}">\x3C/script>')</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{ url_for('static', filename='jquery.min.js') }}">\x3C/script>')</script>
 
-	<!-- Answer Checking Script -->
-	<script type='text/javascript' src="{{ url_for('static', filename='anscheck.js') }}">
-	</script>
+<!-- Answer Checking Script -->
+<script type='text/javascript' src="{{ url_for('static', filename='anscheck.js') }}">
+</script>
 
-	<!-- Materialize, note: the js has to be loaded AFTER Jquery -->
-	<!-- Compiled and minified CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
-	<!-- Compiled and minified JavaScript -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
-	<!--Let browser know website is optimized for mobile-->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Materialize, note: the js has to be loaded AFTER Jquery -->
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-	<style>
+<style>
 	#crown {
 		height: 20px;
 		width: 20px;
 	}
-	</style>
-	<!-- Required for the page -->
-	<script type='text/javascript'>
-		
-		//sets the global variable to the prefix to the root of the application
-		$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-		
-	</script>
 
-	<title>Quiz - Quizzing Engine</title>
+	.a0 {
+		background-color: lightgray;
+		padding: 10px;
+		border-radius: 20px;
+		transition: .2s ease-out;
+		border: 1px solid;
+		padding: 10px;
+		box-shadow: 5px 10px 8px #888888;
+	}
+
+	.a1 {
+		background-color: rgb(214, 255, 153);
+		padding: 10px;
+		border-radius: 20px;
+		transition: .2s ease-out;
+		border: 1px solid;
+		padding: 10px;
+		box-shadow: 5px 10px 8px #888888;
+	}
+
+	.ans {
+		background-color: rgb(206, 171, 124);
+		margin-left: 0em !important;
+		margin-right: 0em !important;
+		height: 35px;
+		border-radius: 12px;
+		padding: 0.5rem;
+	}
+
+	.a0:hover {
+		box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
+		transform: translate3d(0, -4px, 0);
+	}
+
+	.a1:hover {
+		box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
+		transform: translate3d(0, -4px, 0);
+	}
+</style>
+<!-- Required for the page -->
+<script type='text/javascript'>
+
+	//sets the global variable to the prefix to the root of the application
+	$SCRIPT_ROOT = {{ request.script_root | tojson | safe }};
+
+</script>
+
+<title>Quiz - Quizzing Engine</title>
 {% endblock head %}
 {% block content %}
 
 <!-- Dropdown Structure -->
 <ul id="quizdropdown" class="dropdown-content">
-	<li><a href="{{ url_for('quiz') }}" >All Catgories</a></li>
+	<li><a href="{{ url_for('quiz') }}">All Catgories</a></li>
 	<li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
 	<li><a href="{{ url_for('categorywise', category='physics') }}">physics</a></li>
 	<li><a href="{{ url_for('categorywise', category='chemistry') }}">chemistry</a></li>
@@ -44,7 +83,7 @@
 </ul>
 <!-- Since the selectors based on ID and it seems duplicates cause an error -->
 <ul id="quizdropdown" class="dropdown-content">
-	<li><a href="{{ url_for('quiz') }}" >All Catgories</a></li>
+	<li><a href="{{ url_for('quiz') }}">All Catgories</a></li>
 	<li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
 	<li><a href="{{ url_for('categorywise', category='physics') }}">physics</a></li>
 	<li><a href="{{ url_for('categorywise', category='chemistry') }}">chemistry</a></li>
@@ -58,27 +97,32 @@
 		<a href="{{ url_for('home') }}" class="brand-logo"> Quiz Engine</a>
 		<a href="" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 		<ul id="nav-mobile" class="right hide-on-med-and-down">
-			<li><a id="userscore" class="center-align teal-text text-darken-4" href="{{ url_for('scoreboard') }}">{% if current_user.name %}
+			<li><a id="userscore" class="center-align teal-text text-darken-4"
+					href="{{ url_for('scoreboard') }}">{% if current_user.name %}
 					Your SCORE is {{ current_user.score }}
 					<img src="/static/img/crown.svg" id="crown">
-				{% endif %}
-			</a>
+					{% endif %}
+				</a>
 			</li>
 			<li><a href="{{ url_for('home') }}">Home</a></li>
-			<li class="active"><a class="dropdown-button" href="" data-activates="quizdropdown">Questions<i class="material-icons right">arrow_drop_down</i></a></li>
+			<li class="active"><a class="dropdown-button" href="" data-activates="quizdropdown">Questions<i
+						class="material-icons right">arrow_drop_down</i></a></li>
 			<li><a href="{{ url_for('submit') }}">Add Questions</a></li>
+			<li><a href="{{ url_for('preview') }}">Preview Your Questions</a></li>
 			<li><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
 			<li><a href="{{ url_for('logout') }}">Logout</a></li>
 		</ul>
 		<ul id="mobile" class="side-nav">
-			<li><a id="userscore" class="center-align teal-text text-darken-4" href="{{ url_for('scoreboard') }}">{% if current_user.name %}
+			<li><a id="userscore" class="center-align teal-text text-darken-4"
+					href="{{ url_for('scoreboard') }}">{% if current_user.name %}
 					Your SCORE is {{ current_user.score }}
 					<img src="/static/img/crown.svg" id="crown">
-				{% endif %}
-			</a>
+					{% endif %}
+				</a>
 			</li>
 			<li><a href="{{ url_for('home') }}">Home</a></li>
-			<li class="active"><a class="dropdown-button" href="" data-activates="quizdropdown">Questions<i class="material-icons right">arrow_drop_down</i></a></li>
+			<li class="active"><a class="dropdown-button" href="" data-activates="quizdropdown">Questions<i
+						class="material-icons right">arrow_drop_down</i></a></li>
 			<li><a href="{{ url_for('submit') }}">Add Questions</a></li>
 			<li><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
 			<li><a href="{{ url_for('logout') }}">Logout</a></li>
@@ -91,39 +135,52 @@
 <br>
 <form action="" method='POST'>
 	{% for question_to_display in questions_to_display %}
-	<div class="{{ question_to_display.questionid }}">
-		<div class="row">
-			<div class="col s12">
-				{{loop.index}}.) {{ question_to_display.question }}
+	<div class="{{ question_to_display.questionid }} a{{(loop.index)%2}}">
+		<div style="display: flex;">
+			<div style="width: 5%;">
+				<div class="row">
+					<div class="col">
+						{{loop.index}}.) &nbsp &nbsp
+					</div>
+				</div>
+			</div>
+			<div style="width: 85%;">
+				<div class="row">
+					<div class="col s12">
+						{{ question_to_display.question }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s6">
+						A: {{ question_to_display.option1 }}
+					</div>
+					<div class="col s6">
+						B: {{ question_to_display.option2 }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s6">
+						C: {{ question_to_display.option3 }}
+					</div>
+					<div class="col s6">
+						D: {{ question_to_display.option4 }}
+					</div>
+				</div>
+			</div>
+			
+
+		</div>
+		<div class="row ans">
+			<div class="col" style="padding: ;">
+				Correct Answer: {{question_to_display.answer}}
 			</div>
 		</div>
-			<div class="row">
-				<div class="col s6">
-					A: {{ question_to_display.option1 }}
-				</div>
-				<div class="col s6">
-					B: {{ question_to_display.option2 }}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col s6">
-					C: {{ question_to_display.option3 }}
-				</div>
-				<div class="col s6">
-					D: {{ question_to_display.option4 }}
-				</div>
-			</div>
-			<div class="row" style="background-color: wheat;">
-				<div class="input-field col s6">
-					Correct Answer: {{question_to_display.answer}}
-				</div>
-			</div>
-			<br>
-			<br>
-		</div>
+	</div>
+	</br>
 	{% endfor %}
 
 </form>
+
 {% endblock content %}
 
 <!-- Add the ajax answer submission

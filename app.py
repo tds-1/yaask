@@ -166,8 +166,24 @@ def submit():
 @app.route('/quiz', methods=['GET', 'POST'])
 @login_required
 def quiz():
-	questions_to_display = Questions.query.filter().all()
-	return render_template('quiz.html', questions_to_display=questions_to_display)
+		questions_to_display = Questions.query.filter().all()
+		return render_template('quiz.html', questions_to_display=questions_to_display)
+
+@app.route('/preview', methods=['GET', 'POST'])
+@login_required
+def preview():
+	try:
+		id=request.args.get('id')
+		print (id)
+		delet=Questions.query.filter(Questions.questionid==id).one()
+		db.session.delete(delet)
+		db.session.commit()
+		questions_to_display = Questions.query.filter(Questions.creatorid == str(current_user.id)).all()
+		return render_template('individual_questions.html', questions_to_display=questions_to_display)
+	except:
+		questions_to_display = Questions.query.filter(Questions.creatorid == str(current_user.id)).all()
+		return render_template('individual_questions.html', questions_to_display=questions_to_display)
+
 
 @app.route('/answer')
 @login_required
