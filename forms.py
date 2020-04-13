@@ -32,7 +32,7 @@ class SubmitForm(Form):
 	option4 = TextField('option4', validators=[DataRequired()])
 	answer = SelectField(
 		'answer', 
-		choices=[('option1', 'A'), ('option2', 'B'), ('option3', 'C'), ('option4', 'D')], 
+		choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')], 
 		validators=[DataRequired()]
 	)
 	category = SelectField(

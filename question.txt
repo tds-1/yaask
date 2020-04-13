@@ -1,0 +1,199 @@
+1.The basal part of diencephalon is 
+(A)Hypothalamus
+(B)Epithalamus
+(C)Thalamus
+(D)Both B and C
+Answer: (A)
+#solution- Refer NCERT, Heading 22.2.1 Para 1 page 331
+2.Group of neurosecretory cells found in hypothalamus is known as
+(A)ganglia
+(B)nuclei
+(C)Tract
+(D)nerve
+Answer: (B)
+#solution- Refer NCERT, Heading 22.2.1 Para 1 page 331
+3.Which of the following types of hormones are  released by Hypothalamus
+(A)Releasing hormones
+(B)Inhibitory hormones
+(C)Both A and B
+(D)None of these
+Answer: (C)
+#solution- Refer NCERT, Heading Heading 22.2.1 Para 1 page 331
+4.GnRH is released by which of the following endocrine system?
+(A)Hypothalamus
+(B)Anterior pituitary gland
+(C)Posterior pituitary gland
+(D)Ovary
+Answer: (A)
+#solution- Refer NCERT, Heading Heading 22.2.1 Para 1 page 331
+5.Somatostatin is released by which of the following endocrine system?
+(A)Hypothalamus
+(B)Anterior pituitary gland
+(C)Posterior pituitary gland
+(D)Thyroid gland
+Answer: (A)
+#solution- Refer NCERT, Heading Heading 22.2.1 Para 1 page 331
+6.Which gland is under the direct neural regulation of hypothalamus?
+(A)Pineal gland
+(B)Anterior pituitary gland
+(C)Posterior pituitary gland
+(D)Thyroid gland
+Answer: (C)
+#solution- Refer NCERT, Heading Heading 22.2.1 Para 1 page 331
+7.The hormones which are secreted by hypothalamus reach upto pituitary gland through
+(A)Blood Capillary  System
+(B)hypothalamo hypophysial portal system
+(C)hepatic portal system
+(D)Both A and B
+Answer: (B)
+#solution- Refer NCERT, Heading Heading 22.2.1 Para 1 page 331
+8.Which of the following is true about Hypothalamus
+(A)It is ectodermal in origin
+(B)It is known as master of master gland
+(C)It regulates body temperature
+(D)All of these
+Answer: (D)
+#solution- Refer NCERT, Heading Heading 22.2.1 Para 1 page 331
+1.Adenohypophysis consists of 
+(A)Pars distalis
+(B)Pars intermedia
+(C)Pars nervosa
+(D)Both A and B
+Answer: (D)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 332
+2.Neurohypophysis  consists of 
+(A)Pars nervosa
+(B)Pars intermedia
+(C)Pars distalis
+(D)Both B and C
+Answer: (A)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 332
+3.Which of the following hormone is secreted by Pars nervosa
+(A)Oxytocin
+(B)Vasopressin
+(C)Melanocyte 
+(D)Both A and B
+Answer: (D)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 332
+4.Which of the following hormone is synthesised by hypothalamus
+(A)Oxytocin
+(B)Vasopressin
+(C)Both A and B
+(D)None of these
+Answer: (C)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 332
+5.Which of the following hormone is synthesised by Pars nervosa
+(A)Oxytocin
+(B)Vasopressin
+(C)Both A and B
+(D)None of these
+Answer: (D)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 332 Oxytocin and Vasopressin are synthesised by Hypothalamus
+6.How many of the following hormones are secreted by Anterior Pituitary?
+GH, PRL, TSH, ACTH, LH, FSH, MSH, Oxytocin and vasopressin
+(A)9
+(B)8
+(C)7
+(D)6
+Answer: (C)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 332 MSH is secreted by Pars intermedia which has been considered under anterior pituitary.
+7.How many of the following hormones are secreted by posterior pituitary?
+GH, PRL, TSH, ACTH, LH, FSH, MSH, Oxytocin and vasopressin
+(A)2
+(B)4
+(C)1
+(D)6
+Answer: (A)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 332
+8.How many of the following hormones are synthesised by Anterior Pituitary?
+GH, PRL, TSH, ACTH, LH, FSH, MSH, Oxytocin and vasopressin
+(A)9
+(B)8
+(C)7
+(D)6
+Answer: (C)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 332 Except Oxytocin and vasopressin, all are synthesised by anterior pituitary.
+9.Which of the following hormones stimulates the synthesis and secretion of steroid hormones from adrenal cortex
+(A)LH
+(B)FSH
+(C)ACTH
+(D)MSH
+Answer: (C)
+#solution- Refer NCERT, Heading 22.2.2 Para 2 page 332
+10.Which of the following hormone is responsible for milk ejection from the mammary gland
+(A)Prolactin
+(B)Oxytocin
+(C)FSH
+(D)LH
+Answer: (B)
+#solution- Refer NCERT, Heading 22.2.2 Para 2 page 332
+11.Which of the following hormone regulates the growth of mammary glands and formation of milk in them.
+(A)Prolactin 
+(B)Oxytocin
+(C)FSH
+(D)LH
+Answer: (A)
+#solution- Refer NCERT, Heading 22.2.2 Para 2 page 332
+12.Which of the following hormone induce ovulation and maintains corpus luteum?
+(A)FSH
+(B)LH
+(C)Both A and B
+(D)Estrogen
+Answer: (B)
+#solution- Refer NCERT, Heading 22.2.2 Para 2 page 332
+13.A hormone _____which acts on   ____ of nephron and helps in resorption of water and electrolytes.
+(A)ADH, PCT
+(B)ADH, DCT
+(C)ADH, Loop of Henle
+(D)ADH, Collecting Duct
+Answer: (D)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 333
+14.Which of the following hormone acts on the smooth muscles of our body and regulates its contraction?
+(A)vasopressin
+(B)Oxytocin
+(C)Gonadotrophins
+(D)Gulcocorticoids
+Answer: (B)
+#solution- Refer NCERT, Heading 22.2.2 Para 2 page 332
+15.Which of the following hormone is related with the pigmentation of skin?
+(A)MSH
+(B)ACTH
+(C)LH
+(D)FSH
+Answer: (A)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 332
+16.Pituitary gland is attached by a stalk through _____________ and located in a bony cavity called____________
+(A)Hypothalamus, Sella tursica
+(B)Epithalamus, Sella tursica
+(C)Thalamus, Sella tursica
+(D)Cerebrum, Sella tursica
+Answer: (A)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 332
+17.Which of the following is true about pituitary gland?
+(A)It is known as master gland
+(B)It is responsible for pigmentation of skin
+(C)It stimulates both milk synthesis and its ejection
+(D)All of the above
+Answer: (D)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 332
+18.Which of the disease is likely to happen if an impairment affecting synthesis  of ADH results in loss of water and dehydration
+(A)Diabetes Insipidus
+(B)Diabetes Mellitus
+(C)Both A and B
+(D)None of these
+Answer: (A)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 334
+19.Excess secretion of GH in middle age results in severe disfigurement of face is known as
+(A)Gigantism
+(B)Acromegaly
+(C)Addison disease
+(D)Grave’s disease
+Answer: (B)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 333
+20.Which of the following is caused because of the excess secretion  of the GH?
+(A)Gigantism
+(B)Acromegaly
+(C)Dwarfism
+(D)Both A and B
+Answer: (D)
+#solution- Refer NCERT, Heading 22.2.2 Para 1 page 334

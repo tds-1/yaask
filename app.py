@@ -53,6 +53,9 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 login_manager.login_message = 'Please login to view this page'
 
+
+
+
 @login_manager.user_loader
 def load_user(userid):
 	return User.query.filter(User.id == int(userid)).first()
@@ -64,10 +67,14 @@ def getStandings():
 @app.route('/')
 def home():
 	return render_template('index.html')
-
 @app.route('/about')
 def about():
-	return render_template('about.html')
+	s="b'&sigma; question'"
+	s=s.encode("utf-8")
+	print (s)
+	s=s.decode("utf-8")
+	print (s)
+	return render_template('about.html',s=s)
 	
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -162,6 +169,7 @@ def submit():
 		return render_template('submit.html', form=form, form1=form1, users=getStandings())
 	except:
 		return redirect(url_for('login'))
+	
 
 @app.route('/quiz', methods=['GET', 'POST'])
 @login_required

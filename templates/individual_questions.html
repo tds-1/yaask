@@ -69,44 +69,29 @@
         width: 20px;
     }
 
-    .a0 {
-        background-color: lightgray;
-        padding: 10px;
-        border-radius: 20px;
-        transition: .2s ease-out;
-        border: 1px solid;
-        padding: 10px;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, .4);
-        transform: translate3d(0, -4px, 0);
-    }
+    .a0, .a1 {
+		background-color: lightgray;
+		padding: 10px;
+		border-radius: 20px;
+		transition: .2s ease-out;
+		border: 1px solid;
+		padding: 10px;
+		box-shadow: 5px 10px 8px #888888;
+	}
 
-    .a1 {
-        background-color: rgb(214, 255, 153);
-        padding: 10px;
-        border-radius: 20px;
-        transition: .2s ease-out;
-        border: 1px solid;
-        padding: 10px;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, .4);
-        transform: translate3d(0, -4px, 0);
-    }
+	.ans {
+		background-color: rgb(206, 171, 124);
+		margin-left: 0em !important;
+		margin-right: 0em !important;
+		height: 35px;
+		border-radius: 12px;
+		padding: 0.5rem;
+	}
 
-    .ans {
-        background-color: rgb(206, 171, 124);
-        margin-left: 0em !important;
-        margin-right: 0em !important;
-        height: 35px;
-        border-radius: 12px;
-        padding: 0.5rem;
-    }
-
-    .a0:hover {
-        box-shadow: 5px 10px 8px #888888;
-    }
-
-    .a1:hover {
-        box-shadow: 5px 10px 8px #888888;
-    }
+	.a0:hover, .a1:hover {
+		box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
+		transform: translate3d(0, -4px, 0);
+	}
 </style>
 <!-- Required for the page -->
 <script type='text/javascript'>
@@ -180,7 +165,6 @@
             <li class="active"><a class="dropdown-button" href="" data-activates="quizdropdown">Questions<i
                         class="material-icons right">arrow_drop_down</i></a></li>
             <li><a href="{{ url_for('submit') }}">Add Questions</a></li>
-            <li><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
         </ul>
         <ul id="mobile" class="side-nav">
@@ -195,7 +179,6 @@
             <li class="active"><a class="dropdown-button" href="" data-activates="quizdropdown">Questions<i
                         class="material-icons right">arrow_drop_down</i></a></li>
             <li><a href="{{ url_for('submit') }}">Add Questions</a></li>
-            <li><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
         </ul>
     </div>
@@ -220,22 +203,25 @@
                         {{ question_to_display.question }}
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s6">
-                        A: {{ question_to_display.option1 }}
+                {% if ((question_to_display.option1=='-1') and (question_to_display.option2=='-1') and (question_to_display.option3=='-1') and (question_to_display.option4=='-1')) %}
+                {% else %}           
+                    <div class="row">
+                        <div class="col s6">
+                            A: {{ question_to_display.option1 }}
+                        </div>
+                        <div class="col s6">
+                            B: {{ question_to_display.option2 }}
+                        </div>
                     </div>
-                    <div class="col s6">
-                        B: {{ question_to_display.option2 }}
+                    <div class="row">
+                        <div class="col s6">
+                            C: {{ question_to_display.option3 }}
+                        </div>
+                        <div class="col s6">
+                            D: {{ question_to_display.option4 }}
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s6">
-                        C: {{ question_to_display.option3 }}
-                    </div>
-                    <div class="col s6">
-                        D: {{ question_to_display.option4 }}
-                    </div>
-                </div>
+                {% endif %}
             </div>
             <div style="float: right; width: 10%">
                 <a href="">
