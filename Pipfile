@@ -27,6 +27,7 @@ psycopg2-binary = "*"
 passlib = "==1.6.1"
 flask-session = "*"
 flask-weasyprint = "*"
+flask-ckeditor = "*"
 
 [requires]
 python_version = "3.6"
