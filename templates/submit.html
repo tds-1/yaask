@@ -49,6 +49,39 @@
 	}
 </style>
 
+<script type="text/javascript" src="//media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/ckeditor.js"></script><style>.cke{visibility:hidden;}</style>
+<link rel="stylesheet" type="text/css" href="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/skins/moono-lisa/editor_gecko.css?t=GB8C"><script type="text/javascript" src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/lang/en.js?t=GB8C"></script><script type="text/javascript" src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/styles.js?t=GB8C"></script><script type="text/javascript" src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/mathjax/plugin.js?t=GB8C"></script><script type="text/javascript" src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/imgur/plugin.js?t=GB8C"></script><script type="text/javascript" src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/widget/plugin.js?t=GB8C"></script><script type="text/javascript" src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/lineutils/plugin.js?t=GB8C"></script><link rel="stylesheet" type="text/css" href="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css"><link rel="stylesheet" type="text/css" href="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/wsc/skins/moono-lisa/wsc.css"><script type="text/javascript" src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/mathjax/lang/en.js?t=GB8C"></script><script type="text/javascript" src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/imgur/lang/en.js?t=GB8C"></script><script type="text/javascript" src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/widget/lang/en.js?t=GB8C"></script><link rel="stylesheet" type="text/css" href="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css"><script type="text/javascript" src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/mathjax/dialogs/mathjax.js?t=GB8C"></script><link rel="stylesheet" type="text/css" href="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/skins/moono-lisa/dialog.css?t=GB8C">
+
+<script type="text/javascript">
+    CKEDITOR.config.customConfig = '//media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor-plugins/create_question.editor.config.js';
+    
+	CKEDITOR.editorConfig = function( config ) {
+	// Define changes to default configuration here. For example:
+	// config.language = 'fr';
+	// config.uiColor = '#AADC6E';
+	config.mathJaxLib = "//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+	config.latexServer = "https://elpiscart.com/cgi-bin/mathtex.cgi?";
+	//'imgur'
+	config.extraPlugins = 'mathjax,imgur,MathType';
+	config.imgurClientId = 'afd7949d38a220b';
+
+	config.toolbar = [
+			['Bold', 'Italic', 'Underline', 'HorizontalRule', 'Strike', 'Subscript', 'Superscript', 'RemoveFormat'],
+			['NumberedList', 'BulletedList', 'Blockquote'],
+			['Image', 'Table', 'Math'],
+			['Maximize'],
+			['Scayt', 'MathType', 'ChemType' ,'Mathjax', 'Imgur'],
+			['Source', 'Replace'],
+			[ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ]
+		];
+
+	config.allowedContent = true;
+	config.removeDialogTabs = 'image:Link;image:advanced';
+	config.disableNativeSpellChecker = false;
+
+	};
+</script>
+<script src="https://wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
 <title>Submit - Quiz Engine</title>
 {% endblock head %}
 {% block content %}
@@ -338,8 +371,6 @@
 		</div>
 	</div>
 </div>
-
-
 <!-- ALL JS FILES -->
 <script src="{{url_for('static',filename='../static/js/all.js') }}"></script>
 
