@@ -1,6 +1,7 @@
 from flask_wtf import Form
 from wtforms import TextField, PasswordField, SelectField, BooleanField, IntegerField, FloatField
 from wtforms.validators import DataRequired, Length, EqualTo
+from flask_ckeditor import CKEditor, CKEditorField
 
 class RegisterForm(Form):
 	name = TextField(
@@ -25,7 +26,7 @@ class LoginForm(Form):
 	password = PasswordField('password', validators=[DataRequired()])
 
 class SubmitForm(Form):
-	question = TextField('question', validators=[DataRequired()])
+	question = CKEditorField('question', validators=[DataRequired()])
 	option1 = TextField('option1', validators=[DataRequired()])
 	option2 = TextField('option2', validators=[DataRequired()])
 	option3 = TextField('option3', validators=[DataRequired()])
@@ -49,7 +50,7 @@ class SubmitForm(Form):
 
 
 class SubmitForm2(Form):
-	question1 = TextField('question', validators=[DataRequired()])
+	question1 = CKEditorField('question', validators=[DataRequired()])
 	answer1 = FloatField('answer', validators=[DataRequired()])
 	category1 = SelectField(
 		'category', 

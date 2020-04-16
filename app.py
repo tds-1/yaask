@@ -9,9 +9,9 @@ from flask_session import Session
 from flask_weasyprint import HTML, render_pdf
 import json
 from os import environ
+from flask_ckeditor import CKEditor, CKEditorField
 from forms import LoginForm, RegisterForm, SubmitForm, QuizForm, SubmitForm2
 
-#Make the flash for submit() fade slowly so when the next question comes it lights up again
 
 #Create the app and configure it
 app = Flask(__name__, template_folder='templates' , static_folder="static")
@@ -35,6 +35,11 @@ secret_key='hello_bhai'
 
 #Create encrypt object
 SCHEMES = 'pbkdf2_sha256'
+
+#initialising ckeditor
+app.config['CKEDITOR_PKG_TYPE'] = 'basic'
+ckeditor = CKEditor(app)
+
 
 pwd_context = CryptContext(
     schemes=[SCHEMES],
@@ -67,14 +72,10 @@ def getStandings():
 @app.route('/')
 def home():
 	return render_template('index.html')
+
 @app.route('/about')
 def about():
-	s="b'&sigma; question'"
-	s=s.encode("utf-8")
-	print (s)
-	s=s.decode("utf-8")
-	print (s)
-	return render_template('about.html',s=s)
+	return render_template('about.html')
 	
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -144,6 +145,11 @@ def submit():
 				question_score=0,
 				comment=form1.comment1.data,
 			)
+			x=questiondata.question
+			x=x.replace("{tex}","\[")
+			x=x.replace("{/tex}","\]")
+			questiondata.question=x
+
 			db.session.add(questiondata)
 			db.session.commit()
 			return render_template('display_int.html', question_to_display=questiondata)
@@ -163,8 +169,16 @@ def submit():
 				question_score=0,
 				comment=form.comment.data,
 			)
+			x=questiondata.question
+			x=x.replace("{tex}","\[")
+			x=x.replace("{/tex}","\]")
+			questiondata.question=x
+			
+			print ("question data-------------> ",questiondata.question)
+			
 			db.session.add(questiondata)
 			db.session.commit()
+			print ("no error")
 			return render_template('display_mcq.html', question_to_display=questiondata)
 		return render_template('submit.html', form=form, form1=form1, users=getStandings())
 	except:
@@ -175,6 +189,12 @@ def submit():
 @login_required
 def quiz():
 		questions_to_display = Questions.query.filter().all()
+		for question in questions_to_display:
+			x=question.question
+			x=x.replace("{tex}","\[")
+			x=x.replace("{/tex}","\]")
+			question.question=x
+			print (question.question)
 		return render_template('quiz.html', questions_to_display=questions_to_display)
 
 @app.route('/preview', methods=['GET', 'POST'])

@@ -29,7 +29,22 @@
     $SCRIPT_ROOT = {{ request.script_root | tojson | safe }};
 
 </script>
-
+  
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<style>
+	p{
+		display: flex;
+	}
+	.MathJax_Display{
+		margin: 0em 0em!important;
+	}
+	sup{
+		top: 0em;
+	}
+	sub{
+		bottom: -1.75em;
+	}
+</style>
 <title>Quiz - Quizzing Engine</title>
 {% endblock head %}
 {% block content %}
@@ -95,7 +110,7 @@
 <div class="{{ question_to_display.questionid }}">
     <div class="row">
         <div class="col s12">
-            <h3>{{ question_to_display.question }}</h3>
+            <h3>{{ question_to_display.question| safe }}</h3>
         </div>
     </div>
     <div class="row" style="background-color: wheat;">
