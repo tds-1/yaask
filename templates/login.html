@@ -28,7 +28,7 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
         .header {
@@ -57,7 +57,34 @@
         input[type="text"] + label::after, input[type="password"] + label::after{
             top: 70px!important;
         }
-            
+        
+
+		a.uncolour {
+			color: white;
+		}
+
+		a.uncolour:hover {
+			color: grey;
+		}
+
+		.right a {
+			padding: 1vmin;
+		}
+
+		.foot {
+			background-color: rgb(32, 7, 49) !important;
+			position: fixed;
+			bottom: 0;
+			padding: 1vmin;
+			margin-top: 2vmin;
+			font-family: 'Bangers', sans-serif;
+			width: 100vw;
+			z-index: 1;
+		}
+
+		.foot a {
+			padding: 0px 1vmin;
+		}
     </style>
 </head>
 
@@ -122,6 +149,17 @@
         </div>
 
     </div>
-
+    
+    <div class="foot">	             
+        <a class="uncolour" href="#">Terms and Conditions</a></li>
+        <a class="uncolour" href="#">Contact Us</a></li>
+        <div class="right">
+            <a class="uncolour" href="#"><i class="fa fa-lg fa-facebook-square"></i></a>								
+            <a class="uncolour" href="#"><i class="fa fa-lg fa-twitter-square"></i></a>
+            <a class="uncolour" href="#"><i class="fa fa-lg fa-instagram"></i></a>
+            <a class="uncolour" href="#"><i class="fa fa-lg fa-youtube-play"></i></a>
+        </div>			
+    
+    </div>
 
 </body>

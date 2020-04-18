@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	{% block head %}
-			<title>{% block title %}{% endblock %} - Quizzing Engine</title>
+	<title>{% block title %}{% endblock %} - Quizzing Engine</title>
 	{% endblock head%}
 	<style>
-	html, body {
-		height: 100%;
-	}
-	#container {
-		min-height: 100%;
-		position: relative;
-		margin-bottom: -200px;
-	}
-	.forfooter{
-		height: 200px;
-		clear: both;
-	}
-	footer {
-		height: 200px;
-	}
+		html,
+		body {
+			height: 100%;
+		}
+
+		#container {
+			min-height: 100%;
+			position: relative;
+			margin-bottom: -200px;
+		}
+
+		.forfooter {
+			height: 200px;
+			clear: both;
+		}
 	</style>
 </head>
+
 <body>
-	<div class ="container">
+	<div class="container">
 
 		<!--child template -->
 		{% block content %}{% endblock %}
 		<br>
 		<!-- Errors -->
 		{% if error %}
-			<p class="error"><strong>Error:</strong>{{ error }}</p>
+		<p class="error"><strong>Error:</strong>{{ error }}</p>
 		{% endif %}
 		<br>
 		<!-- Flashed Messages -->
 
-	</div>
 
 </body>
+
 </html>
