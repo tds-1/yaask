@@ -194,7 +194,7 @@ def quiz():
 			x=x.replace("{tex}","\[")
 			x=x.replace("{/tex}","\]")
 			question.question=x
-			print (question.question)
+			# print (question.question)
 		return render_template('quiz.html', questions_to_display=questions_to_display)
 
 @app.route('/preview', methods=['GET', 'POST'])
