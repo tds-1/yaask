@@ -76,6 +76,10 @@ def home():
 @app.route('/about')
 def about():
 	return render_template('about.html')
+
+@app.route('/xyz')
+def xyz():
+	return render_template('xyz.html')
 	
 @app.route('/login', methods=['GET', 'POST'])
 def login():

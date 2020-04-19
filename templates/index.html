@@ -1,35 +1,85 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Yaask Labs</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link rel="manifest" href="manifest.json">
-		<meta name="viewport" content="width=device-width">
-		<meta name="mobile-web-app-capable" content="yes">
-		<link rel="icon" sizes="192x192" href="{{url_for('static',filename='../static/assets/yaask.png') }}">
-		<link rel="stylesheet" type="text/css" media="screen" href="{{url_for('static',filename='../static/css/main.css') }}">
 
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Yaask Labs</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="manifest" href="manifest.json">
+	<meta name="viewport" content="width=device-width">
+	<meta name="mobile-web-app-capable" content="yes">
+	<link rel="icon" sizes="192x192" href="{{url_for('static',filename='../static/assets/yaask.png') }}">
+	<link rel="stylesheet" type="text/css" media="screen"
+		href="{{url_for('static',filename='../static/css/main.css') }}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+		a.uncolour {
+			color: white;
+		}
+
+		a.uncolour:hover {
+			color: grey;
+		}
+
+		.right a {
+			padding: 1vmin;
+		}
+
+		.foot {
+			background-color: rgb(32, 7, 49) !important;
+			position: fixed;
+			bottom: 0;
+			padding: 1vmin;
+			margin-top: 2vmin;
+			font-family: 'Bangers', sans-serif;
+			width: 100vw;
+			z-index: 1;
+		}
+
+		.foot a {
+			padding: 0px 1vmin;
+			text-decoration: none;
+		}
+
+		.right {
+			float: right !important;
+			padding-right: 40px;
+		}
+	</style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="logo"><canvas class= "fadeIn"></canvas></div>
-    <div class="name">Yaask Labs</div>
-    <div class="navbar">
-    	{% if current_user.name %}
-	        <a href="/about" class='bounce'>About</a>
-		    <a href="/quiz" class="bounce">Display Questions</a>
-		    <a href="/submit" class="bounce">Add Questions</a>
-		    <a href="/test" class="bounce">Create Test</a>
-	        <a href="/logout" class='bounce'>Logout</a>
-	     
-	    {% else %} 
-	    	<a href="/about" class="bounce">About</a>
-            <a href="/login" class="bounce">Login</a>
-	        <a href="/register" class="bounce">Register</a>
-        {% endif %}
-    </div> 
-  </div>
-    <script src="{{url_for('static',filename='../static/js/main.js') }}"></script> 
+	<div class="container">
+		<div class="logo"><canvas class="fadeIn"></canvas></div>
+		<div class="name">Yaask Labs</div>
+		<div class="navbar">
+			{% if current_user.name %}
+			<a href="/about" class='bounce'>About</a>
+			<a href="/quiz" class="bounce">Display Questions</a>
+			<a href="/submit" class="bounce">Add Questions</a>
+			<a href="/test" class="bounce">Create Test</a>
+			<a href="/logout" class='bounce'>Logout</a>
+
+			{% else %}
+			<a href="/about" class="bounce">About</a>
+			<a href="/login" class="bounce">Login</a>
+			<a href="/register" class="bounce">Register</a>
+			{% endif %}
+		</div>
+	</div>
+	<div class="foot">
+		<a class="uncolour" href="#">Contact Us</a></li>
+		<a class="uncolour" href="#">Terms and Conditions</a></li>
+		<a class="uncolour" href="#">Privacy Policy</a></li>
+		<div class="right">
+			<a class="uncolour" href="#"><i class="fa fa-lg fa-facebook-square"></i></a>
+			<a class="uncolour" href="#"><i class="fa fa-lg fa-twitter-square"></i></a>
+			<a class="uncolour" href="#"><i class="fa fa-lg fa-instagram"></i></a>
+			<a class="uncolour" href="#"><i class="fa fa-lg fa-youtube-play"></i></a>
+		</div>
+
+	</div>
+	<script src="{{url_for('static',filename='../static/js/main.js') }}"></script>
 </body>
+
 </html>

@@ -86,6 +86,8 @@
 			padding: 0px 1vmin;
 		}
     </style>
+    <meta name="google-signin-client_id" content="468952077813-8vkvevtnjbtcd9sju8eoa8t18kgidvdc.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 <body>
@@ -131,7 +133,8 @@
                 <div class="valign-wrapper">
                     <button class="valign btn waves-effect waves-light" type="submit"> Sign In  
                         <i class="material-icons">done</i></button>
-                </div>           
+                </div>  
+                         
             </div>
             <div class="reg col s12 m3">
                 <div class="row"></div>
@@ -139,6 +142,8 @@
                 <div class="row"></div>
                 Or
             </div>
+            
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
             <div class="navbar reg col s12 m3">
                 <div class="row"></div>
                 <div class="row"></div>
@@ -161,5 +166,15 @@
         </div>			
     
     </div>
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+
+    </script>
 
 </body>
