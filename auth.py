@@ -1,6 +1,6 @@
 from flask import url_for, current_app, redirect, request
 from rauth import OAuth2Service
-
+from os import environ
 import json, urllib
 
 from config import OAUTH_CREDENTIALS
@@ -10,9 +10,13 @@ class OAuthSignIn(object):
 
     def __init__(self, provider_name):
         self.provider_name = provider_name
-        credentials = OAUTH_CREDENTIALS[provider_name]
-        self.consumer_id = credentials['id']
-        self.consumer_secret = credentials['secret']
+        try:
+            credentials = OAUTH_CREDENTIALS[provider_name]
+            self.consumer_id = credentials['id']
+            self.consumer_secret = credentials['secret']
+        except:
+            self.consumer_id = environ['id']
+            self.consumer_secret = environ['secret']
 
     def authorize(self):
         pass
