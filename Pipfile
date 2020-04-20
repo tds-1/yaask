@@ -29,6 +29,8 @@ flask-session = "*"
 flask-weasyprint = "*"
 flask-ckeditor = "*"
 oauthlib = "*"
+flask-oauth = "*"
+oauth = "*"
 
 [requires]
 python_version = "3.6"
