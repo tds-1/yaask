@@ -28,6 +28,7 @@ passlib = "==1.6.1"
 flask-session = "*"
 flask-weasyprint = "*"
 flask-ckeditor = "*"
+oauthlib = "*"
 
 [requires]
 python_version = "3.6"

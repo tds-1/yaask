@@ -11,8 +11,8 @@ import json
 from os import environ
 from flask_ckeditor import CKEditor, CKEditorField
 from forms import LoginForm, RegisterForm, SubmitForm, QuizForm, SubmitForm2
-
-
+from auth import OAuthSignIn, GoogleSignIn
+import os
 #Create the app and configure it
 app = Flask(__name__, template_folder='templates' , static_folder="static")
 try:
@@ -53,17 +53,53 @@ from models import *
 #Create instance of LoginManager
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-#Configuring the login_manager object
 login_manager.login_view = 'login'
 login_manager.login_message = 'Please login to view this page'
-
-
 
 
 @login_manager.user_loader
 def load_user(userid):
 	return User.query.filter(User.id == int(userid)).first()
+
+@app.route('/authorize/<provider>')
+def oauth_authorize(provider):
+	# Flask-Login function
+	if not current_user.is_anonymous():
+		return redirect(url_for('index'))
+	oauth = OAuthSignIn.get_provider(provider)
+	return oauth.authorize()
+
+@app.route('/callback/<provider>')
+def oauth_callback(provider):
+	if not current_user.is_anonymous():
+		return redirect(url_for('home'))
+	oauth = OAuthSignIn.get_provider(provider)
+	email = oauth.callback()
+
+	if email is None:
+	# I need a valid email address for my user identification
+		flash('Authentication failed.')
+		return redirect(url_for('home'))
+
+	# Look if the user already exists
+	que=User.query.filter(User.username == email).first()
+	print (que)
+	email=str(email)
+	if( que is None):
+		user = User(
+			name=email[0:5],
+			username=email,
+			password=os.getrandom(10, os.GRND_NONBLOCK)  ,
+			score=0
+		)
+		db.session.add(user)
+		db.session.commit()
+	else:
+		user=que
+	print (user)
+	login_user(user)
+	return redirect(url_for('home'))
+
 
 def getStandings():
 	users = User.query.order_by(User.score.desc())
@@ -77,14 +113,10 @@ def home():
 def about():
 	return render_template('about.html')
 
-@app.route('/xyz')
-def xyz():
-	return render_template('xyz.html')
-	
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-	print ("here we present the login pages")
-	logout_user()
+	if current_user is not None and current_user.is_authenticated():
+		return redirect(url_for('home'))
 	form = LoginForm(request.form)
 	if request.method == 'POST':
 		if form.validate_on_submit():
