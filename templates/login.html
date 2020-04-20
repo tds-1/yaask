@@ -37,61 +37,56 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
-.header {
+        .header {
             grid-row: 1 / 2;
             grid-column: 2 / 3;
             line-height: 12vh;
             font-size: 6vh;
             justify-self: center;
-            background-image: url({{url_for('static',filename='../static/assets/yaask.png')
+            background-image: url({{url_for('static',filename='../static/assets/yaask.png')}});
+            background-size: 20%;
+            background-position: center;
+            background-repeat: no-repeat;
         }
-    }
-    );
-    background-size: 20%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.mhead {
-    grid-row: 2 / 3;
-    grid-column: 2 / 3;
-    font-size: 5vh;
-    line-height: 5vh;
-    background: yellow;
-    color: #131313;
-}
-input[type="text"],
-input[type="password"] {
-    font-size: 1.65rem;
-}
-input[type="text"]+label::after,
-input[type="password"]+label::after {
-    top: 70px!important;
-}
-a.uncolour {
-    color: white;
-}
-a.uncolour:hover {
-    color: grey;
-}
-.right a {
-    padding: 1vmin;
-}
-.foot {
-    background-color: rgb(32,
-    7,
-    49) !important;
-    position: fixed;
-    bottom: 0;
-    padding: 1vmin;
-    margin-top: 2vmin;
-    font-family: 'Bangers',
-    sans-serif;
-    width: 100vw;
-    z-index: 1;
-}
-.foot a {
-    padding: 0px 1vmin;
-}
+        .mhead {
+            grid-row: 2 / 3;
+            grid-column: 2 / 3;
+            font-size: 5vh;
+            line-height: 5vh;
+            background: yellow;
+            color: #131313;
+        }
+        input[type="text"],
+        input[type="password"] {
+            font-size: 1.65rem;
+        }
+        input[type="text"]+label::after,
+        input[type="password"]+label::after {
+            top: 70px!important;
+        }
+        a.uncolour {
+            color: white;
+        }
+        a.uncolour:hover {
+            color: grey;
+        }
+        .right a {
+            padding: 1vmin;
+        }
+        .foot {
+            background-color: rgb(32,7,49) !important;
+            position: fixed;
+            bottom: 0;
+            padding: 1vmin;
+            margin-top: 2vmin;
+            font-family: 'Bangers',
+            sans-serif;
+            width: 100vw;
+            z-index: 1;
+        }
+        .foot a {
+            padding: 0px 1vmin;
+        }
     </style>
     <meta name="google-signin-client_id" content="468952077813-8vkvevtnjbtcd9sju8eoa8t18kgidvdc.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
