@@ -16,36 +16,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<style>
-	#crown {
-		height: 20px;
-		width: 20px;
-	}
-
-	.a0, .a1 {
-		background-color: lightgray;
-		padding: 10px;
-		border-radius: 20px;
-		transition: .2s ease-out;
-		border: 1px solid;
-		padding: 10px;
-		box-shadow: 5px 10px 8px #888888;
-	}
-
-	.ans {
-		background-color: rgb(206, 171, 124);
-		margin-left: 0em !important;
-		margin-right: 0em !important;
-		height: 35px;
-		border-radius: 12px;
-		padding: 0.5rem;
-	}
-
-	.a0:hover, .a1:hover {
-		box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
-		transform: translate3d(0, -4px, 0);
-	}
-}
 </style>
 <!-- Required for the page -->
 <script type='text/javascript'>
@@ -56,6 +26,8 @@
 </script>
     
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="{{url_for('static',filename='../static/css/quiz.css') }}">
+
 <style>
 	p{
 		display: flex;
@@ -70,82 +42,98 @@
 		bottom: -1.75em;
 	}
 </style>
-<title>Quiz - Quizzing Engine</title>
+<title>Quiz | Yaask Labs</title>
 {% endblock head %}
+
+{%  block navbar %}
+<div class="navigation">
+	<ul id="quizdropdown" class="dropdown-content">
+		<li><a href="{{ url_for('quiz') }}" >All Categories</a></li>
+		<li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
+		<li><a href="{{ url_for('categorywise', category='physics') }}">Physics</a></li>
+		<li><a href="{{ url_for('categorywise', category='chemistry') }}">Chemistry</a></li>
+		<li><a href="{{ url_for('categorywise', category='biology') }}">Biology</a></li>
+	</ul>
+	<!-- Since the selectors based on ID and it seems duplicates cause an error -->
+	<ul id="quizdropdown" class="dropdown-content">
+		<li><a href="{{ url_for('quiz') }}" >All Categories</a></li>
+		<li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
+		<li><a href="{{ url_for('categorywise', category='physics') }}">Physics</a></li>
+		<li><a href="{{ url_for('categorywise', category='chemistry') }}">Chemistry</a></li>
+		<li><a href="{{ url_for('categorywise', category='biology') }}">Biology</a></li>
+	</ul>
+
+	<ul id="user-dropdown" class="dropdown-content">
+		<li><a href="#" >Profile</a></li>
+		<li><a href="#">Settings</a></li>
+		<li><a href="{{ url_for('logout') }}">Logout</a></li>
+		
+	</ul>
+	<!-- Since the selectors based on ID and it seems duplicates cause an error -->
+	<ul id="user-dropdown" class="dropdown-content">
+		<li><a href="#" >Profile</a></li>
+		<li><a href="#">Settings</a></li>
+		<li><a href="{{ url_for('logout') }}">Logout</a></li>
+		
+	</ul>
+	<nav class="#4a148c purple darken-4">
+		<div class="nav-wrapper black-text">
+			<a href="{{ url_for('home') }}" class="brand-logo">Yaask <img src="{{url_for('static',filename='../static/assets/yaask.png')}}" style="height: 25px;" > Labs</a>
+			<a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				
+				<li><a  class="" href="{{ url_for('home') }}">Home</a></li>
+				<li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="" href="{{ url_for('submit') }}">Add Questions</a></li>
+				<li><a  class="" href="{{ url_for('test') }}">Preview questions</a></li>
+				{% if current_user.name %}
+				<li><a class="dropdown-button" href="" data-activates="user-dropdown">Hi, {{current_user.name}}<i class="material-icons right">arrow_drop_down</i></a></li>
+				{% else %}
+				<li><a  class="black-text" href="{{ url_for('login') }}">Login</a></li>
+					<li><a  class="black-text" href="{{ url_for('register') }}">Register</a></li>
+				{% endif %}
+				
+			</ul>
+			
+			<ul id="mobile-demo" class="right side-nav">
+				
+				<li><a href="{{ url_for('home') }}">Home</a></li>
+				<li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a href="{{ url_for('submit') }}">Add Questions</a></li>
+				<li><a href="{{ url_for('test') }}">Preview Questions</a></li>
+				{% if current_user.name %}
+					<li><a class="dropdown-button black-text" href="" data-activates="user-dropdown">Hi, current_user.name<i class="material-icons right">arrow_drop_down</i></a></li>
+				{% else %}
+					<li><a href="{{ url_for('login') }}">Login</a></li>
+					<li><a href="{{ url_for('register') }}">Registeer</a></li>
+				{% endif %}
+				
+			</ul>
+		</div>
+	</nav>
+</div>
+<!-- NavBar -->
+{% endblock %}
 {% block content %}
 
-<!-- Dropdown Structure -->
-<ul id="quizdropdown" class="dropdown-content">
-	<li><a href="{{ url_for('quiz') }}">All Catgories</a></li>
-	<li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
-	<li><a href="{{ url_for('categorywise', category='physics') }}">physics</a></li>
-	<li><a href="{{ url_for('categorywise', category='chemistry') }}">chemistry</a></li>
-	<li><a href="{{ url_for('categorywise', category='biology') }}">Biology</a></li>
-</ul>
-<!-- Since the selectors based on ID and it seems duplicates cause an error -->
-<ul id="quizdropdown" class="dropdown-content">
-	<li><a href="{{ url_for('quiz') }}">All Catgories</a></li>
-	<li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
-	<li><a href="{{ url_for('categorywise', category='physics') }}">physics</a></li>
-	<li><a href="{{ url_for('categorywise', category='chemistry') }}">chemistry</a></li>
-	<li><a href="{{ url_for('categorywise', category='biology') }}">Biology</a></li>
-</ul>
-
-<!-- NavBar -->
-
-<nav class="#448aff teal accent-4">
-	<div class="nav-wrapper">
-		<a href="{{ url_for('home') }}" class="brand-logo"> Quiz Engine</a>
-		<a href="" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-		<ul id="nav-mobile" class="right hide-on-med-and-down">
-			<li><a id="userscore" class="center-align teal-text text-darken-4"
-					href="{{ url_for('scoreboard') }}">{% if current_user.name %}
-					Your SCORE is {{ current_user.score }}
-					<img src="/static/img/crown.svg" id="crown">
-					{% endif %}
-				</a>
-			</li>
-			<li><a href="{{ url_for('home') }}">Home</a></li>
-			<li class="active"><a class="dropdown-button" href="" data-activates="quizdropdown">Questions<i
-						class="material-icons right">arrow_drop_down</i></a></li>
-			<li><a href="{{ url_for('submit') }}">Add Questions</a></li>
-			<li><a href="{{ url_for('preview') }}">Preview Your Questions</a></li>
-			<li><a href="{{ url_for('logout') }}">Logout</a></li>
-		</ul>
-		<ul id="mobile" class="side-nav">
-			<li><a id="userscore" class="center-align teal-text text-darken-4"
-					href="{{ url_for('scoreboard') }}">{% if current_user.name %}
-					Your SCORE is {{ current_user.score }}
-					<img src="/static/img/crown.svg" id="crown">
-					{% endif %}
-				</a>
-			</li>
-			<li><a href="{{ url_for('home') }}">Home</a></li>
-			<li class="active"><a class="dropdown-button" href="" data-activates="quizdropdown">Questions<i
-						class="material-icons right">arrow_drop_down</i></a></li>
-			<li><a href="{{ url_for('submit') }}">Add Questions</a></li>
-			<li><a href="{{ url_for('logout') }}">Logout</a></li>
-		</ul>
-	</div>
-</nav>
-
-<h5 class="center-align">Answer the Questions</h5>
+<div class="mhead">Answer the Questions</div>
 <h6>Choose your answer from the DROPDOWNS and click to submit</h6>
 <br>
+
 <form action="" method='POST'>
 	{% for question_to_display in questions_to_display %}
 	<div class="{{ question_to_display.questionid }} a{{(loop.index)%2}}">
 		<div style="display: flex;">
 			<div style="width: 5%;">
 				<div class="row">
-					<div class="col">
+					<div class="qs col">
 						{{loop.index}}.) &nbsp &nbsp
 					</div>
 				</div>
 			</div>
 				<div style="width: 85%;">
 					<div class="row">
-						<div class="col s12">
+						<div class="qs col s12">
 							{{ question_to_display.question|safe }}
 						</div>
 					</div>

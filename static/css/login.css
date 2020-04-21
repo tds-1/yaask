@@ -24,7 +24,7 @@ body {
     font-size: 6vh;
     justify-self: center;
     background-image: url({{url_for('static',filename='templates\\yaask-logo(1).png')}});
- background-size: 20%;
+     background-size: 20%;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -60,7 +60,7 @@ body {
     font-size: 3.5vmin;
     text-align: justify;
     font-family: 'Yanone Kaffeesatz', sans-serif;
-    margin: 5%;
+    margin: 8vh 5%;			
 }
 
 button {
@@ -92,19 +92,27 @@ button {
     transition: 100ms;
     font-family: 'Bangers', sans-serif !important;
 }
+.empty{
+    margin: 2vh auto;
+    padding: 2vh auto;
+}
 
+.log{
+    margin: 2vh auto;
+    padding: 2vh auto;
+}	
 .reg {
     font-family: 'Bangers', sans-serif;
     padding: 2vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: auto;
+    margin: 2vh auto;
 }
 
 .reg a {
     height: 8vmin;
-    padding: 2vh 4vw;
+    padding: 2vmin 4vmin;			
     font-family: 'Bangers', sans-serif !important;
 }
 
@@ -114,6 +122,18 @@ button {
 
 .header a {
     color: white;
+}
+a.uncolour {
+    color: white;
+}
+a.uncolour:hover {
+    color: grey;
+}
+.right a {
+    padding: 1vmin;
+}
+.valign-wrapper{
+    margin-top: 5vh;
 }
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:500);

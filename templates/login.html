@@ -57,15 +57,7 @@
         input[type="password"]+label::after {
             top: 70px!important;
         }
-        a.uncolour {
-            color: white;
-        }
-        a.uncolour:hover {
-            color: grey;
-        }
-        .right a {
-            padding: 1vmin;
-        }
+
         .foot {
             background-color: rgb(32,7,49) !important;
             position: fixed;
@@ -92,7 +84,7 @@
         </div>
         <div class="mhead">Login</div>
         <div class="mcontent row">
-            <div class="col s6">
+            <div class="log col s12 m6">
                 <form action="" method="POST">
                     {{ form.csrf_token }}
                     <div class="row">
@@ -121,7 +113,7 @@
                         </span>
                         </div>
                     </div>
-                    <div class="valign-wrapper">
+                    <div class="valign-wrapper row">
                         <button class="valign btn waves-effect waves-light" type="submit"> Sign In  
                         <i class="material-icons">done</i></button>
                     </div>
