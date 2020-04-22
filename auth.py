@@ -2,7 +2,7 @@ from flask import url_for, current_app, redirect, request
 from rauth import OAuth2Service
 from os import environ
 import json, urllib
-
+# from config import OAUTH_CREDENTIALS
 
 class OAuthSignIn(object):
     providers = None

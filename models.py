@@ -1,6 +1,6 @@
 from app import db
 from passlib.context import CryptContext
-
+import datetime
 
 SCHEMES = 'pbkdf2_sha256'
 pwd_context = CryptContext(
@@ -19,7 +19,8 @@ class User(db.Model):
 	password = db.Column(db.String, nullable=False)
 	score = db.Column(db.Integer, nullable=False)
 	answered = db.Column(db.PickleType)
-
+	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+	
 	def __init__(self, name, username, password, score):
 		self.name = name
 		self.username = username
@@ -56,6 +57,8 @@ class Questions(db.Model):
 	difficulty = db.Column(db.String, nullable=False)
 	question_score=db.Column(db.Integer,nullable=False)
 	comment=db.Column(db.String,nullable=True)
+	tags = db.Column(db.PickleType)
+	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 	
 	def __init__(self, question, option1, option2, option3, option4, answer, creatorid, category, difficulty,question_score,comment):
 		self.question = question

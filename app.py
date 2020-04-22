@@ -13,6 +13,7 @@ from flask_ckeditor import CKEditor, CKEditorField
 from forms import LoginForm, RegisterForm, SubmitForm, QuizForm, SubmitForm2
 from auth import OAuthSignIn, GoogleSignIn
 import os
+
 #Create the app and configure it
 app = Flask(__name__, template_folder='templates' , static_folder="static")
 try:
