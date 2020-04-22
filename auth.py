@@ -29,10 +29,8 @@ class OAuthSignIn(object):
     @classmethod
     def get_provider(self, provider_name):
         if self.providers is None:
-            print ('trying to mke providres')
             self.providers={}
             for provider_class in self.__subclasses__():
-                print (provider_class)
                 provider = provider_class()
                 self.providers[provider.provider_name] = provider
         return self.providers[provider_name]
@@ -53,7 +51,7 @@ class GoogleSignIn(OAuthSignIn):
 
     def authorize(self):
         return redirect(self.service.get_authorize_url(
-            scope='email',
+            scope='https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
             response_type='code',
             redirect_uri=self.get_callback_url())
             )
@@ -68,6 +66,7 @@ class GoogleSignIn(OAuthSignIn):
                      },
                 decoder = json.loads
         )
+                
         me = oauth_session.get('').json()
         print ("ans=-------------------->>>>>>> ",me)
-        return (me['email'])
+        return (me['name'],me['given_name'],me['email'])

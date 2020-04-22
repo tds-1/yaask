@@ -16,14 +16,19 @@ class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String, nullable=False)
 	username = db.Column(db.String, nullable=False)
+	email = db.Column(db.String, nullable=False)
+	phone_no = db.Column(db.String, nullable=False)
+	phone_verified = db.Column(db.Boolean, nullable=False)
 	password = db.Column(db.String, nullable=False)
 	score = db.Column(db.Integer, nullable=False)
 	answered = db.Column(db.PickleType)
 	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 	
-	def __init__(self, name, username, password, score):
+	def __init__(self, name, username, email, phone_no, password, score):
 		self.name = name
 		self.username = username
+		self.email = email
+		self.phone_no = phone_no
 		self.password = pwd_context.encrypt(password) 
 		self.score = score
 

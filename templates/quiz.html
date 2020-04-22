@@ -42,6 +42,8 @@
 </style>
 <!-- Required for the page -->
 <title>Display Questions| Yaask labs</title>
+<link rel="icon" sizes="192x192" href="{{url_for('static',filename='../static/assets/yaask.png') }}">
+
 {% endblock head %}
 
 <!-- Dropdown Structure -->
@@ -53,6 +55,7 @@
 		<li><a href="{{ url_for('categorywise', category='physics') }}">Physics</a></li>
 		<li><a href="{{ url_for('categorywise', category='chemistry') }}">Chemistry</a></li>
 		<li><a href="{{ url_for('categorywise', category='biology') }}">Biology</a></li>
+		<li><a href="{{ url_for('categorywise', category='other') }}">Others</a></li>
 	</ul>
 	<!-- Since the selectors based on ID and it seems duplicates cause an error -->
 	<ul id="quizdropdown" class="dropdown-content">
@@ -61,6 +64,7 @@
 		<li><a href="{{ url_for('categorywise', category='physics') }}">Physics</a></li>
 		<li><a href="{{ url_for('categorywise', category='chemistry') }}">Chemistry</a></li>
 		<li><a href="{{ url_for('categorywise', category='biology') }}">Biology</a></li>
+		<li><a href="{{ url_for('categorywise', category='other') }}">Others</a></li>
 	</ul>
 
 	<ul id="user-dropdown" class="dropdown-content">
@@ -92,7 +96,7 @@
 					<li><a  class="black-text" href="{{ url_for('login') }}">Login</a></li>
 					<li><a  class="black-text" href="{{ url_for('register') }}">Regiser</a></li>
 				{% else %}
-					<li><a class="dropdown-button" href="" data-activates="user-dropdown">Hi, {{current_user.name}}<i class="material-icons right">arrow_drop_down</i></a></li>
+					<li><a class="dropdown-button" href="" data-activates="user-dropdown">Hi, {{current_user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
 				{% endif %}
 				
 			</ul>
@@ -107,7 +111,7 @@
 					<li><a href="{{ url_for('login') }}">Login</a></li>
 					<li><a href="{{ url_for('register') }}">Register</a></li>
 				{% else %}
-					<li><a class="dropdown-button black-text" href="" data-activates="user-dropdown">Hi, {{current_user.name}}<i class="material-icons right">arrow_drop_down</i></a></li>
+					<li><a class="dropdown-button black-text" href="" data-activates="user-dropdown">Hi, {{current_user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
 
 				{% endif %}
 				
@@ -121,7 +125,7 @@
 
 
 <div class="mhead">List Of Questions</div>
-<h6>All the question are displayed below</h6>
+<h6>{{cat}} category question are displayed below</h6>
 <br>
 <form action="" method='POST'>
 	{% for question_to_display in questions_to_display %}

@@ -75,7 +75,7 @@ def oauth_callback(provider):
 	if not current_user.is_anonymous():
 		return redirect(url_for('home'))
 	oauth = OAuthSignIn.get_provider(provider)
-	email = oauth.callback()
+	name,username,email = oauth.callback()
 
 	if email is None:
 	# I need a valid email address for my user identification
@@ -88,9 +88,11 @@ def oauth_callback(provider):
 	email=str(email)
 	if( que is None):
 		user = User(
-			name=email[0:5],
-			username=email,
-			password=os.getrandom(10, os.GRND_NONBLOCK)  ,
+			name=name,
+			username=username,
+			email=email,
+			phone_no="",
+			password=os.getrandom(10, os.GRND_NONBLOCK),
 			score=0
 		)
 		db.session.add(user)
@@ -141,6 +143,8 @@ def register():
 			user = User(
 				name=form.name.data,
 				username=form.username.data,
+				email=form.email.data,
+				phone_no=form.phone_no.data,
 				password=form.password.data,
 				score=0
 			)
@@ -232,7 +236,7 @@ def quiz():
 			x=x.replace("{/tex}","\]")
 			question.question=x
 			# print (question.question)
-		return render_template('quiz.html', questions_to_display=questions_to_display)
+		return render_template('quiz.html', questions_to_display=questions_to_display, cat="All")
 
 @app.route('/preview', methods=['GET', 'POST'])
 @login_required
@@ -249,48 +253,6 @@ def preview():
 		questions_to_display = Questions.query.filter(Questions.creatorid == str(current_user.id)).all()
 		return render_template('individual_questions.html', questions_to_display=questions_to_display)
 
-
-@app.route('/answer')
-@login_required
-def fetch_answer():
-	#id is the question id and userid is the User id
-	#Storing the data from the request
-	id = request.args.get('id', 0, type=int)
-	value = request.args.get('value', 0, type=str)
-	userId = request.args.get('userid', 0, type=int)
-
-	#Fetching question and User data
-	attempted_question = Questions.query.filter( Questions.questionid == id ).all()
-	presentUser = User.query.get( userId )
-	presentScore = presentUser.score
-
-	#Appropirately changing the USER's score
-	if attempted_question[0].answer == value:
-		if attempted_question[0].difficulty == 'easy':
-			presentScore = presentScore + 1
-		elif attempted_question[0].difficulty == 'moderate':
-			presentScore = presentScore + 2
-		elif attempted_question[0].difficulty == 'hard':
-			presentScore = presentScore + 3
-		elif attempted_question[0].difficulty == 'insane':
-			presentScore = presentScore + 4		
-		
-		presentUser.score = presentScore
-		correct = 1
-	else:
-		presentScore = presentScore - 1
-		presentUser.score = presentScore
-		correct = 0
-
-
-	beforePickle = current_user.answered
-	afterPickle = loads(beforePickle)
-
-	afterPickle.append(id)
-	current_user.answered = dumps(afterPickle)
-	db.session.commit()
-
-	return jsonify(score = presentScore, correct = correct)
 
 
 @app.route('/quiz/<string:category>')
@@ -313,7 +275,7 @@ def categorywise(category):
 
 		if len(questions_to_display) is 0:
 			flash("We're so sorry but it seems that there are no questions on this topic")
-		return render_template('quiz.html', questions_to_display=questions_to_display, form=form, users=getStandings())
+		return render_template('quiz.html', questions_to_display=questions_to_display, cat=category)
 	else:
 		form = QuizForm()
 		if current_user.answered is None:
@@ -325,7 +287,7 @@ def categorywise(category):
 		#Check the questions to display
 		questions_to_display = Questions.query.filter().all()
 		flash('Please enter a url where the category is any one of' + str(categoryList))
-		return redirect(url_for('quiz.html', questions_to_display=questions_to_display, form=form, users=getStandings()))
+		return redirect(url_for('quiz.html', questions_to_display=questions_to_display, catergory = category))
 
 @app.route('/score')
 @login_required

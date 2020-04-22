@@ -2,6 +2,8 @@ from flask_wtf import Form
 from wtforms import TextField, PasswordField, SelectField, BooleanField, IntegerField, FloatField
 from wtforms.validators import DataRequired, Length, EqualTo
 from flask_ckeditor import CKEditor, CKEditorField
+from wtforms.fields.html5 import EmailField
+from wtforms import validators
 
 class RegisterForm(Form):
 	name = TextField(
@@ -11,6 +13,13 @@ class RegisterForm(Form):
 	username = TextField(
 		'username',
 		validators=[DataRequired(), Length(min=3, max=25)]
+	)
+
+	email = EmailField('Email address', [validators.DataRequired(), validators.Email()])
+
+	phone_no = TextField(
+		'phone number',
+		validators=[DataRequired(), Length(min=12, max=13)]
 	)
 	password = PasswordField(
 		'password',
