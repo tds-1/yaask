@@ -80,7 +80,6 @@
 		<li><a href="{{ url_for('logout')}}">Logout</a></li>
 		
 	</ul>
-	
 	<nav class="#4a148c purple darken-4">
 		<div class="nav-wrapper black-text">
 			<a href="{{ url_for('home') }}" class="brand-logo">Yaask <img src="{{url_for('static',filename='../static/assets/yaask.png') }}" style="width: 25px;"> Labs</a>
@@ -120,7 +119,9 @@
 	</nav>
 </div>
 {% endblock %}
+
 {% block content %}
+<button onclick="topFunction()" id="myBtn" title="Go to top" class="black-text"><i class="material-icons">arrow_upward</i></button>
 
 
 <div class="mhead">List Of Questions</div>
@@ -175,6 +176,26 @@
 	{% endfor %}
 	
 </form>
+<script>
+	mybutton = document.getElementById("myBtn");
+
+	// When the user scrolls down 20px from the top of the document, show the button
+	window.onscroll = function() {scrollFunction()};
+
+	function scrollFunction() {
+	if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+		mybutton.style.display = "block";
+	} else {
+		mybutton.style.display = "none";
+	}
+	}
+
+	// When the user clicks on the button, scroll to the top of the document
+	function topFunction() {
+	document.body.scrollTop = 0; // For Safari
+	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+	}
+</script>
 
 
 {% endblock content %}
