@@ -226,9 +226,9 @@ def submit():
 		return redirect(url_for('login'))
 	
 
-@app.route('/quiz', methods=['GET', 'POST'])
+@app.route('/display', methods=['GET', 'POST'])
 @login_required
-def quiz():
+def display():
 		questions_to_display = Questions.query.filter().all()
 		for question in questions_to_display:
 			x=question.question
@@ -236,11 +236,11 @@ def quiz():
 			x=x.replace("{/tex}","\]")
 			question.question=x
 			# print (question.question)
-		return render_template('quiz.html', questions_to_display=questions_to_display, cat="All")
+		return render_template('display.html', questions_to_display=questions_to_display, cat="All")
 
-@app.route('/preview', methods=['GET', 'POST'])
+@app.route('/editquestions', methods=['GET', 'POST'])
 @login_required
-def preview():
+def editquestions():
 	try:
 		id=request.args.get('id')
 		print (id)
@@ -255,7 +255,7 @@ def preview():
 
 
 
-@app.route('/quiz/<string:category>')
+@app.route('/display/<string:category>')
 @login_required
 def categorywise(category):
 	categoryList = ['math',
@@ -275,7 +275,7 @@ def categorywise(category):
 
 		if len(questions_to_display) is 0:
 			flash("We're so sorry but it seems that there are no questions on this topic")
-		return render_template('quiz.html', questions_to_display=questions_to_display, cat=category)
+		return render_template('display.html', questions_to_display=questions_to_display, cat=category)
 	else:
 		form = QuizForm()
 		if current_user.answered is None:
@@ -287,7 +287,7 @@ def categorywise(category):
 		#Check the questions to display
 		questions_to_display = Questions.query.filter().all()
 		flash('Please enter a url where the category is any one of' + str(categoryList))
-		return redirect(url_for('quiz.html', questions_to_display=questions_to_display, catergory = category))
+		return redirect(url_for('display.html', questions_to_display=questions_to_display, catergory = category))
 
 @app.route('/score')
 @login_required

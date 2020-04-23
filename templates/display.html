@@ -27,7 +27,7 @@
 		$('select').material_select();
 	  });
 </script>
-<link rel="stylesheet" type="text/css" media="screen" href="{{url_for('static',filename='../static/css/quiz.css') }}">
+<link rel="stylesheet" type="text/css" media="screen" href="{{url_for('static',filename='../static/css/display.css') }}">
 
 <style>
 	nav ul a {
@@ -50,7 +50,7 @@
 {% block navbar %}
 <div class="navigation">
 	<ul id="quizdropdown" class="dropdown-content">
-		<li><a href="{{ url_for('quiz') }}" >All Categories</a></li>
+		<li><a href="{{ url_for('display') }}" >All Categories</a></li>
 		<li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
 		<li><a href="{{ url_for('categorywise', category='physics') }}">Physics</a></li>
 		<li><a href="{{ url_for('categorywise', category='chemistry') }}">Chemistry</a></li>
@@ -59,7 +59,7 @@
 	</ul>
 	<!-- Since the selectors based on ID and it seems duplicates cause an error -->
 	<ul id="quizdropdown" class="dropdown-content">
-		<li><a href="{{ url_for('quiz') }}" >All Categories</a></li>
+		<li><a href="{{ url_for('display') }}" >All Categories</a></li>
 		<li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
 		<li><a href="{{ url_for('categorywise', category='physics') }}">Physics</a></li>
 		<li><a href="{{ url_for('categorywise', category='chemistry') }}">Chemistry</a></li>
@@ -90,7 +90,7 @@
 				<li><a  class="" href="{{ url_for('home') }}">Home</a></li>
 				<li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
 				<li><a class="" href="{{ url_for('submit') }}">Add Questions</a></li>
-				<li><a  class="" href="{{ url_for('preview') }}">Edit questions</a></li>
+				<li><a  class="" href="{{ url_for('editquestions') }}">Edit questions</a></li>
 				{% if not current_user.name %}
 					
 					<li><a  class="black-text" href="{{ url_for('login') }}">Login</a></li>
@@ -106,7 +106,7 @@
 				<li><a href="{{ url_for('home') }}">Home</a></li>
 				<li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
 				<li><a href="{{ url_for('submit') }}">Add Questions</a></li>
-				<li><a href="{{ url_for('preview') }}">Edit Questions</a></li>
+				<li><a href="{{ url_for('editquestions') }}">Edit Questions</a></li>
 				{% if not current_user.name %}
 					<li><a href="{{ url_for('login') }}">Login</a></li>
 					<li><a href="{{ url_for('register') }}">Register</a></li>
@@ -121,7 +121,6 @@
 </div>
 {% endblock %}
 {% block content %}
-
 
 
 <div class="mhead">List Of Questions</div>

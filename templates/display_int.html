@@ -51,7 +51,7 @@
 
 <!-- Dropdown Structure -->
 <ul id="quizdropdown" class="dropdown-content">
-    <li><a href="{{ url_for('quiz') }}">All Catgories</a></li>
+    <li><a href="{{ url_for('display') }}">All Catgories</a></li>
     <li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
     <li><a href="{{ url_for('categorywise', category='physics') }}">physics</a></li>
     <li><a href="{{ url_for('categorywise', category='chemistry') }}">chemistry</a></li>
@@ -59,7 +59,7 @@
 </ul>
 <!-- Since the selectors based on ID and it seems duplicates cause an error -->
 <ul id="quizdropdown" class="dropdown-content">
-    <li><a href="{{ url_for('quiz') }}">All Catgories</a></li>
+    <li><a href="{{ url_for('display') }}">All Catgories</a></li>
     <li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
     <li><a href="{{ url_for('categorywise', category='physics') }}">physics</a></li>
     <li><a href="{{ url_for('categorywise', category='chemistry') }}">chemistry</a></li>
