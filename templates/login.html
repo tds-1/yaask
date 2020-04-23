@@ -121,37 +121,27 @@
                     </div>
                     
             </div>
-            <div class="reg col s12 m3">
-                <div class="row"></div>
-                <div class="row"></div>
-                <div class="row"></div>
-                Or
-            </div>
-
-            <div class="navbar reg col s12 m3">
- 
-
-                <div class="reg col s12">
-                    <a class="btn-text" href={{ url_for( 'oauth_authorize', provider='google' ) }}>
-                        <div class="google-btn">
-                            <div class="google-icon-wrapper">
-                                <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-                            </div>
-                            <p class="btn-text">
-                                <b>
-                                        Sign-in with google
-                                    <!-- </a> -->
-                                </b>
-                            </p>
+            
+            <div class="reg col s12 m6">
+                <a class="btn-text" href={{ url_for( 'oauth_authorize', provider='google' ) }}>
+                    <div class="google-btn">
+                        <div class="google-icon-wrapper">
+                            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
                         </div>
-                    </a>
-                </div>
-                <div class="reg col s12">
-                    Or
-                </div>
-                <a href="/register" class="bounce">
-                    Register
+                        <p class="btn-text">
+                            <b>
+                                Sign-in with google
+                                <!-- </a> -->
+                            </b>
+                        </p>
+                    </div>
                 </a>
+            
+                <div class="row">OR</div>
+                <a href="/register" class="bounce">
+                    New User?
+                </a>
+                
             </div>
         </div>
 

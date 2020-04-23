@@ -96,7 +96,7 @@
     <div class="header"><a href="/">Yaask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Labs&nbsp;&nbsp;&nbsp;</a></div>
     <div class="mhead">Register</div>
     <div class="mcontent row">
-        <div class="col s8 m6">
+        <div class="col s12 m6">
             <form action="" method='POST'>
                 {{ form.csrf_token }}
                 <div class="row">
@@ -190,48 +190,29 @@
                 </div>
             </form>
         </div>
-        <div class="reg col s12 m3">
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            Or
-        </div>
-        <div class="navbar reg col s12 m3">
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="row"></div>
-            <div class="reg col s12">
-                <a class="btn-text" href={{ url_for( 'oauth_authorize', provider='google' ) }}>
-                    <div class="google-btn">
-                        <div class="google-icon-wrapper">
-                            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-                        </div>
-                        <p class="btn-text">
-                            <b>
-                                    Sign-in with google
-                                <!-- </a> -->
-                            </b>
-                        </p>
+        <div class="reg col s12 m6">
+            <a class="btn-text" href={{ url_for( 'oauth_authorize', provider='google' ) }}>
+                <div class="google-btn">
+                    <div class="google-icon-wrapper">
+                        <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
                     </div>
-                </a>
-            </div>
-            <div class="reg col s12">
-                Or
-            </div>
+                    <p class="btn-text">
+                        <b>
+                                Sign-in with google
+                            <!-- </a> -->
+                        </b>
+                    </p>
+                </div>
+            </a>
+            <div class="row"></div>
+            <div class="row">OR</div>
+            <div class="row"></div>
             <a href="/login" class="bounce">
-                Login
+                Already registered?
             </a>
         </div>
     </div>
 </div>
-<br>
-<br>
 <br>
 <br>
 

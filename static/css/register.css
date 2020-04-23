@@ -1,13 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz|Bangers");
 html,body{
-    height: 100vh;
     margin : 0px;
     padding: 0px;			
     background : linear-gradient(45deg,indigo -100%,#131313);
 }
 .container{
     
-    height: 90vh;			
     display : grid;
     grid-template-rows : 15vh 8vh auto 8vh auto 12vh;
     grid-template-columns : 10vw 80vw 10vw; 
@@ -73,11 +71,27 @@ button{
     height : 8vh;
 }
 .navbar>a{
+    /* border : 1px dashed white; */
+    text-decoration: none;
+    font-size : 4vmin;
+    /* line-height : 5vmin; */
+    /* height : 5vmin; */
+    padding : 1vh 2vw 1vh 2vw;
+    cursor : pointer;
+    /* border: 1px dashed white; */
+    color: yellow;
+    text-decoration: none;
+    transition :  100ms;
+    font-family : 'Bangers',sans-serif !important;
+}	
+.bounce{
+    line-height: 0;
+    box-sizing: content-box!important;
     border : 1px dashed white;
     text-decoration: none;
     font-size : 4vmin;
-    line-height : 5vmin;
-    height : 5vmin;
+    /* line-height : 5vmin; */
+    /* height : 5vmin; */
     padding : 1vh 2vw 1vh 2vw;
     cursor : pointer;
     border: 1px dashed white;
@@ -85,7 +99,7 @@ button{
     text-decoration: none;
     transition :  100ms;
     font-family : 'Bangers',sans-serif !important;
-}	
+}
 .reg{
     
     font-family : 'Bangers',sans-serif;
@@ -97,7 +111,6 @@ button{
     
 }
 .reg a{
-    height: 8vmin;
     padding: 2vh 4vw;			
     font-family : 'Bangers',sans-serif !important;
 }
