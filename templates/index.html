@@ -52,20 +52,21 @@
 	<div class="container">
 		<div class="logo"><canvas class="fadeIn"></canvas></div>
 		<div class="name">Yaask Labs</div>
-		<div class="navbar">
-			{% if current_user.name %}
+		{% if current_user.name %}
+		<div class="navbar1" >
 			<a href="/about" class='bounce'>About</a>
 			<a href="/display" class="bounce">Display Questions</a>
 			<a href="/submit" class="bounce">Add Questions</a>
 			<a href="/test" class="bounce">Create Test</a>
 			<a href="/logout" class='bounce'>Logout</a>
-
-			{% else %}
+		</div>
+		{% else %}
+		<div class="navbar">
 			<a href="/about" class="bounce">About</a>
 			<a href="/login" class="bounce">Login</a>
 			<a href="/register" class="bounce">Register</a>
-			{% endif %}
 		</div>
+		{% endif %}
 	</div>
 	<div class="foot">
 		<a class="uncolour" href="#">Contact Us</a></li>

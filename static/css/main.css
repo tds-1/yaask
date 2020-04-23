@@ -30,18 +30,32 @@ html,body{
     align-self : flex-start;
 }
 .navbar{
-    grid-row : 4 / 5;
-    display:flex;
-    flex-direction: row;
-    width:100vw;
-    height : 8vh;
-    justify-content:space-around;
-    align-items: center;
-    z-index: 2;
-    font-size: 3vh;
-    line-height: 8vh;
-    font-family: 'Bangers', sans-serif;
-    text-align: center;
+  grid-row : 4 / 5;
+  display:flex;
+  flex-direction: row;
+  width:100vw;
+  height : 8vh;
+  justify-content:space-around;
+  align-items: center;
+  z-index: 2;
+  font-size: 3vh;
+  line-height: 8vh;
+  font-family: 'Bangers', sans-serif;
+  text-align: center;
+}
+.navbar1{
+  grid-row : 4 / 5;
+  display:inline;
+  flex-direction: row;
+  width:100vw;
+  height : 8vh;
+  justify-content:space-around;
+  align-items: center;
+  z-index: 2;
+  font-size: 3vh;
+  line-height: 8vh;
+  font-family: 'Bangers', sans-serif;
+  text-align: center;
 }
 .navbar>a
 {
@@ -54,6 +68,19 @@ html,body{
     transition :  100ms;
 }
 .navbar>a:hover{
+    background : #131313;
+}
+.navbar1>a
+{
+    padding: 0 2vw 0 2vw;
+    transition : 3s;
+    cursor : pointer;
+    border: 1px dashed white;
+    color: yellow;
+    text-decoration: none;
+    transition :  100ms;
+}
+.navbar1>a:hover{
     background : #131313;
 }
 
@@ -81,22 +108,40 @@ html,body{
     }
 
     .navbar{
-        grid-row : 2 / 3;
-        display:flex;
-        flex-direction: column;
-        justify-items: center;
-        height : 100%;
-        width : 100%;
-        font-size: 5vh;
-        align-content: space-around;
-    }
+      grid-row : 2 / 3;
+      display:flex;
+      flex-direction: column;
+      justify-items: center;
+      height : 100%;
+      width : 100%;
+      font-size: 5vh;
+      align-content: space-around;
+  }
 
-    .navbar>a{
-        width : 60%;
-        height : 10vh;
-        line-height: 10vh;
-        justify-self: center;
-    }
+  .navbar>a{
+      width : 60%;
+      height : 10vh;
+      line-height: 10vh;
+      justify-self: center;
+  }
+
+  .navbar1{
+    grid-row : 2 / 3;
+    display:flex;
+    flex-direction: column;
+    justify-items: center;
+    height : 100%;
+    width : 100%;
+    font-size: 5vh;
+    align-content: space-around;
+}
+
+.navbar1>a{
+    width : 60%;
+    height : 10vh;
+    line-height: 10vh;
+    justify-self: center;
+}
 
 
 }
