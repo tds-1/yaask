@@ -87,14 +87,13 @@ button{
 .bounce{
     line-height: 0;
     box-sizing: content-box!important;
-    border : 1px dashed white;
     text-decoration: none;
     font-size : 4vmin;
     /* line-height : 5vmin; */
     /* height : 5vmin; */
     padding : 1vh 2vw 1vh 2vw;
     cursor : pointer;
-    border: 1px dashed white;
+    /* border: 1px dashed white; */
     color: yellow;
     text-decoration: none;
     transition :  100ms;
