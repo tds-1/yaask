@@ -8,7 +8,7 @@ html,body{
 
 .container{
     display : grid;
-    grid-template-rows: 1vh 55vh 15vh 10vh;
+    /* grid-template-rows: 1vh 55vh 15vh 10vh; */
     grid-row-gap: 2vh; 
     align-items : center;
     justify-content: center;

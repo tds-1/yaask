@@ -141,7 +141,6 @@
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				
 				<li><a  class="" href="{{ url_for('home') }}">Home</a></li>
-				<li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
 				<li><a class="" href="{{ url_for('submit') }}">Add Questions</a></li>
 				<li><a  class="" href="{{ url_for('editquestions') }}">Edit questions</a></li>
 				{% if not current_user.name %}
@@ -157,7 +156,6 @@
 			<ul id="mobile-demo" class="side-nav">
 				
 				<li><a href="{{ url_for('home') }}">Home</a></li>
-				<li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
 				<li><a href="{{ url_for('submit') }}">Add Questions</a></li>
 				<li><a href="{{ url_for('editquestions') }}">Edit Questions</a></li>
 				{% if not current_user.name %}

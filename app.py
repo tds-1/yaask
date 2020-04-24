@@ -118,6 +118,7 @@ def about():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+	error=""
 	if current_user is not None and current_user.is_authenticated():
 		return redirect(url_for('home'))
 	form = LoginForm(request.form)
@@ -129,11 +130,11 @@ def login():
 				flash('You have been logged in.')
 				return redirect(url_for('home'))
 			else:
-				error = 'Invalid Credentials, try again'
+				error = '* Invalid Credentials, try again'
 		else:
-			error = 'Invalid Credentials, try again'
+			error = '* Invalid Credentials, try again'
 			render_template('login.html', form=form, error=error)
-	return render_template('login.html', form=form)
+	return render_template('login.html', form=form, error=error)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
