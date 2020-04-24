@@ -100,7 +100,7 @@
             <form action="" method='POST'>
                 {{ form.csrf_token }}
                 <div class="row">
-                    <div class="input-field col s12">
+                        <div class="input-field col s12">
                         <i class="material-icons prefix" style="font-size: 2.0rem!important;">sentiment_satisfied</i>
                         <label for="name">Name:</label>
                         {{ form.name(placeholder="What you are called on documents") }}
@@ -187,6 +187,7 @@
                 <div class="valign-wrapper">
                     <button class="btn  valign  waves-effect waves-light" type="submit">Register!<i
                             style="padding-left: 20px;" class="material-icons">send</i></button>
+                    {{error}}
                 </div>
             </form>
         </div>

@@ -83,8 +83,7 @@ def oauth_callback(provider):
 		return redirect(url_for('home'))
 
 	# Look if the user already exists
-	que=User.query.filter(User.username == email).first()
-	print (que)
+	que=User.query.filter(User.email == email).first()
 	email=str(email)
 	if( que is None):
 		user = User(
@@ -130,15 +129,16 @@ def login():
 				flash('You have been logged in.')
 				return redirect(url_for('home'))
 			else:
-				error = '* Invalid Credentials, try again'
+				error = ' * Invalid Credentials'
 		else:
-			error = '* Invalid Credentials, try again'
+			error = ' * Invalid Credentials'
 			render_template('login.html', form=form, error=error)
 	return render_template('login.html', form=form, error=error)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 	form = RegisterForm()
+	error=""
 	if request.method == 'POST':
 		if form.validate_on_submit():
 			user = User(
@@ -149,15 +149,19 @@ def register():
 				password=form.password.data,
 				score=0
 			)
-			db.session.add(user)
-			db.session.commit()
-			login_user(user)
-			flash('You been registered and logged in')
-			return redirect(url_for('home'))
+			que=User.query.filter(User.email == user.email).first()
+			quee=User.query.filter(User.username == user.username).first()
+			if(que is not None):
+				error=" * email already registered"
+			elif(quee is not None):
+				error=" * username already taken"
+			else:
+				db.session.add(user)
+				db.session.commit()
+				login_user(user)
+				return redirect(url_for('home'))
 
-	logout_user()
-	flash('You have been logged out')
-	return render_template('register.html', form=form)
+	return render_template('register.html', form=form, error=error)
 
 @app.route('/logout')
 @login_required
