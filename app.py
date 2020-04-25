@@ -234,14 +234,54 @@ def submit():
 @app.route('/display', methods=['GET', 'POST'])
 @login_required
 def display():
+	page=request.args.get('page')
+	pg=page
+	if(page is None):
 		questions_to_display = Questions.query.filter().all()
-		for question in questions_to_display:
-			x=question.question
-			x=x.replace("{tex}","\[")
-			x=x.replace("{/tex}","\]")
-			question.question=x
-			# print (question.question)
-		return render_template('display.html', questions_to_display=questions_to_display, cat="All")
+		limit= len(questions_to_display)/20
+		questions_to_display=questions_to_display[0:20]
+		return render_template('display.html', questions_to_display=questions_to_display, cat="All", pg=1,limit=limit)
+	else:
+		questions_to_display = Questions.query.filter().all()
+		limit= len(questions_to_display)/20
+		page=int(page)
+		page-=1
+		page*=20
+		questions_to_display=questions_to_display[page:page+20]
+		return render_template('display.html', questions_to_display=questions_to_display, cat="All", pg = pg, limit=limit)
+
+
+@app.route('/display/<string:category>')
+@login_required
+def categorywise(category):
+	categoryList = ['math',
+		'chemistry',
+		'physics',
+		'biology',
+		'other',]
+	page=request.args.get('page')
+	pg=page
+	if category in categoryList:
+		if(page is None):
+			questions_to_display = Questions.query.filter().filter( Questions.category == category ).all()
+			limit= len(questions_to_display)/20
+			questions_to_display=questions_to_display[0:20]
+			return render_template('display.html', questions_to_display=questions_to_display, cat=category, pg=1,limit=limit)
+		else:
+			questions_to_display = Questions.query.filter().filter( Questions.category == category ).all()
+			limit= len(questions_to_display)/20
+			questions_to_display=questions_to_display[0:20]
+			return render_template('display.html', questions_to_display=questions_to_display, cat=category, pg=1,limit=limit)
+			page=int(page)
+			page-=1
+			page*=20
+			questions_to_display=questions_to_display[page:page+20]
+			return render_template('display.html', questions_to_display=questions_to_display, cat=category, pg=pg,limit=limit)
+			
+	else:
+		questions_to_display = Questions.query.filter().all()
+		flash('Please enter a url where the category is any one of' + str(categoryList))
+		return redirect(url_for('display.html', questions_to_display=questions_to_display))
 
 @app.route('/editquestions', methods=['GET', 'POST'])
 @login_required
@@ -259,40 +299,6 @@ def editquestions():
 		return render_template('individual_questions.html', questions_to_display=questions_to_display)
 
 
-
-@app.route('/display/<string:category>')
-@login_required
-def categorywise(category):
-	categoryList = ['math',
-		'chemistry',
-		'physics',
-		'biology',
-		'other',]
-	if category in categoryList:
-		form = QuizForm()
-		if current_user.answered is None:
-			current_user.answered = dumps([])
-			db.session.commit()
-
-		alreadyAns = loads(current_user.answered)
-		#Check the questions to display
-		questions_to_display = Questions.query.filter().filter( Questions.category == category ).all()
-
-		if len(questions_to_display) is 0:
-			flash("We're so sorry but it seems that there are no questions on this topic")
-		return render_template('display.html', questions_to_display=questions_to_display, cat=category)
-	else:
-		form = QuizForm()
-		if current_user.answered is None:
-			current_user.answered = dumps([])
-			db.session.commit()
-
-
-		alreadyAns = loads(current_user.answered)
-		#Check the questions to display
-		questions_to_display = Questions.query.filter().all()
-		flash('Please enter a url where the category is any one of' + str(categoryList))
-		return redirect(url_for('display.html', questions_to_display=questions_to_display, catergory = category))
 
 @app.route('/score')
 @login_required

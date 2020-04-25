@@ -87,6 +87,7 @@ class Test(db.Model):
 	testid = db.Column(db.Integer, primary_key=True)
 	creatorid = db.Column(db.Integer, nullable=False)
 	selected = db.Column(db.PickleType)
+	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
 	def __init__(self, creatorid, selected):
 		self.creatorid = creatorid

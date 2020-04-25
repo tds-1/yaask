@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -37,8 +38,36 @@
 		padding: 0 15px;
 	}
 	a{
-		color: #1a0dab;;
+		color: #1a0dab;
 	}
+	.ans{
+		margin-top: 1vh; 
+		margin-bottom: 1vh; 
+	}
+	.rightbu{
+		margin: 0 2vw 2vh 2vw;
+		float: right;
+	}
+	.left{
+		margin: 0 2vw 2vh 2vw;
+	}
+
+	.nav{
+		z-index: 99; /* Make sure it does not overlap */
+		border: none; /* Remove borders */
+		outline: none; /* Remove outline */
+		background-color: #F44336 ; /* Set a background color */
+		color: white; /* Text color */
+		cursor: pointer; /* Add a mouse pointer on hover */
+		padding: 8px 20px; /* Some padding */
+		border-radius: 10px; /* Rounded corners */
+		font-size: 18px; /* Increase font size */
+	}
+	.a1:first-child{
+		margin-top:5vh;
+	}
+
+
 </style>
 <!-- Required for the page -->
 <title>Display Questions| Yaask labs</title>
@@ -121,12 +150,23 @@
 {% endblock %}
 
 {% block content %}
-<button onclick="topFunction()" id="myBtn" title="Go to top" class="black-text"><i class="material-icons">arrow_upward</i></button>
+<!-- <button onclick="topFunction()" id="myBtn" title="Go to top" class="black-text"><i class="material-icons">arrow_upward</i></button> -->
 
 
 <div class="mhead">List Of Questions</div>
 <h6>{{cat}} category question are displayed below</h6>
 <br>
+{% if pg|int>1 %}
+<a href="/display?page={{pg|int-1|int}}" style="padding: 10px;">
+	<button class="nav left"> <i class="fa fa-angle-left" style="padding-right:1vmin;"></i>Previous Page</button>
+</a>
+{% endif %}
+{% if pg|int<=limit %}
+
+<a href="/display?page={{pg|int+1|int}}" style="padding: 10px;">
+	<button class="nav rightbu">Next Page<i class="fa fa-angle-right" style="padding-left:1vmin;"></i> </button>
+</a>
+{% endif %}
 <form action="" method='POST'>
 	{% for question_to_display in questions_to_display %}
 	<div class="a1">
@@ -174,8 +214,21 @@
 	</div>
 	<br>
 	{% endfor %}
-	
 </form>
+{% if pg|int>1 %}
+<a href="/display?page={{pg|int-1|int}}" style="padding: 10px;">
+	<button class="nav left"> <i class="fa fa-angle-left" style="padding-right:1vmin;"></i>Previous Page</button>
+</a>
+{% endif %}
+{% if pg|int<=limit %}
+
+<a href="/display?page={{pg|int+1|int}}" style="padding: 10px;">
+	<button class="nav rightbu">Next Page<i class="fa fa-angle-right" style="padding-left:1vmin;"></i> </button>
+</a>
+{% endif %}
+<br>
+<br>
+<br>
 <script>
 	mybutton = document.getElementById("myBtn");
 
