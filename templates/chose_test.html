@@ -18,14 +18,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
     <!-- Site CSS -->
-    <link rel="stylesheet" href="{{url_for('static',filename='../static/css/style.css') }}">
     <!-- Responsive CSS -->
-    <link rel="stylesheet" href="{{url_for('static',filename='../static/css/css/responsive.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- JQUERY import -->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="{{ url_for('static', filename='jquery.min.js') }}">\x3C/script>')</script>
+    <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='jquery.min.js') }}">\x3C/script>')</script>
 
 
 	<!-- Materialize -->
@@ -35,23 +34,210 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-	<style>
-	.brand-logo{
-		padding-left: 10px;
-	}
-	img#giticon {
-		padding-right: 5px;
-		height: 25px;
-		width: 25px;
-	}
-	img#giticon.hover {
-		opacity: 0.9;
-	}
-	#crown {
-		height: 20px;
-		width: 20px;
-	}
+    
+    <style>
 
+        @import url("https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz|Bangers|Patrick+Hand");
+        html,body{
+            margin-top : 40px ;
+            
+            height : 90vh;	
+            background : radial-gradient(indigo -100% ,#131313);	
+                    
+        }
+
+        .mhead{
+            grid-row : 2 / 3;
+            grid-column : 2 / 3;
+            font-size : 5vh;
+            line-height : 5vh;
+            background : yellow;
+            color: #131313;
+            text-align: center;
+            font-family : 'Bangers',sans-serif;	
+        }
+        .brand-logo{
+            padding-left: 10px;
+            font-family : 'Bangers',sans-serif;	
+            margin: 0px 2vw;
+        }
+        img#giticon {
+            padding-right: 5px;
+            height: 25px;
+            width: 25px;
+        }
+        img#giticon.hover {
+            opacity: 0.9;
+        }
+        #crown {
+            height: 20px;
+            width: 20px;
+        }    
+        
+        ul{
+            font-family : 'Yanone Kaffeesatz',sans-serif;
+            font-size: 3em;
+            padding-right: 2vh;
+        }
+        
+        .navigation{
+            
+            position: fixed;
+            top: 0;
+            z-index: 1;
+            width: 100%;
+        }
+        @media only screen and (max-width: 1000px) {
+            html,body{
+                margin-top: 0px;
+            }
+            .navigation{
+                position: static;
+                margin-bottom: 3vh;
+            }
+            
+        }
+
+        #myBtn {
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixed/sticky position */
+            bottom: 20px; /* Place the button at the bottom of the page */
+            right: 30px; /* Place the button 30px from the right */
+            z-index: 99; /* Make sure it does not overlap */
+            border: none; /* Remove borders */
+            outline: none; /* Remove outline */
+            background-color: yellow; /* Set a background color */
+            color: white; /* Text color */
+            cursor: pointer; /* Add a mouse pointer on hover */
+            padding: 15px; /* Some padding */
+            border-radius: 10px; /* Rounded corners */
+            font-size: 18px; /* Increase font size */
+            }
+
+            #myBtn:hover {
+            background-color: #555; /* Add a dark-grey background on hover */
+            }
+
+        h6{
+            font-family : 'Yanone Kaffeesatz',sans-serif;
+            color: white;
+            margin: 2vh 2vw;
+            text-align: center;
+        }
+
+        .content{
+            font-family : 'Yanone Kaffeesatz',sans-serif;
+            color: white;
+            margin: 2vh 1vw;
+            padding: 2vh 1vw;
+            font-size: 1.2em;
+            padding-bottom:20px;		
+        }
+        form{
+            font-size: 1em;
+            font-family:'Patrick Hand', sans-serif;		
+        }
+        
+        .side-nav{
+            font-family : 'Bangers',sans-serif;		
+            height: 100%;
+            background-color: floralwhite;	
+        }
+        .side-nav li{
+            width: 100%;
+            margin-right: 0;
+        }
+        .side-nav li a{
+            width: 100%;
+            margin-right: 0;
+        }
+        a{
+            color: white;;
+        }
+        a:hover{
+            text-decoration: none !important;
+            color: white ;
+        }
+        
+        .hov:hover{
+            color: black !important;
+
+        }
+        button{
+            font-family : 'Bangers',sans-serif !important;
+            background-color: #F44336 !important;
+            border: none;
+        }
+        
+        a.uncolour{
+            color: white;
+        }
+
+        a.uncolour:hover{
+            color: grey;
+        }
+
+        
+
+        .valign-wrapper{
+            margin-top: 5vh;
+        }
+
+        .foot{
+            background-color : black !important;
+            position: fixed;			
+            bottom: 0;
+            padding: 1vmin;
+            margin-top: 2vmin;
+            font-family : 'Bangers',sans-serif;	
+            width: 100vw;
+            z-index: 1;	
+        }
+
+        .foot a{
+            padding: 0px 1vmin;
+        }
+
+        .reg{      
+            padding:2vw;       	
+            align-items: center;			
+            margin: auto;
+            
+        }
+
+        .extra{
+            line-height: 10px !important;
+            margin-top: 2vh;
+
+        }
+
+        .card-action{
+            background-color: rgb(200, 200, 234);
+        }
+
+        .card-action a{
+            color:black !important;
+            font-size: 1.5em;
+            font-family: 'Bangers',sans-serif;
+        }
+
+        .card-action a:hover{
+            color:floralwhite !important;
+        }
+        nav ul a {
+            font-size: 1.4rem;
+            color: #fff;
+            display: block;
+            padding: 0 15px;
+        } 
+        .text {
+
+            text-align: center;
+            font-size: x-large;
+            font-family: 'Bangers',sans-serif !important;
+            color: yellow;
+
+        }
 	</style>
 
 	<script type='text/javascript'>
@@ -61,7 +247,7 @@
     		$('.collapsible').collapsible({
       		accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     		});
-    		$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    		$SCRIPT_ROOT = "";
     		$(".button-collapse").sideNav();
     		$('select').material_select();
   		});
@@ -71,45 +257,168 @@
 </head>
 <body id="page-top" class="politics_version">
 
-
-    <nav class="#448aff teal accent-4">
-        <div class="nav-wrapper">
-            <a href="{{ url_for('home') }}" class="brand-logo">Quiz Engine</a>
-            <a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li > <a>Hello, {{current_user.name}}</a></li>
-                <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
-                {% if current_user.name %}
-                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                {% else %}
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
-                    <li><a href="{{ url_for('register') }}">Register</a></li>
-                {% endif %}
-            </ul>
-            <ul id="mobile-demo" class="side-nav">
-                <li > <a>Hello, {{current_user.name}}</a></li>
-                <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
-                {% if current_user.name %}
-                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                {% else %}
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
-                    <li><a href="{{ url_for('register') }}">Register</a></li>
-                {% endif %}
-            </ul>
+    <div class="navigation">
+        <ul id="quizdropdown" class="dropdown-content">
+            <li><a href="{{ url_for('display') }}" >All Categories</a></li>
+            <li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
+            <li><a href="{{ url_for('categorywise', category='physics') }}">Physics</a></li>
+            <li><a href="{{ url_for('categorywise', category='chemistry') }}">Chemistry</a></li>
+            <li><a href="{{ url_for('categorywise', category='biology') }}">Biology</a></li>
+            <li><a href="{{ url_for('categorywise', category='other') }}">Others</a></li>
+        </ul>
+        <!-- Since the selectors based on ID and it seems duplicates cause an error -->
+        <ul id="quizdropdown" class="dropdown-content">
+            <li><a href="{{ url_for('display') }}" >All Categories</a></li>
+            <li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
+            <li><a href="{{ url_for('categorywise', category='physics') }}">Physics</a></li>
+            <li><a href="{{ url_for('categorywise', category='chemistry') }}">Chemistry</a></li>
+            <li><a href="{{ url_for('categorywise', category='biology') }}">Biology</a></li>
+            <li><a href="{{ url_for('categorywise', category='other') }}">Others</a></li>
+        </ul>
+    
+        <ul id="user-dropdown" class="dropdown-content">
+            <li><a href="#" >Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="{{ url_for('logout')}}">Logout</a></li>
+            
+        </ul>
+        <!-- Since the selectors based on ID and it seems duplicates cause an error -->
+        <ul id="user-dropdown" class="dropdown-content">
+            <li><a href="#" >Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="{{ url_for('logout')}}">Logout</a></li>
+            
+        </ul>
+        <nav class="#4a148c purple darken-4">
+            <div class="nav-wrapper black-text">
+                <a href="{{ url_for('home') }}" class="brand-logo">Yaask <img src="{{url_for('static',filename='../static/assets/yaask.png') }}" style="width: 25px;"> Labs</a>
+                <a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    
+                    <li><a  class="" href="{{ url_for('home') }}">Home</a></li>
+                    <!-- <li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="" href="{{ url_for('submit') }}">Add Questions</a></li>
+                    <li><a  class="" href="{{ url_for('editquestions') }}">Edit questions</a></li> -->
+                    {% if not current_user.name %}
+                        
+                        <li><a  class="black-text" href="{{ url_for('login') }}">Login</a></li>
+                        <li><a  class="black-text" href="{{ url_for('register') }}">Regiser</a></li>
+                    {% else %}
+                        <li><a class="dropdown-button" href="" data-activates="user-dropdown">Hi, {{current_user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                    {% endif %}
+                    
+                </ul>
+                
+                <ul id="mobile-demo" class="side-nav">
+                    
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <!-- <li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a href="{{ url_for('submit') }}">Add Questions</a></li>
+                    <li><a href="{{ url_for('editquestions') }}">Edit Questions</a></li> -->
+                    {% if not current_user.name %}
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                        <li><a href="{{ url_for('register') }}">Register</a></li>
+                    {% else %}
+                        <li><a class="dropdown-button black-text" href="" data-activates="user-dropdown">Hi, {{current_user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
+    
+                    {% endif %}
+                    
+                </ul>
+            </div>
+        </nav>
+    </div>   
+    
+    <div class="container">   
+        <div class="content">
+            <div class="row">
+                <div class="col s12 m6">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">                  
+                    <p>Share URL for the online test to the students: testcode #{{testid}}: </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="/online_test?id={{testid}}">&nbsp; www.yaask.in/online_test?id={{testid}}</a>                  
+                    </div>
+                </div>
+                </div>
+            </div>        
+            
+            <p class="text"> OR </p>
+            <div class="row">
+                <div class="col s12 m6 ">
+                    <form action="/print_test" method="POST">
+                        {{ form.csrf_token }}
+                        <div class="row">
+                            <div class="input-field col s12">
+                                {{ form.name(placeholder="Test Name") }}
+                                <label class="active" for="name">Test Name:</label>
+                                <span class="error">
+                                    {% if form.name.errors %}
+                                    {% for error in form.question.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                {{ form.time(placeholder="Total Time in minutes") }}
+                                <label class="active" for="time">Total Time in minutes:</label>
+                                <span class="error">
+                                    {% if form.time.errors %}
+                                    {% for error in form.question.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                {{ form.institution(placeholder="institution Name") }}
+                                <label class="active" for="institution">institution:</label>
+                                <span class="error">
+                                    {% if form.institution.errors %}
+                                    {% for error in form.question.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="valign-wrapper">
+                            If you want to print the test:  &nbsp; &nbsp;
+                            <button type="submit" class="white-text hov">
+                                Click here<i class="fa fa-paper-plane" aria-hidden="true" style="padding-left:1vmin;"></i>
+                            </button> 
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
         </div>
-    </nav>
-    <div style="  margin: auto;
-    width: 100%;
-    border: 3px solid green;
-    padding: 10px;
-    height: 100%;
-    align-content: center;" 
-    >
-        Share URL for the online test to the students: testcode #{{testid}}:
-        <a href="/online_test?id={{testid}}">www.yaask.in/online_test?id={{testid}}</a> 
-        </br>
-        </br>
-        If you want to print the test: <a href="/print_test">    <button>Click here </button> </a>
     </div>
+        
+        
+
+    <div class="foot">	             
+        <a class="uncolour" href="#">Terms and Conditions</a></li>
+        <a class="uncolour" href="#">Contact Us</a></li>
+        <div class="right">
+            <a class="uncolour" href="#"><i class="fa fa-lg fa-facebook-square"></i></a>								
+            <a class="uncolour" href="#"><i class="fa fa-lg fa-twitter-square"></i></a>
+            <a class="uncolour" href="#"><i class="fa fa-lg fa-instagram"></i></a>
+            <a class="uncolour" href="#"><i class="fa fa-lg fa-youtube-play"></i></a>
+        </div>			
+        
+    </div>
+    <script>   
+
+    $(document).ready(function(){
+        $('.datepicker').datepicker();
+    });
+    </script>
 </body>
 </html>

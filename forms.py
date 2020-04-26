@@ -79,3 +79,8 @@ class QuizForm(Form):
 		choices=[('option1', 'A'), ('option2', 'B'), ('option3', 'C'), ('option4', 'D')],
 		validators=[DataRequired()]
 	)
+
+class GenerateForm(Form):
+	name = TextField('option1', validators=[DataRequired()])
+	time = IntegerField('option1', validators=[DataRequired()])
+	institution = TextField('option1', validators=[DataRequired()])

@@ -10,7 +10,7 @@ from flask_weasyprint import HTML, render_pdf
 import json
 from os import environ
 from flask_ckeditor import CKEditor, CKEditorField
-from forms import LoginForm, RegisterForm, SubmitForm, QuizForm, SubmitForm2
+from forms import LoginForm, RegisterForm, SubmitForm, QuizForm, SubmitForm2, GenerateForm
 from auth import OAuthSignIn, GoogleSignIn
 import os
 
@@ -400,7 +400,8 @@ def generated_test():
 	testid=session.get('testid')
 	z=Test.query.filter(Test.testid==testid).one()
 	selected=z.selected
-	return render_template('chose_test.html',testid=testid)
+	form = GenerateForm()
+	return render_template('chose_test.html',testid=testid,form=form)
 
 
 @app.route('/online_test', methods=['GET','POST'])
@@ -463,7 +464,11 @@ def online_test():
 def print_test():
 	selected=session.get('selected')
 	questions_to_display = Questions.query.filter( Questions.questionid.in_(selected) ).all()
-	html= render_template("generate.html",questions_to_display=questions_to_display)
+	form= GenerateForm()
+	name=form.name.data.upper()
+	time=form.time.data
+	institution=form.institution.data.upper()
+	html= render_template("generate.html",questions_to_display=questions_to_display,name=name, time=time, institution=institution)
 	return render_pdf(HTML(string=html))
 
 #Starting the server with the run method
