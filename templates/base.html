@@ -62,8 +62,7 @@
 		<br>
 		<!-- Flashed Messages -->
 	</div>
-	{% block top %}
-
+	
 		<div class="foot">
 			<a class="uncolour" href="#">Terms and Conditions</a></li>
 			<a class="uncolour" href="#">Contact Us</a></li>
@@ -72,10 +71,12 @@
 				<a class="uncolour" href="#"><i class="fa fa-lg fa-twitter-square"></i></a>
 				<a class="uncolour" href="#"><i class="fa fa-lg fa-instagram"></i></a>
 				<a class="uncolour" href="#"><i class="fa fa-lg fa-youtube-play"></i></a>
+			</div>
+			{% block top %}
+			{% endblock %}
 		</div>
 
-	{% endblock %}
-
+	
 </body>
 
 </html>
