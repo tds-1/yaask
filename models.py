@@ -65,7 +65,7 @@ class Questions(db.Model):
 	tags = db.Column(db.PickleType)
 	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 	
-	def __init__(self, question, option1, option2, option3, option4, answer, creatorid, category, difficulty,question_score,comment):
+	def __init__(self, question, option1, option2, option3, option4, answer, creatorid, category, difficulty,question_score,comment,tags):
 		self.question = question
 		self.option1 = option1
 		self.option2 = option2
@@ -77,6 +77,7 @@ class Questions(db.Model):
 		self.difficulty = difficulty
 		self.question_score=question_score
 		self.comment=comment
+		self.tags=tags
 			
 	def __repr__(self):
 		return "<Question id is %s and creatorid is %s" % (self.questionid, self.creatorid)

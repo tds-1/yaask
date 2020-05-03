@@ -178,6 +178,8 @@ def submit():
 		form1= SubmitForm2()
 		if form1.validate_on_submit():
 			print ("idhr")
+			tags=request.form.getlist('select_tag')
+			print(tags)
 			questiondata = Questions(
 				question=form1.question1.data,
 				option1=-1,
@@ -190,6 +192,7 @@ def submit():
 				difficulty=form1.difficulty1.data,
 				question_score=0,
 				comment=form1.comment1.data,
+				tags=tags,
 			)
 			x=questiondata.question
 			x=x.replace("{tex}","\[")
@@ -202,6 +205,8 @@ def submit():
 			
 		if form.validate_on_submit():
 			print ("udhr")
+			tags=request.form.getlist('select_tag')
+			print(tags)
 			questiondata = Questions(
 				question=form.question.data,
 				option1=form.option1.data,
@@ -214,6 +219,7 @@ def submit():
 				difficulty=form.difficulty.data,
 				question_score=0,
 				comment=form.comment.data,
+				tags=tags,
 			)
 			x=questiondata.question
 			x=x.replace("{tex}","\[")
@@ -224,7 +230,6 @@ def submit():
 			
 			db.session.add(questiondata)
 			db.session.commit()
-			print ("no error")
 			return render_template('display_mcq.html', question_to_display=questiondata)
 		return render_template('submit.html', form=form, form1=form1, users=getStandings())
 	except:

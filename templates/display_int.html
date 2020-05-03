@@ -118,6 +118,14 @@
             Correct Answer: {{question_to_display.answer}}
         </div>
     </div>
+    <div class="row">
+        <div class="col s12" >
+            Tags: {% for x in question_to_display.tags %}
+            {{x}},
+            {% endfor %}
+        </div>
+    </div>
+
     <br>
     <br>
 </div>
