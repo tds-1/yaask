@@ -231,7 +231,16 @@ def submit():
 			db.session.add(questiondata)
 			db.session.commit()
 			return render_template('display_mcq.html', question_to_display=questiondata)
-		return render_template('submit.html', form=form, form1=form1, users=getStandings())
+		f = open("tag.txt", "r")
+		x= (f.read())
+		ini=0
+		tag=[]
+		for i in range (0,len(x)):
+			if (x[i]=='\n'):
+				tag.append(x[ini:i])
+				ini=i+1
+		tag.append(x[ini:len(x)])
+		return render_template('submit.html', form=form, form1=form1, tag=tag)
 	except:
 		return redirect(url_for('login'))
 	

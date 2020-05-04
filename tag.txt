@@ -1,0 +1,48 @@
+Sets
+Relations and Functions
+Trigonometry
+Principle of mathematical induction
+Complex numbers
+Linear inequalities
+Permutations and Combinations
+Fundamental Principle of counting
+Permutations (nPr)
+Combinations (nCr)
+Permutations with Restrictions
+Circular permutations
+Pascal’s triangle form
+Combinatorial Form
+Term with given power of ‘x’
+AP (term)
+GP (term)
+AP (sum)
+GP (sum)
+Sum of infinite GP
+AGP
+Special Series
+Relation of AM and GM
+Slope
+Angle between two lines
+Point-slope form
+Slope-intercept form
+Two point form
+Intercept form
+Normal form
+Distance of point and line
+Distance between two lines
+Circle
+Ellipse
+Parabola
+Hyperbola
+Degenerate Cases
+Coordinates in 3D
+Distance Formula
+Section Formula
+Range
+Mean Deviation
+Variance and Standard Deviation
+Analyses
+Terms and Definitions
+Compound Events
+Statistical Probability
+Conditional Probability
