@@ -250,11 +250,21 @@ def submit():
 def display():
 	page=request.args.get('page')
 	pg=page
+	f = open("tag.txt", "r")
+	x= (f.read())
+	ini=0
+	tag=[]
+	for i in range (0,len(x)):
+		if (x[i]=='\n'):
+			tag.append(x[ini:i])
+			ini=i+1
+	tag.append(x[ini:len(x)])
+
 	if(page is None):
 		questions_to_display = Questions.query.filter().all()
 		limit= len(questions_to_display)/20
 		questions_to_display=questions_to_display[0:20]
-		return render_template('display.html', questions_to_display=questions_to_display, cat="All", pg=1,limit=limit)
+		return render_template('display.html', questions_to_display=questions_to_display, cat="All", pg=1,limit=limit,tag=tag)
 	else:
 		questions_to_display = Questions.query.filter().all()
 		limit= len(questions_to_display)/20
@@ -262,7 +272,7 @@ def display():
 		page-=1
 		page*=20
 		questions_to_display=questions_to_display[page:page+20]
-		return render_template('display.html', questions_to_display=questions_to_display, cat="All", pg = pg, limit=limit)
+		return render_template('display.html', questions_to_display=questions_to_display, cat="All", pg = pg, limit=limit,tag=tag)
 
 
 @app.route('/display/<string:category>')
