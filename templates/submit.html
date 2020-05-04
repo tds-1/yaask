@@ -94,8 +94,11 @@
 		opacity: 0;
 		pointer-events: none;
 	}
-	 .dropdown-content li.active{
+	.dropdown-content li.active{
 		background-color: brown;
+	}
+	.dropdown-content li.disabled {
+		background-color: transparent;
 	}
 </style>
 
@@ -339,9 +342,6 @@
 								{% for tag in tag %}
 									<option value="{{tag}}">{{tag}}</option>
 								{% endfor %}	
-								<option value="1">Option 1</option>
-								<option value="2">Option 2</option>
-								<option value="3">Option 3</option>
 							</select>
 							<label class="active tf" for="tags"> Select Tags</label>
 						
@@ -432,9 +432,6 @@
 								{% for tag in tag %}
 									<option value="{{tag}}">{{tag}}</option>
 								{% endfor %}	
-								<option value="1">Option 1</option>
-								<option value="2">Option 2</option>
-								<option value="3">Option 3</option>
 							</select>
 							<label class="active tf" for="tags"> Select Tags</label>
 						
