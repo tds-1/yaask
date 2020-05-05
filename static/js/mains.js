@@ -50,39 +50,7 @@ jQuery(document).ready(function($){
 		$(this).toggleClass('closed').siblings('.cd-filter-content').slideToggle(300);
 	})
 
-	//fix lateral filter and gallery on scrolling
-	$(window).on('scroll', function(){
-		(!window.requestAnimationFrame) ? fixGallery() : window.requestAnimationFrame(fixGallery);
-	});
 
-	function fixGallery() {
-		var offsetTop = $('.cd-main-content').offset().top,
-			scrollTop = $(window).scrollTop();
-		( scrollTop >= offsetTop ) ? $('.cd-main-content').addClass('is-fixed') : $('.cd-main-content').removeClass('is-fixed');
-	}
-
-	/************************************
-		MitItUp filter settings
-		More details: 
-		https://mixitup.kunkalabs.com/
-		or:
-		http://codepen.io/patrickkunka/
-	*************************************/
-
-	buttonFilter.init();
-	$('.cd-gallery ul').mixItUp({
-	    controls: {
-	    	enable: false
-	    },
-	    callbacks: {
-	    	onMixStart: function(){
-	    		$('.cd-fail-message').fadeOut(200);
-	    	},
-	      	onMixFail: function(){
-	      		$('.cd-fail-message').fadeIn(200);
-	    	}
-	    }
-	});
 
 	//search filtering
 	//credits http://codepen.io/edprats/pen/pzAdg

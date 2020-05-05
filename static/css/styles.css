@@ -82,9 +82,6 @@ Main Components
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
-.cd-main-content.is-fixed .cd-filter-trigger {
-  position: fixed;
-}
 
 /* -------------------------------- 
 
@@ -380,21 +377,6 @@ xfilter
   }
 }
 
-.cd-filter-trigger {
-  position: fixed;
-  top: 70px;
-  left: 0;
-  height: 50px;
-  line-height: 50px;
-  width: 60px;
-  /* image replacement */
-  overflow: hidden;
-  text-indent: 100%;
-  color: transparent;
-  white-space: nowrap;
-  background: transparent url("../img/cd-icon-filter.svg") no-repeat center center;
-  z-index: 3;
-}
 .cd-filter-trigger.filter-is-visible {
   pointer-events: none;
 }

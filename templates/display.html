@@ -154,14 +154,18 @@
 	</nav>
 </div>
 
-<main class="cd-main-content">
+<main class="cd-main-content is-fixed">
 
 {% endblock %}
 
 {% block content %}
 <!-- <button onclick="topFunction()" id="myBtn" title="Go to top" class="black-text"><i class="material-icons">arrow_upward</i></button> -->
+	
 	<div class="mhead">List Of Questions</div>
 	<h6>{{cat}} category question are displayed below</h6>
+	<a href="#0" class="cd-filter-trigger">
+		<button class="nav left">Filters<i class="material-icons right">filter_list</i> </button>
+	</a>
 	<br>
 
 	<section class="cd-gallery">
@@ -244,6 +248,8 @@
 	</section> <!-- cd-gallery -->
 
 	<div class="cd-filter">
+		<a href="#0" class="cd-close">Close</a>
+
 		<form>
 			<div class="cd-filter-block">
 				<h4>Check boxes</h4>
@@ -251,24 +257,25 @@
 				<ul class="cd-filter-content cd-filters list">
 					{% for tag in tag %}
 					<li>
-						<input class="filter" data-filter=".check1" type="checkbox" id="checkbox1">
-						<label class="checkbox-label" for="checkbox1">{{tag}}</label>
+						<input class="filter" data-filter=".check{{loop.index}}" type="checkbox" id="checkbox{{loop.index}}">
+						<label class="checkbox-label" for="checkbox{{loop.index}}">{{tag}}</label>
 					</li>
 					{% endfor %}
 					
 				</ul> <!-- cd-filter-content -->
+				</br>
+				</br>
+				</br>
 			</div> <!-- cd-filter-block -->
 
 		</form>
 
-		<a href="#0" class="cd-close">Close</a>
 	</div> <!-- cd-filter -->
 
-	<a href="#0" class="cd-filter-trigger">Filters</a>
 </main> <!-- cd-main-content -->
 
-<script src="{{url_for('static',filename='../static/js/jquery-2.1.1.js')}}"></script> <!-- Modernizr -->
-<script src="{{url_for('static',filename='../static/js/jquery.mixitup.min.js')}}"></script> <!-- Modernizr -->
+<!-- <script src="{{url_for('static',filename='../static/js/jquery-2.1.1.js')}}"></script> Modernizr -->
+<!-- <script src="{{url_for('static',filename='../static/js/jquery.mixitup.min.js')}}"></script> Modernizr -->
 <script src="{{url_for('static',filename='../static/js/mains.js')}}"></script> <!-- Modernizr -->
 
 {% endblock content %}
