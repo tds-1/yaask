@@ -100,6 +100,10 @@
 	.dropdown-content li.disabled {
 		background-color: transparent;
 	}
+    .tab{
+        width: 20% !important;
+        font-size: 0.4em !important;
+    }
 </style>
 
 <script type="text/javascript" src="//media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/ckeditor.js"></script><style>.cke{visibility:hidden;}</style>
@@ -217,280 +221,259 @@
 {% endblock %}
 
 {% block content %}
+	<h5 class="mhead">Add Questions to the system:</h5>
+		<br>
 
 <br>
 <div id="gallery" class="section lb">
 	<div class="container">
-		<div class="section-title text-center">
-			<h3>Add Questions to the system:</h3>
+	
+
+		<div class="card-tabs">
+			<ul class="tabs">                  
+				<li class="tab"><a class="active" href="#test1">MCQ</a></li>
+				<li class="tab"><a href="#test2">Numeric Response</a></li>
+			</ul>
 		</div>
-
-
-		<div class="gallery-menu " style="padding: 10px;">
-			<div class="col-md-12">
-				<div class=" filter-button-group text-center">
-					<button id="mcqq" class="active" data-filter=".mcq">Multiple Choice</button>
-					<button id="numm" data-filter=".num">Numeric Response</button>
+		<br>
+		<div class="card-content grey lighten-4" id="highlight">
+			<div  id="test1">
+			<form action="" method='POST'>
+				{{ form.csrf_token }}
+				<div class="row">
+					<div class="input-field col s12">
+						{{ form.question(placeholder="Question") }}
+						<label class="active" for="question">Question:</label>
+						<span class="error">
+							{% if form.question.errors %}
+							{% for error in form.question.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
 				</div>
-			</div>
-		</div>
-		<div id="gal" class="gallery-list" style="z-index: 0;">
-			<div class="gallery-grid mcq" style="width: 100%;">
-				<form action="" method='POST'>
-					{{ form.csrf_token }}
-					<div class="row">
-						<div class="input-field col s12">
-							{{ form.question(placeholder="Question") }}
-							<label class="active" for="question">Question:</label>
-							<span class="error">
-								{% if form.question.errors %}
-								{% for error in form.question.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
+				<div class="row">
+					<div class="input-field col s6">
+						{{ form.option1(placeholder="Option A") }}
+						<label class="active" for="option1">A:</label>
+						<span class="error">
+							{% if form.option1.errors %}
+							{% for error in form.option1.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
 					</div>
-					<div class="row">
-						<div class="input-field col s6">
-							{{ form.option1(placeholder="Option A") }}
-							<label class="active" for="option1">A:</label>
-							<span class="error">
-								{% if form.option1.errors %}
-								{% for error in form.option1.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
-						<div class="input-field col s6">
-							{{ form.option2(placeholder="Option B") }}
-							<label class="active" for="option2">B:</label>
-							<span class="error">
-								{% if form.option2.errors %}
-								{% for error in form.option2.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
+					<div class="input-field col s6">
+						{{ form.option2(placeholder="Option B") }}
+						<label class="active" for="option2">B:</label>
+						<span class="error">
+							{% if form.option2.errors %}
+							{% for error in form.option2.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
 					</div>
-					<div class="row">
-						<div class="input-field col s6">
-							{{ form.option3(placeholder="Option C") }}
-							<label class="active" for="option3">C:</label>
-							<span class="error">
-								{% if form.option3.errors %}
-								{% for error in form.option3.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
-						<div class="input-field col s6">
-							{{ form.option4(placeholder="Option D") }}
-							<label class="active" for="option4">D:</label>
-							<span class="error">
-								{% if form.option4.errors %}
-								{% for error in form.option4.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						{{ form.option3(placeholder="Option C") }}
+						<label class="active" for="option3">C:</label>
+						<span class="error">
+							{% if form.option3.errors %}
+							{% for error in form.option3.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
 					</div>
-					<div class="row">
-						<div class="input-field  col s12">
-							{{ form.answer(placeholder="Answer") }}
-							<label class="active" for="answer">Correct Answer:</label>
-							<span class="error">
-								{% if form.answer.errors %}
-								{% for error in form.answer.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
+					<div class="input-field col s6">
+						{{ form.option4(placeholder="Option D") }}
+						<label class="active" for="option4">D:</label>
+						<span class="error">
+							{% if form.option4.errors %}
+							{% for error in form.option4.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
 					</div>
-					<div class="row">
+				</div>
+				<div class="row">
+					<div class="input-field  col s12">
+						{{ form.answer(placeholder="Answer") }}
+						<label class="active" for="answer">Correct Answer:</label>
+						<span class="error">
+							{% if form.answer.errors %}
+							{% for error in form.answer.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<div class="row">
 
-						<div class="input-field col s6">
-							{{ form.category(placeholder="Category") }}
-							<label class="active" for="category">Category:</label>
-							<span class="error">
-								{% if form.category.errors %}
-								{% for error in form.category.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
-						<div class="input-field col s6">
-							{{ form.difficulty(placeholder="Difficulty") }}
-							<label class="active" for="difficulty">Difficulty:</label>
-							<span class="error">
-								{% if form.difficulty.errors %}
-								{% for error in form.difficulty.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
+					<div class="input-field col s6">
+						{{ form.category(placeholder="Category") }}
+						<label class="active" for="category">Category:</label>
+						<span class="error">
+							{% if form.category.errors %}
+							{% for error in form.category.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
 					</div>
-					<div class="row">
-						<div class="input-field inf col s12">
-							<select multiple  id="select_tag" name="select_tag">
-								<option value="" disabled selected style="background-color: white;">Choose your option</option>
-								{% for tag in tag %}
-									<option value="{{tag}}">{{tag}}</option>
-								{% endfor %}	
-							</select>
-							<label class="active tf" for="tags"> Select Tags</label>
-						
-						</div>
+					<div class="input-field col s6">
+						{{ form.difficulty(placeholder="Difficulty") }}
+						<label class="active" for="difficulty">Difficulty:</label>
+						<span class="error">
+							{% if form.difficulty.errors %}
+							{% for error in form.difficulty.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
 					</div>
+				</div>
+				<div class="row">
+					<div class="input-field inf col s12">
+						<select multiple  id="select_tag" name="select_tag">
+							<option value="" disabled selected style="background-color: white;">Choose your option</option>
+							{% for tag in tag %}
+								<option value="{{tag}}">{{tag}}</option>
+							{% endfor %}	
+						</select>
+						<label class="active tf" for="tags"> Select Tags</label>
 					
-					<div class="row">
-						<div class="input-field  col s12">
-							{{ form.comment(placeholder="Comment") }}
-							<label class="active" for="comment">Comment/Solution (optional):</label>
-							<span class="error">
-								{% if form.comment.errors %}
-								{% for error in form.comment.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
 					</div>
-					<div class="valign-wrapper">
-						<button class="valign btn-large waves-effect waves-light" type="submit">Add the Question <i
-								class="material-icons">send</i></button>
+				</div>
+				
+				<div class="row">
+					<div class="input-field  col s12">
+						{{ form.comment(placeholder="Comment") }}
+						<label class="active" for="comment">Comment/Solution (optional):</label>
+						<span class="error">
+							{% if form.comment.errors %}
+							{% for error in form.comment.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
 					</div>
-					<div>
-						<br>
-					</div>
-					
-				</form>
-			</div>
-			<div class="gallery-grid num" style="display: none;">
-				<form action="" method='POST'>
-					{{ form1.csrf_token }}
-					<div class="row">
-						<div class="input-field  col s12">
-							{{ form1.question1(placeholder="Question") }}
-							<label class="active" for="question">Question:</label>
-							<span class="error">
-								{% if form1.question1.errors %}
-								{% for error in form1.question1.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
-					</div>
-					<div class="row"> 
-						<div class="input-field  col s12">
-							{{ form1.answer1(placeholder="Answer") }}
-							<label class="active" for="answer">Correct Answer:</label>
-							<span class="error">
-								{% if form1.answer1.errors %}
-								{% for error in form1.answer1.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
-					</div>
-					<div class="row">
-						<div class="input-field col s6">
-							{{ form1.category1(placeholder="Category") }}
-							<label class="active" for="category">Category:</label>
-							<span class="error">
-								{% if form1.category1.errors %}
-								{% for error in form1.category1.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
-						<div class="input-field col s6">
-							{{ form1.difficulty1(placeholder="Difficulty") }}
-							<label class="active" for="difficulty">Difficulty:</label>
-							<span class="error">
-								{% if form1.difficulty1.errors %}
-								{% for error in form1.difficulty1.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
-					</div>
+				</div>
+				<div class="valign-wrapper">
+					<button class="valign btn-large waves-effect waves-light" type="submit">Add the Question <i
+							class="material-icons">send</i></button>
+				</div>
+				<div>
 					<br>
-					<div class="row">
-						<div class="input-field inf col s12">
-							<select multiple  id="select_tag" name="select_tag">
-								<option value="" disabled selected style="background-color: white;">Choose your option</option>
-								{% for tag in tag %}
-									<option value="{{tag}}">{{tag}}</option>
-								{% endfor %}	
-							</select>
-							<label class="active tf" for="tags"> Select Tags</label>
-						
-						</div>
+				</div>
+				
+			</form>
+			</div>
+			<div id="test2">
+			<form action="" method='POST'>
+				{{ form1.csrf_token }}
+				<div class="row">
+					<div class="input-field  col s12">
+						{{ form1.question1(placeholder="Question") }}
+						<label class="active" for="question">Question:</label>
+						<span class="error">
+							{% if form1.question1.errors %}
+							{% for error in form1.question1.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
 					</div>
+				</div>
+				<div class="row"> 
+					<div class="input-field  col s12">
+						{{ form1.answer1(placeholder="Answer") }}
+						<label class="active" for="answer">Correct Answer:</label>
+						<span class="error">
+							{% if form1.answer1.errors %}
+							{% for error in form1.answer1.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						{{ form1.category1(placeholder="Category") }}
+						<label class="active" for="category">Category:</label>
+						<span class="error">
+							{% if form1.category1.errors %}
+							{% for error in form1.category1.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+					<div class="input-field col s6">
+						{{ form1.difficulty1(placeholder="Difficulty") }}
+						<label class="active" for="difficulty">Difficulty:</label>
+						<span class="error">
+							{% if form1.difficulty1.errors %}
+							{% for error in form1.difficulty1.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="input-field inf col s12">
+						<select multiple  id="select_tag" name="select_tag">
+							<option value="" disabled selected style="background-color: white;">Choose your option</option>
+							{% for tag in tag %}
+								<option value="{{tag}}">{{tag}}</option>
+							{% endfor %}	
+						</select>
+						<label class="active tf" for="tags"> Select Tags</label>
 					
-					<div class="row">
-						<div class="input-field  col s12">
-							{{ form1.comment1(placeholder="Comment") }}
-							<label class="active" for="comment">Comment (optional) :</label>
-							<span class="error">
-								{% if form1.comment1.errors %}
-								{% for error in form1.comment1.errors %}
-								{{ error }}
-								{% endfor %}
-								{% endif %}
-							</span>
-						</div>
 					</div>
-			
-					<div class="valign-wrapper">
-						<button class="valign btn-large waves-effect waves-light" type="submit">Add the Question<i
-								class="material-icons">send</i></button>
+				</div>
+				
+				<div class="row">
+					<div class="input-field  col s12">
+						{{ form1.comment1(placeholder="Comment") }}
+						<label class="active" for="comment">Comment (optional) :</label>
+						<span class="error">
+							{% if form1.comment1.errors %}
+							{% for error in form1.comment1.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
 					</div>
+				</div>
+		
+				<div class="valign-wrapper">
+					<button class="valign btn-large waves-effect waves-light" type="submit">Add the Question<i
+							class="material-icons">send</i></button>
+				</div>
 
-					<div>
-						<br>
-					</div>
+				<div>
+					<br>
+				</div>
 
-				</form>
+			</form>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- ALL JS FILES -->
 
-<script src="{{url_for('static',filename='../static/js/all.js') }}"></script>
 
 <!-- Camera Slider -->
 <script src="{{url_for('static',filename='../static/js/jquery.easing.1.3.js') }}"></script>
-<script src="{{url_for('static',filename='../static/js/parallaxie.js') }}"></script>
-
-<!-- ALL PLUGINS -->
-<script src="{{url_for('static',filename='../static/js/custom1.js') }}"></script>
-<script>
-
-	$("#numm").on("click", function () {
-		$(".num").css("display", "block");
-		$(".num").css("position", "relative");
-
-	});
-
-	$('#tags').click(function(){
-		$('#gal').animate({height: '+=60'});
-	});
-
-</script>
 
 <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 <!-- Compiled and minified JavaScript -->
