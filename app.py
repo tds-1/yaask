@@ -10,10 +10,10 @@ from flask_weasyprint import HTML, render_pdf
 import json
 from os import environ
 from flask_ckeditor import CKEditor, CKEditorField
-from forms import LoginForm, RegisterForm, SubmitForm, QuizForm, SubmitForm2, GenerateForm
+from forms import LoginForm, RegisterForm, SubmitForm, QuizForm, SubmitForm2, GenerateForm, FilterForm
 from auth import OAuthSignIn, GoogleSignIn
 import os
-
+import math
 #Create the app and configure it
 app = Flask(__name__, template_folder='templates' , static_folder="static")
 try:
@@ -248,32 +248,49 @@ def submit():
 @app.route('/display', methods=['GET', 'POST'])
 @login_required
 def display():
-	page=request.args.get('page')
-	pg=page
-	f = open("tag.txt", "r")
-	x= (f.read())
-	ini=0
-	tag=[]
-	for i in range (0,len(x)):
-		if (x[i]=='\n'):
-			tag.append(x[ini:i])
-			ini=i+1
-	tag.append(x[ini:len(x)])
+	form= FilterForm()
+	if request.method== 'GET':
+		subject=request.args.get('subject')
+		tag=request.args.get('tag')
+		difficulty=request.args.get('difficulty')
+		page=request.args.get('page')
+		pg=page
+		form = FilterForm(subject=subject, tags=tag, difficulty=difficulty)
+		if(page is None):
+			questions_to_display = Questions.query.filter().all()
+			limit= math.ceil(len(questions_to_display)/20)
+			questions_to_display=questions_to_display[0:20]
+			return render_template('display.html', questions_to_display=questions_to_display, pg=1,limit=limit, form=form, subject=subject, tags=tag, difficulty=difficulty)
+		else:
+			questions_to_display = Questions.query.filter().all()
+			if(subject != 'all' and (subject is not None) and (subject != '') and (subject != 'None') ):
+				questions_to_display=list(filter(lambda x:x.category == subject, questions_to_display)) 
+			if(tag != 'all' and (tag is not None) and (tag != '')  and (tag != 'None') ):
+				questions_to_display=list(filter(lambda x:x.tags == tag, questions_to_display)) 
+			if(difficulty != 'all' and (difficulty is not None) and (difficulty != '') and (difficulty != 'None')  ):
+				questions_to_display=list(filter(lambda x:x.difficulty == difficulty, questions_to_display)) 
+			limit= math.ceil(len(questions_to_display)/20)
+			page=int(page)
+			page-=1
+			page*=20
+			questions_to_display=questions_to_display[page:page+20]
+			return render_template('display.html', questions_to_display=questions_to_display, pg = pg, limit=limit, form=form, subject=subject, tags=tag, difficulty=difficulty)
 
-	if(page is None):
+	if request.method== 'POST':
+		subject=form.subject.data
+		tag=form.tags.data
+		difficulty=form.difficulty.data
 		questions_to_display = Questions.query.filter().all()
-		limit= len(questions_to_display)/20
+		if(subject != 'all'):
+			questions_to_display=list(filter(lambda x:x.category == subject, questions_to_display)) 
+		if(tag!= 'all'):
+			questions_to_display=list(filter(lambda x:x.tags == tag, questions_to_display)) 
+		if(difficulty!= 'all'):	
+			questions_to_display=list(filter(lambda x:x.difficulty == difficulty, questions_to_display)) 
+		limit= math.ceil(len(questions_to_display)/20)
 		questions_to_display=questions_to_display[0:20]
-		return render_template('display.html', questions_to_display=questions_to_display, cat="All", pg=1,limit=limit,tag=tag)
-	else:
-		questions_to_display = Questions.query.filter().all()
-		limit= len(questions_to_display)/20
-		page=int(page)
-		page-=1
-		page*=20
-		questions_to_display=questions_to_display[page:page+20]
-		return render_template('display.html', questions_to_display=questions_to_display, cat="All", pg = pg, limit=limit,tag=tag)
-
+		return render_template('display.html', questions_to_display=questions_to_display, pg=1,limit=limit, form=form, subject=subject, tags=tag, difficulty=difficulty)
+	
 
 @app.route('/display/<string:category>')
 @login_required

@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import TextField, PasswordField, SelectField, BooleanField, IntegerField, FloatField
+from wtforms import TextField, PasswordField, SelectField, BooleanField, IntegerField, FloatField, SelectMultipleField
 from wtforms.validators import DataRequired, Length, EqualTo
 from flask_ckeditor import CKEditor, CKEditorField
 from wtforms.fields.html5 import EmailField
@@ -76,11 +76,40 @@ class SubmitForm2(Form):
 class QuizForm(Form):
 	attempted_answer = SelectField(
 		'attempted_answer',
-		choices=[('option1', 'A'), ('option2', 'B'), ('option3', 'C'), ('option4', 'D')],
+		choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')],
 		validators=[DataRequired()]
 	)
 
 class GenerateForm(Form):
-	name = TextField('option1', validators=[DataRequired()])
-	time = IntegerField('option1', validators=[DataRequired()])
-	institution = TextField('option1', validators=[DataRequired()])
+	name = TextField('name', validators=[DataRequired()])
+	time = IntegerField('time', validators=[DataRequired()])
+	institution = TextField('institution', validators=[DataRequired()])
+
+
+class FilterForm(Form):
+	f = open("tag.txt", "r")
+	x= (f.read())
+	ini=0
+	tag=[]
+	tag.append(('all','All Tags'))
+	for i in range (0,len(x)):
+		if (x[i]=='\n'):
+			tag.append((x[ini:i],x[ini:i]))
+			ini=i+1
+	tag.append((x[ini:len(x)],x[ini:len(x)]))
+	subject = SelectField(
+		'Subject', 
+		choices=[('all','All Subjects'), ('math', 'Math'), ('chemistry', 'Chemistry'), ('physics', 'Physics'), ('biology', 'Biology'), ('other', 'Other')], 
+		validators=[DataRequired()]
+	)
+	tags = SelectField(
+		'Tags', 
+		choices=tag,
+		validators=[DataRequired()]
+	)
+	difficulty = SelectField(
+		'Difficulty', 
+		choices=[('all','All Difficulties'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
+		validators=[DataRequired()]
+	)
+	

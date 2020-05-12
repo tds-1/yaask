@@ -32,7 +32,7 @@
 
 <style>
 	nav ul a {
-		font-size: 2.1rem;
+		font-size: 1.4rem;
 		color: #fff;
 		display: block;
 		padding: 0 15px;
@@ -72,12 +72,6 @@
 <!-- Required for the page -->
 <title>Display Questions| Yaask labs</title>
 <link rel="icon" sizes="192x192" href="{{url_for('static',filename='../static/assets/yaask.png') }}">
-
-
-<script src="{{url_for('static',filename='../static/js/modernizr.js')}}"></script> <!-- Modernizr -->
-<link rel="stylesheet" href="{{url_for('static',filename='../static/css/reset.css')}}"> <!-- CSS reset -->
-<link rel="stylesheet" href="{{url_for('static',filename='../static/css/styles.css')}}"> 
-
 
 {% endblock head %}
 
@@ -153,130 +147,132 @@
 		</div>
 	</nav>
 </div>
-
-<main class="cd-main-content is-fixed">
-
 {% endblock %}
 
 {% block content %}
 <!-- <button onclick="topFunction()" id="myBtn" title="Go to top" class="black-text"><i class="material-icons">arrow_upward</i></button> -->
+
+
+<div class="mhead">List Of Questions</div>
+<br>
+<form action="" method='POST' style="background-color: #fff; padding: 10px; padding-bottom: 0px;">
 	
-	<div class="mhead">List Of Questions</div>
-	<h6>{{cat}} category question are displayed below</h6>
-	<a href="#0" class="cd-filter-trigger">
-		<button class="nav left">Filters<i class="material-icons right">filter_list</i> </button>
-	</a>
-	<br>
-
-	<section class="cd-gallery">
-		<ul>
-			{% if pg|int>1 %}
-			<a href="/display?page={{pg|int-1|int}}" style="padding: 10px;">
-				<button class="nav left"> <i class="fa fa-angle-left" style="padding-right:1vmin;"></i>Previous Page</button>
-			</a>
-			{% endif %}
-			{% if pg|int<=limit %}
-
-			<a href="/display?page={{pg|int+1|int}}" style="padding: 10px;">
-				<button class="nav rightbu">Next Page<i class="fa fa-angle-right" style="padding-left:1vmin;"></i> </button>
-			</a>
-			{% endif %}
-			<form action="" method='POST'>
-				{% for question_to_display in questions_to_display %}
-				<div class="a1">
-					<div style="display: flex;">
-						<div style="width: 7vh;">
-							<div class="row">
-								<div class="qs col" style="word-wrap: anywhere;">
-									<i class="material-icons">arrow_forward</i>&nbsp
-								</div>
-							</div>
-						</div>
-						<div style="width: 85vw">
-							<div class="row">
-								<div class="qs col s12">
-									{{ question_to_display.question|safe }}
-								</div>
-							</div>	
-							{% if ((question_to_display.option1=='-1') and (question_to_display.option2=='-1') and (question_to_display.option3=='-1') and (question_to_display.option4=='-1')) %}
-							{% else %}
-							<div class="row">
-								<div class="col s6">
-									A: {{ question_to_display.option1 }}
-								</div>
-								<div class="col s6">
-									B: {{ question_to_display.option2 }}
-								</div>
-							</div>
-							<div class="row">
-								<div class="col s6">
-									C: {{ question_to_display.option3 }}
-								</div>
-								<div class="col s6">
-									D: {{ question_to_display.option4 }}
-								</div>
-							</div>
-							{% endif %}
-						</div>
-
-					</div>
-					<div class="row ans">
-						<div class="col" style="padding: ;">
-							Correct Answer: {{question_to_display.answer}}
-						</div>
+	{{ form.csrf_token }}
+	<div class="row">
+		
+		<div class="col s3">
+			{{form.subject.label}}
+			{{form.subject(placeholder="Subject") }}
+			<span class="error">
+				{% if form.subject.errors %}
+				{% for error in form.tags.errors %}
+				{{ error }}
+				{% endfor %}
+				{% endif %}
+			</span>
+		</div>
+		<div class="col s3">
+			{{form.tags.label}}
+			{{ form.tags(placeholder="Tags") }}
+			<span class="error">
+				{% if form.tags.errors %}
+				{% for error in form.tags.errors %}
+				{{ error }}
+				{% endfor %}
+				{% endif %}
+			</span>
+		</div>
+		<div class="col s3">
+			{{form.difficulty.label}}
+			{{ form.difficulty(placeholder="Difficulty") }}
+			<span class="error">
+				{% if form.difficulty.errors %}
+				{% for error in form.difficulty.errors %}
+				{{ error }}
+				{% endfor %}
+				{% endif %}
+			</span>
+		</div>
+		<div class="col s3">
+			<br>
+			<button type="submit" style="width: 100%;">Submit</button>
+		</div>
+	</div>
+</form>
+<br>
+{% if pg|int>1 %}
+<a href="/display?subject={{subject}}&tags={{tags}}&difficulty={{difficulty}}&page={{pg|int-1|int}}" style="padding: 10px;">
+	<button class="nav left"> <i class="fa fa-angle-left" style="padding-right:1vmin;"></i>Previous Page</button>
+</a>
+{% endif %}
+{% if pg|int < limit %}
+<a href="/display?subject={{subject}}&tags={{tags}}&difficulty={{difficulty}}&page={{pg|int+1|int}}" style="padding: 10px;">
+	<button class="nav rightbu">Next Page<i class="fa fa-angle-right" style="padding-left:1vmin;"></i> </button>
+</a>
+{% endif %}
+<form action="" method='POST'>
+	{% for question_to_display in questions_to_display %}
+	<div class="a1">
+		<div style="display: flex;">
+			<div style="width: 7vh;">
+				<div class="row">
+					<div class="qs col" style="word-wrap: anywhere;">
+						<i class="material-icons">arrow_forward</i>&nbsp
 					</div>
 				</div>
-				<br>
-				{% endfor %}
-			</form>
-			{% if pg|int>1 %}
-			<a href="/display?page={{pg|int-1|int}}" style="padding: 10px;">
-				<button class="nav left"> <i class="fa fa-angle-left" style="padding-right:1vmin;"></i>Previous Page</button>
-			</a>
-			{% endif %}
-			{% if pg|int<=limit %}
+			</div>
+			<div style="width: 85vw">
+				<div class="row">
+					<div class="qs col s12">
+						{{ question_to_display.question|safe }}
+					</div>
+				</div>	
+				{% if ((question_to_display.option1=='-1') and (question_to_display.option2=='-1') and (question_to_display.option3=='-1') and (question_to_display.option4=='-1')) %}
+				{% else %}
+				<div class="row">
+					<div class="col s6">
+						A: {{ question_to_display.option1 }}
+					</div>
+					<div class="col s6">
+						B: {{ question_to_display.option2 }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s6">
+						C: {{ question_to_display.option3 }}
+					</div>
+					<div class="col s6">
+						D: {{ question_to_display.option4 }}
+					</div>
+				</div>
+				{% endif %}
+			</div>
 
-			<a href="/display?page={{pg|int+1|int}}" style="padding: 10px;">
-				<button class="nav rightbu">Next Page<i class="fa fa-angle-right" style="padding-left:1vmin;"></i> </button>
-			</a>
-			{% endif %}
-			<br>
-			<br>
-			<br>
-		</ul>
-		<div class="cd-fail-message">No results found</div>
-	</section> <!-- cd-gallery -->
+		</div>
+		<div class="row ans">
+			<div class="col" style="padding: ;">
+				Correct Answer: {{question_to_display.answer}}
+			</div>
+		</div>
+	</div>
+	<br>
+	{% endfor %}
+</form>
+{% if pg|int>1 %}
+<a href="/display?subject={{subject}}&tags={{tags}}&difficulty={{difficulty}}&page={{pg|int-1|int}}" style="padding: 10px;">
+	<button class="nav left"> <i class="fa fa-angle-left" style="padding-right:1vmin;"></i>Previous Page</button>
+</a>
+{% endif %}
+{% if pg|int < limit %}
+<a href="/display?subject={{subject}}&tags={{tags}}&difficulty={{difficulty}}&page={{pg|int+1|int}}" style="padding: 10px;">
+	<button class="nav rightbu">Next Page<i class="fa fa-angle-right" style="padding-left:1vmin;"></i> </button>
+</a>
+{% endif %}
 
-	<div class="cd-filter">
-		<a href="#0" class="cd-close">Close</a>
+<br>
+<br>
+<br>
 
-		<form>
-			<div class="cd-filter-block">
-				<h4>Check boxes</h4>
-
-				<ul class="cd-filter-content cd-filters list">
-					{% for tag in tag %}
-					<li>
-						<input class="filter" data-filter=".check{{loop.index}}" type="checkbox" id="checkbox{{loop.index}}">
-						<label class="checkbox-label" for="checkbox{{loop.index}}">{{tag}}</label>
-					</li>
-					{% endfor %}
-					
-				</ul> <!-- cd-filter-content -->
-				</br>
-				</br>
-				</br>
-			</div> <!-- cd-filter-block -->
-
-		</form>
-
-	</div> <!-- cd-filter -->
-
-</main> <!-- cd-main-content -->
-
-<!-- <script src="{{url_for('static',filename='../static/js/jquery-2.1.1.js')}}"></script> Modernizr -->
-<!-- <script src="{{url_for('static',filename='../static/js/jquery.mixitup.min.js')}}"></script> Modernizr -->
-<script src="{{url_for('static',filename='../static/js/mains.js')}}"></script> <!-- Modernizr -->
 
 {% endblock content %}
 
