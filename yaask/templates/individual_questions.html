@@ -181,7 +181,6 @@
 <div class="mhead">List Of Questions</div>
 <h6>{{cat}} category question are displayed below</h6>
 <br>
-<form>
 {% for question_to_display in questions_to_display %}
 <div class="a1">
     <div style="display: flex;">
@@ -241,22 +240,18 @@
 </div>
 <br>
 {% endfor %}
-</form>
 
 
     <script>
         function myFunction(x) {
             var r = confirm("Are you sure you want to delete the question?");
             if (r == true) {
-                // console.log(x);
                 var s="/editquestions?qid="+x;
-                console.log(s);               
                 location.href = s;
 
             }
             if (r == false) {
                 location.href = "/editquestions";
-                // console.log("hello ji")
             }
         }
     </script>
