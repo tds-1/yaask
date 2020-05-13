@@ -1,8 +1,7 @@
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from os import environ
-
-from app import app, db
+from yaask import app, db
 
 try:
 	app.config.from_object('config.DevelopmentConfig')

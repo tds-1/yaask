@@ -1,6 +1,7 @@
-from app import db
+from yaask import db, login_manager
 from passlib.context import CryptContext
 import datetime
+from flask_login import UserMixin
 
 SCHEMES = 'pbkdf2_sha256'
 pwd_context = CryptContext(
@@ -8,6 +9,10 @@ pwd_context = CryptContext(
     default=SCHEMES,
     pbkdf2_sha256__default_rounds=30000
     )
+
+@login_manager.user_loader
+def load_user(userid):
+	return User.query.filter(User.id == int(userid)).first()
 
 
 class User(db.Model):

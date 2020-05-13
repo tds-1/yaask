@@ -5,6 +5,7 @@ from flask_ckeditor import CKEditor, CKEditorField
 from wtforms.fields.html5 import EmailField
 from wtforms import validators
 
+
 class RegisterForm(Form):
 	name = TextField(
 		'name',
@@ -87,7 +88,7 @@ class GenerateForm(Form):
 
 
 class FilterForm(Form):
-	f = open("tag.txt", "r")
+	f = open("yaask/tag.txt", "r")
 	x= (f.read())
 	ini=0
 	tag=[]
