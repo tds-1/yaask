@@ -54,18 +54,15 @@
 
 <nav class="#448aff teal accent-4">
 	<div class="nav-wrapper">
-		<a href="{{ url_for('home') }}" class="brand-logo"> Quiz Engine</a>
+		<a href="{{ url_for('main.home') }}" class="brand-logo"> Quiz Engine</a>
 		<a href="" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 		<ul id="nav-mobile" class="right hide-on-med-and-down">
-			<li><a href="{{ url_for('home') }}">Home</a></li>
-			<li><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
-			<li><a href="{{ url_for('logout') }}">Logout</a></li>
+			<li><a href="{{ url_for('main.home') }}">Home</a></li>
+			<li><a href="{{ url_for('users.logout') }}">Logout</a></li>
 		</ul>
 		<ul id="mobile" class="side-nav">
-			
-			<li><a href="{{ url_for('home') }}">Home</a></li>
-			<li><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
-			<li><a href="{{ url_for('logout') }}">Logout</a></li>
+			<li><a href="{{ url_for('main.home') }}">Home</a></li>
+			<li><a href="{{ url_for('users.logout') }}">Logout</a></li>
 		</ul>
 	</div>
 </nav>

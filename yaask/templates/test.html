@@ -74,29 +74,30 @@
 
     <nav class="#448aff teal accent-4">
         <div class="nav-wrapper">
-            <a href="{{ url_for('home') }}" class="brand-logo">Quiz Engine</a>
+            <a href="{{ url_for('main.home') }}" class="brand-logo">Quiz Engine</a>
             <a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li > <a>Hello, {{current_user.name}}</a></li>
-                <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
+                <li class="active"><a href="{{ url_for('main.home') }}">Home</a></li>
                 <li><a href="/preview-test">Preview Test</a></li>
-                <li><a href="{{ url_for('submit') }}">Add Questions</a></li>
+                <li><a href="{{ url_for('quest.submit') }}">Add Questions</a></li>
                 {% if current_user.name %}
-                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
                 {% else %}
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
-                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                    <li><a href="{{ url_for('users.login') }}">Login</a></li>
+                    <li><a href="{{ url_for('users.register') }}">Register</a></li>
                 {% endif %}
             </ul>
-            <ul id="mobile-demo" class="side-nav">
-                <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li > <a>Hello, {{current_user.name}}</a></li>
+                <li class="active"><a href="{{ url_for('main.home') }}">Home</a></li>
                 <li><a href="/preview-test">Preview Test</a></li>
-                <li><a href="{{ url_for('submit') }}">Add Questions</a></li>
+                <li><a href="{{ url_for('quest.submit') }}">Add Questions</a></li>
                 {% if current_user.name %}
-                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
                 {% else %}
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
-                    <li><a href="{{ url_for('register') }}">Register</a></li>
+                    <li><a href="{{ url_for('users.login') }}">Login</a></li>
+                    <li><a href="{{ url_for('users.register') }}">Register</a></li>
                 {% endif %}
             </ul>
         </div>

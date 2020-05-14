@@ -28,7 +28,18 @@ ckeditor = CKEditor(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'users.login'
 login_manager.login_message = 'Please login to view this page'
 
 from yaask import routes
+
+from yaask.users.routes import users
+from yaask.tests.routes import tests
+from yaask.quest.routes import quest
+from yaask.main.routes import main
+
+
+app.register_blueprint(users)
+app.register_blueprint(tests)
+app.register_blueprint(quest)
+app.register_blueprint(main)

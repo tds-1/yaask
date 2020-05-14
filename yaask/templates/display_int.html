@@ -226,59 +226,43 @@
 <title>Display Question | Yaask Labs</title>
 {% endblock head %}
 {% block navbar %}
-<!-- Dropdown Structure -->
-<ul id="quizdropdown" class="dropdown-content">
-    <li><a href="{{ url_for('display') }}">All Catgories</a></li>
-    <li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
-    <li><a href="{{ url_for('categorywise', category='physics') }}">physics</a></li>
-    <li><a href="{{ url_for('categorywise', category='chemistry') }}">chemistry</a></li>
-    <li><a href="{{ url_for('categorywise', category='biology') }}">Biology</a></li>
-</ul>
-<!-- Since the selectors based on ID and it seems duplicates cause an error -->
-<ul id="quizdropdown" class="dropdown-content">
-    <li><a href="{{ url_for('display') }}">All Catgories</a></li>
-    <li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
-    <li><a href="{{ url_for('categorywise', category='physics') }}">physics</a></li>
-    <li><a href="{{ url_for('categorywise', category='chemistry') }}">chemistry</a></li>
-    <li><a href="{{ url_for('categorywise', category='biology') }}">Biology</a></li>
-</ul>
 
 <!-- NavBar -->
 <div class="navigation">
 	<ul id="quizdropdown" class="dropdown-content">
-		<li><a href="{{ url_for('display') }}" >All Categories</a></li>
-		<li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
-		<li><a href="{{ url_for('categorywise', category='physics') }}">Physics</a></li>
-		<li><a href="{{ url_for('categorywise', category='chemistry') }}">Chemistry</a></li>
-		<li><a href="{{ url_for('categorywise', category='biology') }}">Biology</a></li>
-		<li><a href="{{ url_for('categorywise', category='other') }}">Others</a></li>
+		<li><a href="{{ url_for('quest.display') }}" >All Categories</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='math') }}">Math</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='physics') }}">Physics</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='chemistry') }}">Chemistry</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='biology') }}">Biology</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='other') }}">Others</a></li>
 	</ul>
 	<!-- Since the selectors based on ID and it seems duplicates cause an error -->
 	<ul id="quizdropdown" class="dropdown-content">
-		<li><a href="{{ url_for('display') }}" >All Categories</a></li>
-		<li><a href="{{ url_for('categorywise', category='math') }}">Math</a></li>
-		<li><a href="{{ url_for('categorywise', category='physics') }}">Physics</a></li>
-		<li><a href="{{ url_for('categorywise', category='chemistry') }}">Chemistry</a></li>
-		<li><a href="{{ url_for('categorywise', category='biology') }}">Biology</a></li>
-		<li><a href="{{ url_for('categorywise', category='other') }}">Others</a></li>
+		<li><a href="{{ url_for('quest.display') }}" >All Categories</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='math') }}">Math</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='physics') }}">Physics</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='chemistry') }}">Chemistry</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='biology') }}">Biology</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='other') }}">Others</a></li>
 	</ul>
 
 	<ul id="user-dropdown" class="dropdown-content">
 		<li><a href="#" >Profile</a></li>
 		<li><a href="#">Settings</a></li>
-		<li><a href="{{ url_for('logout')}}">Logout</a></li>
+		<li><a href="{{ url_for('users.logout')}}">Logout</a></li>
 		
 	</ul>
 	<!-- Since the selectors based on ID and it seems duplicates cause an error -->
 	<ul id="user-dropdown" class="dropdown-content">
 		<li><a href="#" >Profile</a></li>
 		<li><a href="#">Settings</a></li>
-		<li><a href="{{ url_for('logout')}}">Logout</a></li>
+		<li><a href="{{ url_for('users.logout')}}">Logout</a></li>
 		
 	</ul>
 	<nav class="#4a148c purple darken-4">
 		<div class="nav-wrapper black-text">
-			<a href="{{ url_for('home') }}" class="brand-logo">Yaask <img src="{{url_for('static',filename='../static/assets/yaask.png') }}" style="width: 25px;"> Labs</a>
+			<a href="{{ url_for('main.home') }}" class="brand-logo">Yaask <img src="{{url_for('static',filename='../static/assets/yaask.png') }}" style="width: 25px;"> Labs</a>
 			<a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				
@@ -298,13 +282,13 @@
 			
 			<ul id="mobile-demo" class="side-nav">
 				
-				<li><a href="{{ url_for('home') }}">Home</a></li>
+				<li><a href="{{ url_for('main.home') }}">Home</a></li>
 				<li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a href="{{ url_for('submit') }}">Add Questions</a></li>
-				<li><a href="{{ url_for('editquestions') }}">Edit Questions</a></li>
+				<li><a href="{{ url_for('quest.submit') }}">Add Questions</a></li>
+				<li><a href="{{ url_for('quest.editquestions') }}">Edit Questions</a></li>
 				{% if not current_user.name %}
-					<li><a href="{{ url_for('login') }}">Login</a></li>
-					<li><a href="{{ url_for('register') }}">Register</a></li>
+					<li><a href="{{ url_for('users.login') }}">Login</a></li>
+					<li><a href="{{ url_for('users.register') }}">Register</a></li>
 				{% else %}
 					<li><a class="dropdown-button black-text" href="" data-activates="user-dropdown">Hi, {{current_user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
 
@@ -354,7 +338,7 @@
     </div>
     <div class="row">
         <button class="sbmt" type="submit">
-            <a href="{{ url_for('submit') }}">Add Another Questions</a>
+            <a href="{{ url_for('quest.submit') }}">Add Another Questions</a>
         </button>
     </div>
 
