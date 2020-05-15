@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath app/ yaask:app
+web: gunicorn app: app
