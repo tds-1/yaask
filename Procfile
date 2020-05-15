@@ -1,1 +1,1 @@
-web: gunicorn app: yaask
+web: gunicorn yaask: app
