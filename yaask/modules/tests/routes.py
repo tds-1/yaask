@@ -5,7 +5,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from flask_session import Session
 from flask_weasyprint import HTML, render_pdf
 import json
-from yaask.tests.forms import  QuizForm, GenerateForm
+from yaask.modules.tests.forms import  QuizForm, GenerateForm
 import math
 from yaask.models import *
 from yaask import app

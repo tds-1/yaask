@@ -3,7 +3,7 @@ from flask import Flask, render_template, url_for, request, session, redirect, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, user_logged_in
 import json
-from yaask.quest.forms import  SubmitForm, SubmitForm2, FilterForm
+from yaask.modules.quest.forms import  SubmitForm, SubmitForm2, FilterForm
 import math
 from yaask.models import *
 from yaask import app

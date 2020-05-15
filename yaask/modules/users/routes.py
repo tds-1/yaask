@@ -3,8 +3,8 @@ from flask import Flask, render_template, url_for, request, session, redirect, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, user_logged_in
 from passlib.context import CryptContext
-from yaask.users.forms import LoginForm, RegisterForm
-from yaask.auth import OAuthSignIn, GoogleSignIn
+from yaask.modules.users.forms import LoginForm, RegisterForm
+from yaask.modules.users.auth import OAuthSignIn, GoogleSignIn
 import math
 from yaask.models import *
 from yaask import app

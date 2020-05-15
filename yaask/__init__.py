@@ -33,10 +33,10 @@ login_manager.login_message = 'Please login to view this page'
 
 from yaask import routes
 
-from yaask.users.routes import users
-from yaask.tests.routes import tests
-from yaask.quest.routes import quest
-from yaask.main.routes import main
+from yaask.modules.users.routes import users
+from yaask.modules.tests.routes import tests
+from yaask.modules.quest.routes import quest
+from yaask.modules.main.routes import main
 
 
 app.register_blueprint(users)
