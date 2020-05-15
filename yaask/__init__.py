@@ -31,7 +31,6 @@ login_manager.init_app(app)
 login_manager.login_view = 'users.login'
 login_manager.login_message = 'Please login to view this page'
 
-from yaask import routes
 
 from yaask.modules.users.routes import users
 from yaask.modules.tests.routes import tests
