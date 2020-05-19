@@ -5,11 +5,11 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from flask_session import Session
 from flask_weasyprint import HTML, render_pdf
 import json
-from yaask.modules.tests.forms import  QuizForm, GenerateForm
+from yaask.modules.tests.forms import  QuizForm, GenerateForm, RandomTest
 import math
 from yaask.models import *
 from yaask import app
-
+from yaask.modules.tests.utils import choosequestions
 
 tests = Blueprint('tests',__name__)
 
@@ -25,10 +25,12 @@ def test():
 		'biology',
 		'other',]
 	#To allow sorting by username just do an ajax request back to score board with argument (like /score/#username then /score/#score)
+	form=RandomTest()
+	
 	if request.method == 'GET':
 		db.session.commit()
 		questions_to_display = Questions.query.filter().all()
-		return render_template('test.html', questions_to_display=questions_to_display, categoryList=categoryList)
+		return render_template('test.html',form=form, questions_to_display=questions_to_display, categoryList=categoryList)
 
 	if request.method == 'POST':		
 		questions_to_display = Questions.query.filter().all()
@@ -38,30 +40,25 @@ def test():
 			if check=="checked":
 				selected.append(question.questionid)
 		
-		random_questions=[]
-		for category in categoryList:
-			n=request.form[category]
-			# print (n, category)
-			if  len(n)>0:
-				temp=Questions.query.filter( ~Questions.questionid.in_(selected)).filter(Questions.category==category).order_by(Questions.question_score).limit(n).all()
-			# print (selected)
-				for t in temp:
-					selected.append(t.questionid)
-		# print (selected)
-		for question in random_questions:
-			print (question.question, question.question_score)
-			selected.append(question.questionid)
+		category=form.subject.data
+		avg=form.avg_difficulty.data
+		n=form.number_of_questions.data
 		
-		for question in questions_to_display:
-			check=request.form.get(str(question.questionid))
-			if check=="checked":
-				question.question_score=question.question_score+1
-				db.session.commit()
+		temp=Questions.query.filter( ~Questions.questionid.in_(selected)).filter(Questions.category==category).all()
+		arr=[]
+		for x in temp:
+			arr.append((int(x.difficulty), x.question_score, x.questionid))
 	
+		random_questions=choosequestions(arr, avg, n)
+		print (random_questions)
 		for question in random_questions:
-			question.question_score=question.question_score+1
+			selected.append(question[2])
+		#update score
+		questions_to_display = Questions.query.filter( Questions.questionid.in_(selected) ).all()
+		for x in questions_to_display:
+			x.question_score=x.question_score+1
 			db.session.commit()
-	
+
 		testdata = Test(
 			creatorid=current_user.id,
 			selected=selected,
@@ -70,7 +67,6 @@ def test():
 		db.session.commit()
 		session['selected']=selected
 		session['testid']=testdata.testid
-		questions_to_display = Questions.query.filter( Questions.questionid.in_(selected) ).all()
 		
 		return redirect(url_for('generated_test'))
 

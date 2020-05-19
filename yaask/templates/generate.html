@@ -41,8 +41,8 @@
 	<!-- <p style="text-align: center; font-weight: 600;">Section A</p> -->
 	<br>
 	{% for question in questions_to_display %}
-	<div style="padding-bottom:10px">
-		<b>{{loop.index}}.)</b><i> {{question.question}}</i>
+	<div >
+		<b>{{loop.index}}.)</b> {{question.question|safe }}
 	</div>
 	<div style="padding-left: 15px;">
 		<div style="display: flex;">

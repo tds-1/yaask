@@ -102,9 +102,8 @@ def display():
 		pg=page
 		form = FilterForm(subject=subject, tags=tag, difficulty=difficulty)
 		if(page is None):
-			questions_to_display = Questions.query.filter().all()
-			limit= math.ceil(len(questions_to_display)/20)
-			questions_to_display=questions_to_display[0:20]
+			questions_to_display = Questions.query.filter().paginate(page=1).items
+			limit= math.ceil(Questions.query.filter().count()/20)
 			return render_template('display.html', questions_to_display=questions_to_display, pg=1,limit=limit, form=form, subject=subject, tags=tag, difficulty=difficulty)
 		else:
 			questions_to_display = Questions.query.filter().all()
@@ -149,9 +148,8 @@ def categorywise(category):
 	pg=page
 	if category in categoryList:
 		if(page is None):
-			questions_to_display = Questions.query.filter().filter( Questions.category == category ).all()
-			limit= len(questions_to_display)/20
-			questions_to_display=questions_to_display[0:20]
+			questions_to_display = Questions.query.filter().filter( Questions.category == category ).paginate(page=1).items
+			limit= math.ceil(Questions.query.filter().count()/20)
 			return render_template('display.html', questions_to_display=questions_to_display, cat=category, pg=1,limit=limit)
 		else:
 			questions_to_display = Questions.query.filter().filter( Questions.category == category ).all()

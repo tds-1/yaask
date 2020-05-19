@@ -70,24 +70,10 @@
 
 </head>
 <body id="page-top" class="politics_version">
-
-
     <nav class="#448aff teal accent-4">
         <div class="nav-wrapper">
             <a href="{{ url_for('main.home') }}" class="brand-logo">Quiz Engine</a>
             <a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li > <a>Hello, {{current_user.name}}</a></li>
-                <li class="active"><a href="{{ url_for('main.home') }}">Home</a></li>
-                <li><a href="/preview-test">Preview Test</a></li>
-                <li><a href="{{ url_for('quest.submit') }}">Add Questions</a></li>
-                {% if current_user.name %}
-                    <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
-                {% else %}
-                    <li><a href="{{ url_for('users.login') }}">Login</a></li>
-                    <li><a href="{{ url_for('users.register') }}">Register</a></li>
-                {% endif %}
-            </ul>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li > <a>Hello, {{current_user.name}}</a></li>
                 <li class="active"><a href="{{ url_for('main.home') }}">Home</a></li>
@@ -105,11 +91,7 @@
     
     <div id="gallery" class="section lb">
         <div class="container">
-            <!-- <div class="section-title text-center">
-                <h3>Gallery</h3>
-            </div>end title -->
-            
-            
+                      
             <div class="gallery-menu row">
                 <div class="col-md-12">
                     <div class="button-group filter-button-group text-center">
@@ -121,15 +103,54 @@
                     </div>
                 </div>
             </div>
-        </br>
-            <form action="" method='POST'>
-            <div style="color: black;">
-                {% for category in categoryList %}
-                    Add random 
-                    <input type="integer" name="{{category}}" placeholder="number of questions"> 
-                    questions of {{ category }} <br>
-                {% endfor %}
-            </div>
+            </br>
+            <form action="" method="POST">
+                {{ form.csrf_token }}
+                <div style="color: black;">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            {{ form.subject(placeholder="subject") }}
+                            <label class="active" for="name">Choose Subject:</label>
+                            <span class="error">
+                                {% if form.subject.errors %}
+                                {% for error in form.subject.errors %}
+                                {{ error }}
+                                {% endfor %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            {{ form.number_of_questions(placeholder="number_of_questions") }}
+                            <label class="active" for="name">Number of Questions:</label>
+                            <span class="error">
+                                {% if form.number_of_questions.errors %}
+                                {% for error in form.number_of_questions.errors %}
+                                {{ error }}
+                                {% endfor %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            {{ form.avg_difficulty(placeholder="avg_difficulty") }}
+                            <label class="active" for="name">Average avg_difficulty:</label>
+                            <span class="error">
+                                {% if form.avg_difficulty.errors %}
+                                {% for error in form.avg_difficulty.errors %}
+                                {{ error }}
+                                {% endfor %}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    <button type="submit">
+                        Submit Query<i class="fa fa-paper-plane" aria-hidden="true" style="padding-left:1vmin;"></i>
+                    </button>
+                </div>
+            </form>
             </br>
                 <div class="gallery-list row">        
                     {% for question_to_display in questions_to_display %}
