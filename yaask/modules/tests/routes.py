@@ -177,7 +177,7 @@ def print_test():
 @app.route('/<username>/create-test', methods = ['GET', 'POST'])
 @login_required
 def create_test_info(username):
-    if username == current_user.name and current_user.role == 'teacher':
+    if username == current_user.username and current_user.role == 'teacher':
         form = UploadForm()
         if request.method == 'POST':
             try:
@@ -210,7 +210,7 @@ def create_test_info(username):
 @app.route('/<username>/create-test/<testid>', methods = ['GET', 'POST'])
 @login_required
 def create_test(username, testid):
-    if username == current_user.name and current_user.role == 'teacher':
+    if username == current_user.username and current_user.role == 'teacher':
         categoryList = [
             'biology',]
         #To allow sorting by username just do an ajax request back to score board with argument (like /score/#username then /score/#score)
@@ -326,7 +326,7 @@ def give_test_auth():
                             return redirect(url_for('give_test_auth'))
                     else:
                         student_test_info_data = Student_test_info(
-                            username= current_user.name,
+                            username= current_user.username,
                             testid = test_id,
                             time_left = duration,
                             completed = False
@@ -344,7 +344,7 @@ def give_test_auth():
                                 time_left = results.time_left
                                 if time_left <= duration:
                                     duration = time_left
-                                    results = Students.query.filter(Students.username == current_user.name).filter(Students.testid == test_id).all()
+                                    results = Students.query.filter(Students.username == current_user.username).filter(Students.testid == test_id).all()
                                     marked_ans = {}
                                     if len(results) > 0:
                                         for row in results:

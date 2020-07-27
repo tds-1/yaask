@@ -6,7 +6,7 @@
 
 {% block body %}
 
-   <h1 align="center">Welcome {{current_user.username}}</h1>
+   <h1 align="center">Welcome {{current_user.name}}</h1>
 	{% if current_user.role == 'student'%}
    <div class="row mysec" id="student-section">
 		<div class="col-9 ">
