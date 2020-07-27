@@ -6,7 +6,7 @@
 
 {% block body %}
 
-   <h1 align="center">Welcome {{current_user.name}}</h1>
+   <h1 align="center">Welcome {{current_user.username}}</h1>
 	{% if current_user.role == 'student'%}
    <div class="row mysec" id="student-section">
 		<div class="col-9 ">
@@ -26,7 +26,7 @@
 			<div class="card shadow">
 				<div class="card-body">
 					<img src="static/result.png" alt="" width="100px">
-					<center><a  href="/{{current_user.name}}/tests-given" class="btn btn-primary mybtn">Results</a></center>
+					<center><a  href="/{{current_user.username}}/tests-given" class="btn btn-primary mybtn">Results</a></center>
 				</div>
 			</div>
 		</div>
@@ -67,7 +67,7 @@
 			<div class="card shadow">
 				<div class="card-body">
 					<img src="static/notepad.png" alt="" width="100px">
-					<center><a href="/{{current_user.name}}/create-test" class="btn btn-primary mybtn">Create Test</a></center>
+					<center><a href="/{{current_user.username}}/create-test" class="btn btn-primary mybtn">Create Test</a></center>
 				</div>
 			</div>
 	   </div>
@@ -75,7 +75,7 @@
 		<div class="card shadow">
 			<div class="card-body">
 				<img src="static/research.png" alt="" width="100px">
-				<center><a href="/{{current_user.name}}/tests-created" class="btn btn-primary mybtn">Student Results</a></center>
+				<center><a href="/{{current_user.username}}/tests-created" class="btn btn-primary mybtn">Student Results</a></center>
 			</div>
 		</div>
 	</div>

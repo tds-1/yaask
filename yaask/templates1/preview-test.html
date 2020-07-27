@@ -224,7 +224,7 @@
                     
                     <li><a  class="" href="{{ url_for('main.home') }}">Home</a></li>
                     <li><a class="" href="/test">Create Test</a></li>
-                    {% if not current_user.name %}
+                    {% if not current_user.username %}
                         
                         <li><a  class="black-text" href="{{ url_for('users.login') }}">Login</a></li>
                         <li><a  class="black-text" href="{{ url_for('users.register') }}">Regiser</a></li>
@@ -238,7 +238,7 @@
                     
                     <li><a href="{{ url_for('main.home') }}">Home</a></li>
                     <li><a href="/test">Create Test</a></li>
-                      {% if not current_user.name %}
+                      {% if not current_user.username %}
                         <li><a href="{{ url_for('users.login') }}">Login</a></li>
                         <li><a href="{{ url_for('users.register') }}">Register</a></li>
                     {% else %}

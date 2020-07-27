@@ -18,8 +18,8 @@
                     <td>{{test['subject']}}</td>
                     <td>{{test['topic']}}</td>
                     <td>
-                        <a class="btn btn-primary btn-md mx-2" href=/{{current_user.name}}/tests-created/{{test['testid']}}>Result</a>
-                        <a class="btn btn-primary" href="/{{current_user.name}}/tests-created/{{test['testid']}}/questions">Questions</a>
+                        <a class="btn btn-primary btn-md mx-2" href=/{{current_user.username}}/tests-created/{{test['testid']}}>Result</a>
+                        <a class="btn btn-primary" href="/{{current_user.username}}/tests-created/{{test['testid']}}/questions">Questions</a>
                     </td>
                 </tr>
             {% endfor %}

@@ -260,7 +260,7 @@ def create_test(username, testid):
 @app.route('/<username>/tests-created/<testid>/questions', methods = ['POST','GET'])
 @login_required
 def questions(username, testid):
-    if username == current_user.name:
+    if username == current_user.username:
         results = Test.query.filter(Test.testid == testid).one()
         results = results.selected
         questions_to_display = Questions.query.filter( Questions.questionid.in_(results) ).all()
@@ -314,7 +314,7 @@ def give_test_auth():
                             time_left = results.time_left
                             if time_left <= duration:
                                 duration = time_left
-                                results = Students.query.filter(Students.username == current_user.name).filter(Students.testid == test_id).all()
+                                results = Students.query.filter(Students.username == current_user.usernname).filter(Students.testid == test_id).all()
                                 marked_ans = {}
                                 if len(results) > 0:
                                     for row in results:
