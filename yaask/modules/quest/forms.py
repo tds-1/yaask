@@ -7,10 +7,10 @@ from wtforms import validators
 
 class SubmitForm(Form):
 	question = CKEditorField('question', validators=[DataRequired()])
-	option1 = TextField('option1', validators=[DataRequired()])
-	option2 = TextField('option2', validators=[DataRequired()])
-	option3 = TextField('option3', validators=[DataRequired()])
-	option4 = TextField('option4', validators=[DataRequired()])
+	a = TextField('a', validators=[DataRequired()])
+	b = TextField('b', validators=[DataRequired()])
+	c = TextField('c', validators=[DataRequired()])
+	d = TextField('d', validators=[DataRequired()])
 	answer = SelectField(
 		'answer', 
 		choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')], 

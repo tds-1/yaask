@@ -32,6 +32,8 @@ oauthlib = "*"
 flask-oauth = "*"
 oauth = "*"
 rauth = "*"
+wkhtmltopdf = "*"
+sortedcontainers = "*"
 
 [requires]
 python_version = "3.6"

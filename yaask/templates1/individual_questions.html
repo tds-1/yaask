@@ -202,22 +202,22 @@
                     {{ question_to_display.question|safe }}
                 </div>
             </div>	
-            {% if ((question_to_display.option1=='-1') and (question_to_display.option2=='-1') and (question_to_display.option3=='-1') and (question_to_display.option4=='-1')) %}
+            {% if ((question_to_display.a=='-1') and (question_to_display.b=='-1') and (question_to_display.c=='-1') and (question_to_display.d=='-1')) %}
             {% else %}
             <div class="row">
                 <div class="col s6">
-                    A: {{ question_to_display.option1 }}
+                    A: {{ question_to_display.a }}
                 </div>
                 <div class="col s6">
-                    B: {{ question_to_display.option2 }}
+                    B: {{ question_to_display.b }}
                 </div>
             </div>
             <div class="row">
                 <div class="col s6">
-                    C: {{ question_to_display.option3 }}
+                    C: {{ question_to_display.c }}
                 </div>
                 <div class="col s6">
-                    D: {{ question_to_display.option4 }}
+                    D: {{ question_to_display.d }}
                 </div>
             </div>
             {% endif %}

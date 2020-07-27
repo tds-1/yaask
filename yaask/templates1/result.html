@@ -71,22 +71,22 @@
 					{{loop.index}}) {{ key.question }}
 				</div>
 			</div>
-			{% if ((key.option1=='-1') and (key.option2=='-1') and (key.option3=='-1') and (key.option4=='-1')) %}
+			{% if ((key.a=='-1') and (key.b=='-1') and (key.c=='-1') and (key.d=='-1')) %}
 			{% else %}
 			<div class="row">
 				<div class="col s6">
-					A: {{ key.option1 }}
+					A: {{ key.a }}
 				</div>
 				<div class="col s6">
-					B: {{ key.option2 }}
+					B: {{ key.b }}
 				</div>
 			</div>
 			<div class="row">
 				<div class="col s6">
-					C: {{ key.option3 }}
+					C: {{ key.c }}
 				</div>
 				<div class="col s6">
-					D: {{ key.option4 }}
+					D: {{ key.d }}
 				</div>
 			</div>
 			{% endif %}

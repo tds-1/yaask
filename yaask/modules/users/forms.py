@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import TextField, PasswordField
+from wtforms import TextField, PasswordField, RadioField
 from wtforms.validators import DataRequired, Length, EqualTo
 from wtforms.fields.html5 import EmailField
 from wtforms import validators
@@ -19,7 +19,7 @@ class RegisterForm(Form):
 
 	phone_no = TextField(
 		'phone number',
-		validators=[DataRequired(), Length(min=12, max=13)]
+		validators=[DataRequired()]
 	)
 	password = PasswordField(
 		'password',
@@ -29,7 +29,17 @@ class RegisterForm(Form):
 		'confirm',
 		validators=[DataRequired(), EqualTo('password', message='Passwords must match.')]
 	)
+	role = RadioField(
+		'role',
+		choices=[('student', 'Student'), ('teacher', 'Teacher')],
+		validators=[DataRequired()]
+	) 
 
 class LoginForm(Form):
 	username = TextField('username', validators=[DataRequired()])
 	password = PasswordField('password', validators=[DataRequired()])
+	role = RadioField(
+		'role',
+		choices=[('student', 'Student'), ('teacher', 'Teacher')],
+		validators=[DataRequired()]
+	)

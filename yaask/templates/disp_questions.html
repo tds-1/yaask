@@ -1,8 +1,5 @@
 {% extends 'layout.html' %}
 
-{% block head %}
-{% endblock %}
-
 
 {% macro show_opt(result,opt) %}
   <!-- if correct option -- green -->
@@ -37,41 +34,35 @@
 {% endmacro %}
 
 
-
+<!-- diff color for nt attemptd -->
 
 {% block body %}
-    <form action="" method="POST">
-            {% for result in questions_to_display %}
-                <input type="checkbox" id="{{result.questionid}}" name="{{result.questionid}}" value="checked">
+    {% for result in results%}
+        <table style="margin-bottom: 40px;">
+            <tr>
+                <td>Question No. {{ loop.index }}</td>
+                <td>Marks: 4</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    {{result.question | safe}}
+                </td>
+            </tr>
+            <tr>
+                {{ show_opt(result,'a') }}
+                {{ show_opt(result,'b') }}
+            </tr>
+            <tr>
+                {{ show_opt(result,'c') }}
+                {{ show_opt(result,'d') }}
+            </tr>
+            <tr>
+                <td colspan="2"><b>Explanation</b>:  {{result.comment}} </td>
+    
+            </tr>
+        </table> 
+    {% endfor %}
 
-                <table style="margin-bottom: 40px;">
-                    <tr>
-                        <td>Question No. {{ loop.index }}</td>
-                        <td>Marks: 4</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <pre style="border: 0px;" class="prettyprint" id="que"> {{result.question | safe}} </pre>
-                        </td>
-                    </tr>
-                    <tr>
-                        {{ show_opt(result,'a') }}
-                        {{ show_opt(result,'b') }}
-                    </tr>
-                    <tr>
-                        {{ show_opt(result,'c') }}
-                        {{ show_opt(result,'d') }}
-                    </tr>
-                    <tr>
-                        <td colspan="2"><b>Explanation</b>:  {{result.comment}} </td>
-            
-                    </tr>
-                </table> 
-        
-            {% endfor %}
-        <input class='button' type="submit" value="Add Selected Questions" style="color: black;">
-    </form>
-   
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='disp.css') }}">
 

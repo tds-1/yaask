@@ -1,173 +1,106 @@
-<!DOCTYPE html>
-<html>
+{% extends 'layout.html' %}
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Login| Yaask labs</title>
-    <link rel="icon" sizes="192x192" href="{{url_for('static',filename='../static/assets/yaask.png') }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block head %}
+<link rel="stylesheet" type="text/css" href="static/mylogin.css">
+<link rel="stylesheet" type="text/css" href="static/google.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="{{url_for('static',filename='../static/css/login.css') }}">
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- JQUERY import -->
+{% endblock %}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    
-    <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='jquery.min.js') }}">\x3C/script>')</script>
-    <script type='text/javascript'>
-        $(document).ready(function() {
-            //sets the global variable to the prefix to the root of the application
-            $SCRIPT_ROOT = {{request.script_root | tojson | safe}};
-            $(".button-collapse").sideNav();
-        });
-    </script>
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <style>
-        .header {
-            grid-row: 1 / 2;
-            grid-column: 2 / 3;
-            line-height: 12vh;
-            font-size: 6vh;
-            justify-self: center;
-            background-image: url({{url_for('static',filename='../static/assets/yaask.png')}});
-            background-size: 20%;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        .mhead {
-            grid-row: 2 / 3;
-            grid-column: 2 / 3;
-            font-size: 5vh;
-            line-height: 5vh;
-            background: yellow;
-            color: #131313;
-        }
-        input[type="text"],
-        input[type="password"] {
-            font-size: 1.65rem;
-        }
-        input[type="text"]+label::after,
-        input[type="password"]+label::after {
-            top: 70px!important;
-        }
+{% block body %}
 
-        .foot {
-            background-color: black !important;
-            position: fixed;
-            bottom: 0;
-            padding: 1vmin;
-            margin-top: 2vmin;
-            font-family: 'Bangers',
-            sans-serif;
-            width: 100vw;
-            z-index: 99;
-        }
-        .foot a {
-            padding: 0px 1vmin;
-        }
-    </style>
-    <meta name="google-signin-client_id" content="468952077813-8vkvevtnjbtcd9sju8eoa8t18kgidvdc.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    
-</head>
-
-<body>
-    <div class="container">
-        <div class="header">
-            <a href="/">Yaask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Labs&nbsp;&nbsp;&nbsp;</a>
-        </div>
-        <div class="mhead">Login</div>
-        <div class="mcontent row">
-            <div class="log col s12 m6">
-                <form action="" method="POST">
-                    {{ form.csrf_token }}
-                    <div class="row">
-                        <div class="col s12 input-field">
-                            <i class="material-icons prefix" style="font-size: 2.0rem!important;">perm_identity</i> {{ form.username(placeholder="What you wished people called you", class="validate") }}
-                            <label for="username" style="font-size: 1.0rem!important;">Username</label>
-                            <span class="error">
-                            {% if form.username.errors %}
-                                {% for error in form.username.errors %}
-                                    {{ error }}
-                                {% endfor %}
-                            {% endif %}
-                        </span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12 input-field">
-                            <i class="material-icons prefix" style="font-size: 2.0rem!important;">lock_outline</i> {{ form.password(placeholder="Something easy to remember but hard to guess", class="validate") }}
-                            <label for="password" data-error="wrong" data-success="right" style="font-size: 1.0rem!important;">Password</label>
-                            <span class="error">
-                            {% if form.password.errors %}
-                                {% for error in form.password.errors %}
-                                    {{ error }}
-                                {% endfor %}
-                            {% endif %}
-                        </span>
-                        </div>
-                    </div>
-                    
-                    <div class="valign-wrapper row">
-                        <button class="valign btn waves-effect waves-light" type="submit"> Sign In  
-                        <i class="material-icons">done</i></button>
-                        {{ error }}
-                    </div>
-                    
-            </div>
-            
-            <div class="reg col s12 m6">
-                <a class="btn-text" href={{ url_for( 'users.oauth_authorize', provider='google' ) }}>
-                    <div class="google-btn">
-                        <div class="google-icon-wrapper">
-                            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-                        </div>
-                        <p class="btn-text">
-                            <b>
-                                Sign-in with google
-                                <!-- </a> -->
-                            </b>
-                        </p>
-                    </div>
-                </a>
-            
-                <div class="row">OR</div>
-                <a href="/register" class="bounce">
-                    New User?
-                </a>
-                
-            </div>
-        </div>
-
+<div class="container" align="center" id="login">
+  <div class="row">
+    <div class="col-sm">
+      <h1>Login</h1>
     </div>
-
-    <div class="foot">
-        <a class="uncolour" href="#">Terms and Conditions</a></li>
-        <a class="uncolour" href="#">Contact Us</a></li>
-        <div class="right">
-            <a class="uncolour" href="#"><i class="fa fa-lg fa-facebook-square"></i></a>
-            <a class="uncolour" href="#"><i class="fa fa-lg fa-twitter-square"></i></a>
-            <a class="uncolour" href="#"><i class="fa fa-lg fa-instagram"></i></a>
-            <a class="uncolour" href="#"><i class="fa fa-lg fa-youtube-play"></i></a>
+  </div>
+  <div class="login-box well">
+    <form action="" method="POST">
+      {{ form.csrf_token }}
+          <div class="col s12 input-field">
+              <i class="material-icons prefix" style="font-size: 2.0rem!important;">perm_identity</i> {{ form.username(placeholder="What you wished people called you", class="validate") }}
+              <label for="username" style="font-size: 1.0rem!important;">Username</label>
+              <span class="error">
+              {% if form.username.errors %}
+                  {% for error in form.username.errors %}
+                      {{ error }}
+                  {% endfor %}
+              {% endif %}
+          </span>
+          </div>
+          <div class="col s12 input-field">
+              <i class="material-icons prefix" style="font-size: 2.0rem!important;">lock_outline</i> {{ form.password(placeholder="Something easy to remember but hard to guess", class="validate") }}
+              <label for="password" data-error="wrong" data-success="right" style="font-size: 1.0rem!important;">Password</label>
+              <span class="error">
+              {% if form.password.errors %}
+                  {% for error in form.password.errors %}
+                      {{ error }}
+                  {% endfor %}
+              {% endif %}
+              </span>
+          </div>
+          <br>
+          <div class="col s12 ">
+            <label for="role" data-error="wrong" data-success="right" style="font-size: 1.0rem!important;">Role</label>
+            {{ form.role(placeholder="", class="validate") }}
+            <span class="error">
+            {% if form.role.errors %}
+                {% for error in form.role.errors %}
+                    {{ error }}
+                {% endfor %}
+            {% endif %}
+            </span>
         </div>
+      
+          <div class="valign-wrapper">
+              <button class="valign btn waves-effect waves-light" type="submit"> Sign In  
+              <i class="material-icons">done</i></button>
+              {{ error }}
+          </div>
+          <div>
+            <p>Don't have an account?
+              <a href="/register" id="register">Click here</a>.
+            </p>
+          </div>
+          <b>OR</b>
+          <div style="padding: 10px;">
+            <a class="btn-text" href={{ url_for( 'users.oauth_authorize', provider='google' ) }}>
+              <button type="button" class="google-button">
+                <span class="google-button__icon">
+                  <svg viewBox="0 0 366 372" xmlns="http://www.w3.org/2000/svg"><path d="M125.9 10.2c40.2-13.9 85.3-13.6 125.3 1.1 22.2 8.2 42.5 21 59.9 37.1-5.8 6.3-12.1 12.2-18.1 18.3l-34.2 34.2c-11.3-10.8-25.1-19-40.1-23.6-17.6-5.3-36.6-6.1-54.6-2.2-21 4.5-40.5 15.5-55.6 30.9-12.2 12.3-21.4 27.5-27 43.9-20.3-15.8-40.6-31.5-61-47.3 21.5-43 60.1-76.9 105.4-92.4z" id="Shape" fill="#EA4335"/><path d="M20.6 102.4c20.3 15.8 40.6 31.5 61 47.3-8 23.3-8 49.2 0 72.4-20.3 15.8-40.6 31.6-60.9 47.3C1.9 232.7-3.8 189.6 4.4 149.2c3.3-16.2 8.7-32 16.2-46.8z" id="Shape" fill="#FBBC05"/><path d="M361.7 151.1c5.8 32.7 4.5 66.8-4.7 98.8-8.5 29.3-24.6 56.5-47.1 77.2l-59.1-45.9c19.5-13.1 33.3-34.3 37.2-57.5H186.6c.1-24.2.1-48.4.1-72.6h175z" id="Shape" fill="#4285F4"/><path d="M81.4 222.2c7.8 22.9 22.8 43.2 42.6 57.1 12.4 8.7 26.6 14.9 41.4 17.9 14.6 3 29.7 2.6 44.4.1 14.6-2.6 28.7-7.9 41-16.2l59.1 45.9c-21.3 19.7-48 33.1-76.2 39.6-31.2 7.1-64.2 7.3-95.2-1-24.6-6.5-47.7-18.2-67.6-34.1-20.9-16.6-38.3-38-50.4-62 20.3-15.7 40.6-31.5 60.9-47.3z" fill="#34A853"/></svg>
+                </span>
+                <span class="google-button__text">Sign in with Google</span>
+              </button>
+            </a>
+      
+          </div>
+          
+    </form>
+  </div>
+</div> 
 
-    </div>
-    <script>
-        function onSignIn(googleUser) {
-            var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-        }
-    </script>
+<script>
+  var flag = true;
+  $('.icon').on('click', function(){
+    if(flag){
+      $('#pass').prop('type','text');
+      flag = false;
+    } else {
+      $('#pass').prop('type', 'password');
+      flag = true;
+    }
+  }); 
+</script>
 
-</body>
+<script>
+  function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  }
+</script>
+{% endblock %}

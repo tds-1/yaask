@@ -223,7 +223,7 @@
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     
                     <li><a  class="" href="{{ url_for('main.home') }}">Home</a></li>
-                    <li><a class="" href="{{ url_for('tests.test') }}">Create Test</a></li>
+                    <li><a class="" href="/test">Create Test</a></li>
                     {% if not current_user.name %}
                         
                         <li><a  class="black-text" href="{{ url_for('users.login') }}">Login</a></li>
@@ -237,7 +237,7 @@
                 <ul id="mobile-demo" class="side-nav">
                     
                     <li><a href="{{ url_for('main.home') }}">Home</a></li>
-                    <li><a href="{{ url_for('tests.test') }}">Create Test</a></li>
+                    <li><a href="/test">Create Test</a></li>
                       {% if not current_user.name %}
                         <li><a href="{{ url_for('users.login') }}">Login</a></li>
                         <li><a href="{{ url_for('users.register') }}">Register</a></li>
