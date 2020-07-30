@@ -181,6 +181,7 @@ def create_test_info(username):
         form = UploadForm()
         if request.method == 'POST':
             try:
+                print (form.data)
                 test_info =  Test_info(
                     creatorid = current_user.id,
                     subject = form.subject.data,
@@ -194,6 +195,7 @@ def create_test_info(username):
                     duration = int(form.duration.data)*60,
                     password = form.password.data
                 )
+                
                 db.session.add(test_info)
                 db.session.commit()
                 test_id = test_info.testid
