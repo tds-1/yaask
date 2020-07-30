@@ -3,3 +3,4 @@
 config.py
 migrations/
 .vscode
+yaask/question.txt

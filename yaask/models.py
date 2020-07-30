@@ -109,7 +109,7 @@ class Test(db.Model):
 class Test_info(db.Model):
 	__tablename__ = 'test_information'
 
-	testid = db.Column(db.String, primary_key=True)
+	testid = db.Column(db.Integer, primary_key=True)
 	creatorid = db.Column(db.Integer, nullable=False)
 	subject = db.Column(db.String, nullable=False)
 	topic = db.Column(db.String, nullable=False)

@@ -40,7 +40,6 @@ h1{
 }
 
 .login-box{
-   width: 800px;
    border: #6a63dd solid 5px;
    border-radius: 0px 0px 20px 20px;
 }
@@ -48,7 +47,6 @@ h1{
 .row{
    border-radius: 20px 20px 0px 0px;
    border: #6a63dd solid 5px;
-   width: 800px;
    background-color: #6a63dd;
    /*padding-top: 20%; */ 
    margin-top: 50px;

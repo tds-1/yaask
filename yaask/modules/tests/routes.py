@@ -183,6 +183,8 @@ def create_test_info(username):
             try:
                 test_info =  Test_info(
                     creatorid = current_user.id,
+                    subject = form.subject.data,
+                    topic = form.topic.data,
                     start_date = form.start_date.data,
                     end_date = form.end_date.data,
                     start_time = form.start_time.data,
@@ -190,15 +192,13 @@ def create_test_info(username):
                     show_result = form.show_result.data,
                     neg_mark = form.neg_mark.data,
                     duration = int(form.duration.data)*60,
-                    password = form.password.data,
-                    subject = form.subject.data,
-                    topic = form.topic.data
+                    password = form.password.data
                 )
                 db.session.add(test_info)
                 db.session.commit()
                 test_id = test_info.testid
                 flash(f'Test ID: {test_id}', 'success')       
-                return redirect(url_for('create_test'))
+                return redirect(url_for('create_test', username=current_user.username, testid=test_id))
             except:
                 flash("all fields are required", 'danger')
                 return render_template('create_test.html' , form = form)
@@ -261,9 +261,12 @@ def create_test(username, testid):
 @login_required
 def questions(username, testid):
     if username == current_user.username:
-        results = Test.query.filter(Test.testid == testid).one()
-        results = results.selected
-        questions_to_display = Questions.query.filter( Questions.questionid.in_(results) ).all()
+        try:
+            results = Test.query.filter(Test.testid == testid).one()
+            results = results.selected
+            questions_to_display = Questions.query.filter( Questions.questionid.in_(results) ).all()
+        except:
+            questions_to_display={}
         return render_template('disp_questions.html', results=questions_to_display)
     else:
         return redirect(url_for('dashboard'))
