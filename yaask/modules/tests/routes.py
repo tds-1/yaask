@@ -500,10 +500,12 @@ def tests_result(username, testid):
             results.append(l)
             
         for result in results:
+            qid= result[0].questionid
             try:
-                marked = Students.query.filter(Students.testid== str(testid)).filter(Students.username == username).filter(Students.quid == str(qid)).one().ans
+                marked = Students.query.filter(Students.testid== str(testid)).filter(Students.username == username).filter(Students.quid == str(qid)).one()
             except:
                 marked = '#'
+            marked= marked.ans               
             result.append(marked)
         return render_template('tests_result.html', results= results)
     else:
