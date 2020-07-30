@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	{% block head %}
+	<title>{% block title %}{% endblock %} - Yaask Labs</title>
+	{% endblock head%}
+	<style>
+		html,
+		body {
+			height: 100%;
+		}
+
+		#container {
+			min-height: 100%;
+			position: relative;
+			margin-bottom: -200px;
+		}
+
+		.forfooter {
+			height: 200px;
+			clear: both;
+		}
+		a.uncolour {
+                color: white;
+            }
+
+            a.uncolour:hover {
+                color: grey;
+            }
+
+            .foot {
+                background-color: black !important;
+                position: fixed;
+                bottom: 0;
+                padding: 1vmin;
+                margin-top: 2vmin;
+                font-family: 'Bangers', sans-serif;
+                width: 100vw;
+                z-index: 99;
+            }
+
+            .foot a {
+                padding: 0px 1vmin;
+            }
+	</style>
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+	{% block navbar %}{% endblock %}
+	<div class="container">
+
+		<!--child template -->
+		{% block content %}{% endblock %}
+		<br>
+		<!-- Errors -->
+		{% if error %}
+		<p class="error"><strong>Error:</strong>{{ error }}</p>
+		{% endif %}
+		<br>
+		<!-- Flashed Messages -->
+	</div>
+	
+		<div class="foot">
+			<a class="uncolour" href="#">Terms and Conditions</a></li>
+			<a class="uncolour" href="#">Contact Us</a></li>
+			<div class="right">
+				<a class="uncolour" href="#"><i class="fa fa-lg fa-facebook-square"></i></a>
+				<a class="uncolour" href="#"><i class="fa fa-lg fa-twitter-square"></i></a>
+				<a class="uncolour" href="#"><i class="fa fa-lg fa-instagram"></i></a>
+				<a class="uncolour" href="#"><i class="fa fa-lg fa-youtube-play"></i></a>
+			</div>
+			{% block top %}
+			{% endblock %}
+		</div>
+
+	
+</body>
+
+</html>

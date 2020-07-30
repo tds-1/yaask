@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> Question Paper </title>
+	<meta name="viewpoint" content="width=device-width">
+	<style>
+		@import url("https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz|Bangers");
+	</style>
+</head>
+
+<body>
+	<div style="display:flex;flex-direction: row; justify-content: center; align-items: center;">
+		<div style="margin: 10px;">
+			<img src="{{url_for('static',filename='../static/assets/yaask.png') }}" alt="Yaask Logo"
+				style="height:50px;">
+		</div>
+		<div style="font-family : 'Bangers',sans-serif;font-size: 20px;">
+			<p>Yaask labs<br>
+				Alwar, Rajasthan</p>
+		</div>
+	</div>
+	<p style="text-align: center; font-weight: 600;">{{name}} <br> {{institution}}</p>
+
+	<div style="font-weight:600;">
+		<div style="float: left;">Time Allowed: {{time}} minutes</div>
+		<div style="float: right;">Maximum Marks: {{questions_to_display|length *4 }} </div>
+	</div>
+	<br>
+	<div>
+		<p style="font-weight: 700;">General Instructions:
+			<ul>
+				<li>There are a total of {{questions_to_display|length}} questions.</li>
+				<li>Each question will be allotted four marks for the correct response. One mark shall be deducted for
+					each incorrect response. However, there will be no deduction for unattempted questions and numerical
+					value-based questions.</li>
+			</ul>
+		</p>
+	</div>
+	<hr>
+	<!-- <p style="text-align: center; font-weight: 600;">Section A</p> -->
+	<br>
+	{% for question in questions_to_display %}
+	<div >
+		<b>{{loop.index}}.)</b> {{question.question|safe }}
+	</div>
+	<div style="padding-left: 15px;">
+		<div style="display: flex;">
+			<div style="width: 50%;">
+				A.){{question.a}}
+			</div>
+			<div>
+				B.){{question.b}}
+			</div>
+		</div>
+
+		<div style="display: flex;">
+			<div style="width: 50%;">
+				C.){{question.c}}
+			</div>
+			<div>
+				D.){{question.d}}
+			</div>
+		</div>
+
+	</div>
+	</br>
+	{% endfor %}
+
+</body>

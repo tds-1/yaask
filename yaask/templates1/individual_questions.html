@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+{% block head %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{ url_for('static', filename='jquery.min.js') }}">\x3C/script>')</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+<script type='text/javascript'>
+
+	//sets the global variable to the prefix to the root of the application
+	$SCRIPT_ROOT = {{ request.script_root | tojson | safe }};
+
+</script>    
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type='text/javascript'>
+	//sets the global variable to the prefix to the root of the application
+	
+	$(document).ready(function(){
+		$('.collapsible').collapsible({
+		  accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+		});
+		//$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+		$(".button-collapse").sideNav();
+		$('select').material_select();
+	  });
+</script>
+<link rel="stylesheet" type="text/css" media="screen" href="{{url_for('static',filename='../static/css/display.css') }}">
+
+<style type="text/css">
+    /* Modal styles */
+
+
+    .modal .modal-dialog {
+        max-width: 400px;
+    }
+
+    .modal .modal-header,
+    .modal .modal-body {
+        padding: 20px 30px;
+    }
+
+    .modal .modal-content {
+        border-radius: 3px;
+    }
+
+    .modal .modal-footer {
+        background: #ecf0f1;
+        border-radius: 0 0 3px 3px;
+    }
+
+    .modal .modal-title {
+        display: inline-block;
+    }
+
+    .modal .form-control {
+        border-radius: 2px;
+        box-shadow: none;
+        border-color: #dddddd;
+    }
+
+    .modal textarea.form-control {
+        resize: vertical;
+    }
+
+    .modal .btn {
+        border-radius: 2px;
+        min-width: 100px;
+    }
+
+</style>
+
+<style>
+	p{
+		display: flex;
+	}
+	.MathJax_Display{
+		margin: 0em 0em!important;
+	}
+	sup{
+		top: 0em;
+	}
+	sub{
+		bottom: -1.75em;
+    }
+    nav ul a {
+		font-size: 1.4rem;
+		color: #fff;
+		display: block;
+		padding: 0 15px;
+	}
+	a{
+		color: #1a0dab;;
+	}
+</style>
+<title>Edit Questions| Yaask labs</title>
+<link rel="icon" sizes="192x192" href="{{url_for('static',filename='../static/assets/yaask.png') }}">
+
+{% endblock head %}
+<!-- Dropdown Structure -->
+
+{% block navbar %}
+<!-- Dropdown Structure -->
+
+<!-- NavBar -->
+<div class="navigation">
+	<ul id="quizdropdown" class="dropdown-content">
+		<li><a href="{{ url_for('quest.display') }}">All Catgories</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='math') }}">Math</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='physics') }}">Physics</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='chemistry') }}">Chemistry</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='biology') }}">Biology</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='other') }}">Others</a></li>
+	</ul>
+	<!-- Since the selectors based on ID and it seems duplicates cause an error -->
+	<ul id="quizdropdown" class="dropdown-content">
+		<li><a href="{{ url_for('quest.display') }}">All Catgories</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='math') }}">Math</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='physics') }}">Physics</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='chemistry') }}">Chemistry</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='biology') }}">Biology</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='other') }}">Others</a></li>
+	</ul>
+
+	<ul id="user-dropdown" class="dropdown-content">
+		<li><a href="#" >Profile</a></li>
+		<li><a href="#">Settings</a></li>
+		<li><a href="{{ url_for('users.logout')}}">Logout</a></li>
+		
+	</ul>
+	<!-- Since the selectors based on ID and it seems duplicates cause an error -->
+	<ul id="user-dropdown" class="dropdown-content">
+		<li><a href="#" >Profile</a></li>
+		<li><a href="#">Settings</a></li>
+		<li><a href="{{ url_for('users.logout')}}">Logout</a></li>
+		
+	</ul>
+	<nav class="#4a148c purple darken-4">
+		<div class="nav-wrapper black-text">
+			<a href="{{ url_for('main.home') }}" class="brand-logo">Yaask <img src="{{url_for('static',filename='../static/assets/yaask.png') }}" style="width: 25px;"> Labs</a>
+			<a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				
+				<li><a  class="" href="{{ url_for('main.home') }}">Home</a></li>
+				<li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="" href="{{ url_for('quest.submit') }}">Add Questions</a></li>
+				<li><a  class="" href="{{ url_for('quest.editquestions') }}">Edit questions</a></li>
+				{% if not current_user.username %}
+					
+					<li><a  class="black-text" href="{{ url_for('users.login') }}">Login</a></li>
+					<li><a  class="black-text" href="{{ url_for('users.register') }}">Regiser</a></li>
+				{% else %}
+					<li><a class="dropdown-button" href="" data-activates="user-dropdown">Hi, {{current_user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
+				{% endif %}
+				
+			</ul>
+			
+			<ul id="mobile-demo" class="side-nav">
+				
+				<li><a href="{{ url_for('main.home') }}">Home</a></li>
+				<li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a href="{{ url_for('quest.submit') }}">Add Questions</a></li>
+				<li><a href="{{ url_for('quest.display') }}">Display Questions</a></li>
+				{% if not current_user.username %}
+					<li><a href="{{ url_for('users.login') }}">Login</a></li>
+					<li><a href="{{ url_for('users.register') }}">Register</a></li>
+				{% else %}
+					<li><a class="dropdown-button black-text" href="" data-activates="user-dropdown">Hi, {{current_user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
+
+				{% endif %}
+				
+			</ul>
+		</div>
+	</nav>
+</div>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class="mhead">List Of Questions</div>
+<h6>{{cat}} category question are displayed below</h6>
+<br>
+{% for question_to_display in questions_to_display %}
+<div class="a1">
+    <div style="display: flex;">
+        <div style="width: 5vh;">
+            <div class="row">
+                <div class="qs col" style="word-wrap: anywhere;">
+                    <i class="material-icons">arrow_forward</i>&nbsp
+                </div>
+            </div>
+        </div>
+        <div style="width: 75vw">
+            <div class="row">
+                <div class="qs col s12">
+                    {{ question_to_display.question|safe }}
+                </div>
+            </div>	
+            {% if ((question_to_display.a=='-1') and (question_to_display.b=='-1') and (question_to_display.c=='-1') and (question_to_display.d=='-1')) %}
+            {% else %}
+            <div class="row">
+                <div class="col s6">
+                    A: {{ question_to_display.a }}
+                </div>
+                <div class="col s6">
+                    B: {{ question_to_display.b }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6">
+                    C: {{ question_to_display.c }}
+                </div>
+                <div class="col s6">
+                    D: {{ question_to_display.d }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <div style="float: right; width: 15%">
+            <a href="">
+                <button style="padding: 0px;">
+                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                </button>
+            </a>
+            
+            <a>
+                <button onclick="myFunction('{{question_to_display.questionid}}')" style="padding: 0px;">
+                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                </button>
+            </a>
+        </div>
+
+    </div>
+    <div class="row ans">
+        <div class="col" style="padding: ;">
+            Correct Answer: {{question_to_display.answer}}
+        </div>
+    </div>
+</div>
+<br>
+{% endfor %}
+
+
+    <script>
+        function myFunction(x) {
+            var r = confirm("Are you sure you want to delete the question?");
+            if (r == true) {
+                var s="/editquestions?qid="+x;
+                location.href = s;
+
+            }
+            if (r == false) {
+                location.href = "/editquestions";
+            }
+        }
+    </script>
+
+    {% endblock content %}
+
+    <!-- Add the ajax answer submission
+	Add the logic to exclude the answered questions -->

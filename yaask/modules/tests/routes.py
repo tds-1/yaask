@@ -250,6 +250,7 @@ def create_test(username, testid):
                 db.session.commit()
 
             testdata = Test(
+                testid = testid,
                 selected=selected
             )
             db.session.add(testdata)
@@ -290,6 +291,7 @@ def tests_created(username):
 @login_required
 def give_test_auth():
     global duration, marked_ans	
+    marked_ans = "{}"
     form = TestForm(request.form)
     if request.method == 'POST' and form.validate():
         test_id = form.test_id.data
@@ -319,13 +321,13 @@ def give_test_auth():
                             time_left = results.time_left
                             if time_left <= duration:
                                 duration = time_left
-                                results = Students.query.filter(Students.username == current_user.usernname).filter(Students.testid == test_id).all()
+                                results = Students.query.filter(Students.username == current_user.username).filter(Students.testid == test_id).all()
                                 marked_ans = {}
                                 if len(results) > 0:
                                     for row in results:
                                         print ("row",row.quid)
                                         marked_ans[row.quid] = row.ans
-                                    marked_ans = json.dumps(marked_ans)
+                                marked_ans = json.dumps(marked_ans)
                         else:
                             flash('Test already given', 'success')
                             return redirect(url_for('give_test_auth'))
@@ -408,6 +410,7 @@ def test_portal(testid):
             marked_ans = eval (marked_ans)
             marked_ans[qid]=ans
             marked_ans = json.dumps(marked_ans)
+                
             results = Students.query.filter(Students.testid== testid).filter(Students.quid== qid).filter(Students.username== current_user.username).all()
             if len(results) == 0:
                 studentdata = Students(
@@ -485,8 +488,8 @@ def tests_given(username):
 @app.route('/<username>/tests-given/result/<testid>')
 @login_required
 def tests_result(username, testid):
-    completed = Student_test_info.query.filter(Student_test_info.username == username).one().completed
-    if username == current_user.username and compl:
+    completed = Student_test_info.query.filter(Student_test_info.username == username).one()
+    if username == current_user.username and completed.completed==True :
         # add a condition if test is given 
         result = Test.query.filter(Test.testid== testid).one()
         results = []

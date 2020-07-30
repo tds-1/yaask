@@ -1,0 +1,382 @@
+{% extends "base.html" %}
+{% block head %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{ url_for('static', filename='jquery.min.js') }}">\x3C/script>')</script>
+
+<!-- Materialize, note: the js has to be loaded AFTER Jquery -->
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+
+    @import url("https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz|Bangers|Patrick+Hand");
+	html,body{
+        margin-top : 40px ;
+        
+		height : 90vh;	
+		background : radial-gradient(indigo -100% ,#131313);	
+                   
+	}
+
+	.mhead{
+		grid-row : 2 / 3;
+		grid-column : 2 / 3;
+		font-size : 2em;
+		line-height : 5vh;
+		background : yellow;
+		color: #131313;
+		text-align: center;
+		font-family : 'Bangers',sans-serif;
+        margin-top: 6vh;	
+	}
+	.brand-logo{
+		padding-left: 10px;
+        font-family : 'Bangers',sans-serif;	
+		margin: 0px 2vw;
+	}
+	img#giticon {
+		padding-right: 5px;
+		height: 25px;
+		width: 25px;
+	}
+	img#giticon.hover {
+		opacity: 0.9;
+	}
+	#crown {
+		height: 20px;
+		width: 20px;
+	}    
+	
+	ul{
+		font-family : 'Yanone Kaffeesatz',sans-serif;
+		font-size: 3em;
+		padding-right: 2vh;
+	}
+	
+	.navigation{
+		
+		position: fixed;
+		top: 0;
+		z-index: 1;
+		width: 100%;
+	}
+	@media only screen and (max-width: 1000px) {
+		html,body{
+			margin-top: 0px;
+		}
+		.navigation{
+			position: static;
+			margin-bottom: 3vh;
+		}
+		
+	}
+
+	#myBtn {
+		display: none; /* Hidden by default */
+		position: fixed; /* Fixed/sticky position */
+		bottom: 20px; /* Place the button at the bottom of the page */
+		right: 30px; /* Place the button 30px from the right */
+		z-index: 99; /* Make sure it does not overlap */
+		border: none; /* Remove borders */
+		outline: none; /* Remove outline */
+		background-color: yellow; /* Set a background color */
+		color: white; /* Text color */
+		cursor: pointer; /* Add a mouse pointer on hover */
+		padding: 15px; /* Some padding */
+		border-radius: 10px; /* Rounded corners */
+		font-size: 18px; /* Increase font size */
+	}
+
+	#myBtn:hover {
+		background-color: #555; /* Add a dark-grey background on hover */
+	}
+	
+
+    .content{
+        font-family : 'Yanone Kaffeesatz',sans-serif;
+		color: white;
+		margin: 2vh 1vw;
+        padding: 2vh 1vw;
+        font-size: 1.2em;
+        padding-bottom:20px;		
+    }
+	form{
+		font-size: 1em;
+		font-family:'Patrick Hand', sans-serif;		
+	}
+	
+	.side-nav{
+		font-family : 'Bangers',sans-serif;		
+		height: 100%;
+		background-color: floralwhite;	
+	}
+	.side-nav li{
+		width: 100%;
+		margin-right: 0;
+	}
+	.side-nav li a{
+		width: 100%;
+		margin-right: 0;
+	}
+    a{
+        color: white;;
+    }
+    a:hover{
+        text-decoration: none !important;
+        color: white ;
+    }    
+    
+    button{
+        font-family : 'Bangers',sans-serif !important;
+		background-color: #F44336 !important;
+        border: none;        
+    }
+    
+    a.uncolour{
+        color: white;
+    }
+
+    a.uncolour:hover{
+        color: grey;
+    }
+
+    .right a{
+        padding: 1vmin;
+    }
+
+    .valign-wrapper{
+        margin-top: 5vh;
+    }
+
+    .foot{
+        background-color : black !important;
+        position: fixed;			
+        bottom: 0;
+        padding: 1vmin;
+        margin-top: 2vmin;
+        font-family : 'Bangers',sans-serif;	
+        width: 100vw;
+        z-index: 1;	
+    }
+
+    .foot a{
+        padding: 0px 3vmin;
+    }
+
+    .card:hover{
+        box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
+		transform: translate3d(0, -4px, 0);
+    }
+   
+
+    .card-action{
+        background-color: rgb(200, 200, 234);
+        color: black;
+        padding: 1.5vh 1.5vw !important;
+        
+    }  
+
+    #highlight{
+        
+        font-family: 'Patrick Hand',sans-serif;
+        padding-top: 2vh;       
+        color: black;
+    }
+
+    .sbmt{
+        margin-top: 1vh;
+    }
+    .tab{
+        width: 20% !important;
+        font-size: 0.4em !important;
+    }
+	p{
+		display: flex;
+	}
+	.MathJax_Display{
+		margin: 0em 0em!important;
+	}
+	sup{
+		top: 0em;
+	}
+	sub{
+		bottom: -1.75em;
+	}
+
+	</style>
+
+	<script type='text/javascript'>
+		//sets the global variable to the prefix to the root of the application
+		
+		$(document).ready(function(){
+    		$('.collapsible').collapsible({
+      		accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    		});
+    		$SCRIPT_ROOT = "";
+    		$(".button-collapse").sideNav();
+    		$('select').material_select();
+  		});
+    </script>  
+    
+<title>Display Question | Yaask Labs</title>
+{% endblock head %}
+
+
+{% block navbar %}
+<!-- Dropdown Structure -->
+
+<!-- NavBar -->
+<div class="navigation">
+	<ul id="quizdropdown" class="dropdown-content">
+		<li><a href="{{ url_for('quest.display') }}">All Catgories</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='math') }}">Math</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='physics') }}">Physics</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='chemistry') }}">Chemistry</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='biology') }}">Biology</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='other') }}">Others</a></li>
+	</ul>
+	<!-- Since the selectors based on ID and it seems duplicates cause an error -->
+	<ul id="quizdropdown" class="dropdown-content">
+		<li><a href="{{ url_for('quest.display') }}">All Catgories</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='math') }}">Math</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='physics') }}">Physics</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='chemistry') }}">Chemistry</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='biology') }}">Biology</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='other') }}">Others</a></li>
+	</ul>
+
+	<ul id="user-dropdown" class="dropdown-content">
+		<li><a href="#" >Profile</a></li>
+		<li><a href="#">Settings</a></li>
+		<li><a href="{{ url_for('users.logout')}}">Logout</a></li>
+		
+	</ul>
+	<!-- Since the selectors based on ID and it seems duplicates cause an error -->
+	<ul id="user-dropdown" class="dropdown-content">
+		<li><a href="#" >Profile</a></li>
+		<li><a href="#">Settings</a></li>
+		<li><a href="{{ url_for('users.logout')}}">Logout</a></li>
+		
+	</ul>
+	<nav class="#4a148c purple darken-4">
+		<div class="nav-wrapper black-text">
+			<a href="{{ url_for('home') }}" class="brand-logo">Yaask <img src="{{url_for('static',filename='../static/assets/yaask.png') }}" style="width: 25px;"> Labs</a>
+			<a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				
+				<li><a  class="" href="{{ url_for('main.home') }}">Home</a></li>
+				<li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="" href="{{ url_for('quest.submit') }}">Add Questions</a></li>
+				<li><a  class="" href="{{ url_for('quest.editquestions') }}">Edit questions</a></li>
+				{% if not current_user.username %}
+					
+					<li><a  class="black-text" href="{{ url_for('users.login') }}">Login</a></li>
+					<li><a  class="black-text" href="{{ url_for('users.register') }}">Regiser</a></li>
+				{% else %}
+					<li><a class="dropdown-button" href="" data-activates="user-dropdown">Hi, {{current_user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
+				{% endif %}
+				
+			</ul>
+			
+			<ul id="mobile-demo" class="side-nav">
+				
+				<li><a href="{{ url_for('main.home') }}">Home</a></li>
+				<li><a class="dropdown-button" href="" data-activates="quizdropdown">Choose Subject<i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a href="{{ url_for('quest.submit') }}">Add Questions</a></li>
+				<li><a href="{{ url_for('quest.editquestions') }}">Edit Questions</a></li>
+				{% if not current_user.username %}
+					<li><a href="{{ url_for('users.login') }}">Login</a></li>
+					<li><a href="{{ url_for('users.register') }}">Register</a></li>
+				{% else %}
+					<li><a class="dropdown-button black-text" href="" data-activates="user-dropdown">Hi, {{current_user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
+
+				{% endif %}
+				
+			</ul>
+		</div>
+	</nav>
+</div>
+
+{% endblock %}
+{% block content %}
+
+
+<h5 class="mhead">Question Added Successfully</h5>
+<br>
+<div class="content">
+    <div class="card blue-grey darken-1">
+        <div class="card-content white-text">     
+            <p>{{ question_to_display.question|safe }}</p>
+        </div>
+        <div class="card-action">
+            <div class="row">
+                <div class="col s6">
+                    A: {{ question_to_display.a }}
+                </div>
+                <div class="col s6">
+                    B: {{ question_to_display.b }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6">
+                    C: {{ question_to_display.c }}
+                </div>
+                <div class="col s6">
+                    D: {{ question_to_display.d }}
+                </div>
+            </div>
+            <div class="row" style="background-color: #F44336;">
+                <div class="input-field col s6">
+                    Correct Answer: {{question_to_display.answer}}
+                </div>
+            </div>
+        </div>
+        <div class="card-tabs">
+            <ul class="tabs">                  
+              <li class="tab"><a class="active" href="#test1">Comments/Solution</a></li>
+              <li class="tab"><a href="#test2">Tags</a></li>
+            </ul>
+        </div>
+
+        <div class="card-content grey lighten-4" id="highlight">
+            <div id="test1">
+                {{question_to_display.comment}}
+            </div>
+            <div id="test2">
+                {% for x in question_to_display.tags %}
+                {{x}},
+                {% endfor %}
+            </div>
+            
+        </div>
+    </div>
+    <div class="row">
+        <button class="sbmt" type="submit">
+            <a href="{{ url_for('quest.submit') }}">Add Another Questions</a>
+        </button>
+    </div>
+
+</div>
+
+<div class="foot">	             
+    <a class="uncolour" href="#">Terms and Conditions</a></li>
+    <a class="uncolour" href="#">Contact Us</a></li>
+    <div class="right">
+        <a class="uncolour" href="#"><i class="fa fa-lg fa-facebook-square"></i></a>								
+        <a class="uncolour" href="#"><i class="fa fa-lg fa-twitter-square"></i></a>
+        <a class="uncolour" href="#"><i class="fa fa-lg fa-instagram"></i></a>
+        <a class="uncolour" href="#"><i class="fa fa-lg fa-youtube-play"></i></a>
+    </div>			
+    
+</div>
+
+
+{% endblock content %}
+
+<!-- Add the ajax answer submission
+	Add the logic to exclude the answered questions -->

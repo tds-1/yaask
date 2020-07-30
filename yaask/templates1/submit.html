@@ -1,0 +1,491 @@
+{% extends "base.html" %}
+{% block head %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='../static/jquery.min.js') }}">\x3C/script>')</script> -->
+
+<!-- Site CSS -->
+<link rel="stylesheet" href="{{url_for('static',filename='../static/css/style.css') }}">
+<!-- Responsive CSS -->
+<link rel="stylesheet" href="{{url_for('static',filename='../static/css/css/responsive.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="{{url_for('static',filename='../static/jquery-1.11.3.min.js') }}"></script>
+
+<!-- Materialize, note: the js has to be loaded AFTER Jquery -->
+<!-- Compiled and minified CSS -->
+ <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/css/materialize.min.css"> -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<script type='text/JavaScript'>
+	$(document).ready(function() {
+		$('select').material_select();
+		$(".button-collapse").sideNav(); 
+	});
+	</script>
+<style>
+	#crown {
+		height: 20px;
+		width: 20px;
+	}
+
+
+	.lbl {
+		position: absolute;
+		top: -14px;
+		font-size: 0.8rem;
+	}
+	input{
+		color:black;
+		padding-left: 10px;
+	}
+	.row .col.s12 {
+		width: 100%;
+		margin-left: 0;
+	}
+	nav ul a {
+		font-size: 1.4rem;
+		color: #fff;
+		display: block;
+		padding: 0 15px;
+	}
+	.input-field label{
+		color: black;
+	}
+	[type="checkbox"] + span:not(.lever) {
+		position: relative;
+		padding-left: 35px;
+		cursor: pointer;
+		display: inline-block;
+		height: 25px;
+		line-height: 25px;
+		font-size: 1rem;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.inf label {
+		position: unset;
+	}
+	.select-wrapper .caret {
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto 0;
+		z-index: 0;
+		fill: rgba(0,0,0,0.87);
+	}
+	.tf{
+		position: absolute!important;
+	}
+	.select-wrapper + label {
+		position: absolute;
+		top: 0.8rem;
+
+	}
+	[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
+	.dropdown-content li.active{
+		background-color: brown;
+	}
+	.dropdown-content li.disabled {
+		background-color: transparent;
+	}
+    .tab{
+        width: 20% !important;
+        font-size: 0.4em !important;
+    }
+</style>
+
+<script type="text/javascript" src="//media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/ckeditor.js"></script><style>.cke{visibility:hidden;}</style>
+<link rel="stylesheet" type="text/css"
+	href="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/skins/moono-lisa/editor_gecko.css?t=GB8C">
+<script type="text/javascript"
+	src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/lang/en.js?t=GB8C"></script>
+<script type="text/javascript"
+	src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/styles.js?t=GB8C"></script>
+<script type="text/javascript"
+	src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/mathjax/plugin.js?t=GB8C"></script>
+<script type="text/javascript"
+	src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/imgur/plugin.js?t=GB8C"></script>
+<script type="text/javascript"
+	src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/widget/plugin.js?t=GB8C"></script>
+<script type="text/javascript"
+	src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/lineutils/plugin.js?t=GB8C"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css">
+<link rel="stylesheet" type="text/css"
+	href="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/wsc/skins/moono-lisa/wsc.css">
+<script type="text/javascript"
+	src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/mathjax/lang/en.js?t=GB8C"></script>
+<script type="text/javascript"
+	src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/imgur/lang/en.js?t=GB8C"></script>
+<script type="text/javascript"
+	src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/widget/lang/en.js?t=GB8C"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/copyformatting/styles/copyformatting.css">
+<script type="text/javascript"
+	src="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/plugins/mathjax/dialogs/mathjax.js?t=GB8C"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/skins/moono-lisa/dialog.css?t=GB8C">
+
+<script type="text/javascript">
+    CKEDITOR.config.customConfig = '//media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor-plugins/create_question.editor.config.js';
+</script>
+<title>Submit | Yaask Labs</title>
+<link rel="icon" sizes="192x192" href="{{url_for('static',filename='../static/assets/yaask.png') }}">
+
+<link rel="stylesheet" href="{{url_for('static',filename='../static/css/display.css') }}">
+
+{% endblock head %}
+
+<!-- Dropdown Structure -->
+{% block navbar %}
+<div class="navigation">
+	<ul id="quizdropdown" class="dropdown-content">
+		<li><a href="{{ url_for('quest.display') }}" >All Categories</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='math') }}">Math</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='physics') }}">Physics</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='chemistry') }}">Chemistry</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='biology') }}">Biology</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='other') }}">Others</a></li>
+	</ul>
+	<!-- Since the selectors based on ID and it seems duplicates cause an error -->
+	<ul id="quizdropdown" class="dropdown-content">
+		<li><a href="{{ url_for('quest.display') }}" >All Categories</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='math') }}">Math</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='physics') }}">Physics</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='chemistry') }}">Chemistry</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='biology') }}">Biology</a></li>
+		<li><a href="{{ url_for('quest.categorywise', category='other') }}">Others</a></li>
+	</ul>
+
+	<ul id="user-dropdown" class="dropdown-content">
+		<li><a href="#" >Profile</a></li>
+		<li><a href="#">Settings</a></li>
+		<li><a href="{{ url_for('users.logout')}}">Logout</a></li>
+		
+	</ul>
+	<!-- Since the selectors based on ID and it seems duplicates cause an error -->
+	<ul id="user-dropdown" class="dropdown-content">
+		<li><a href="#" >Profile</a></li>
+		<li><a href="#">Settings</a></li>
+		<li><a href="{{ url_for('users.logout')}}">Logout</a></li>
+		
+	</ul>
+	<nav class="#4a148c purple darken-4">
+		<div class="nav-wrapper black-text">
+			<a href="{{ url_for('main.home') }}" class="brand-logo">Yaask <img src="{{url_for('static',filename='../static/assets/yaask.png') }}" style="width: 25px;"> Labs</a>
+			<a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				
+				<li><a  class="" href="{{ url_for('main.home') }}">Home</a></li>
+				<li><a class="" href="{{ url_for('quest.submit') }}">Add Questions</a></li>
+				<li><a  class="" href="{{ url_for('quest.editquestions') }}">Edit questions</a></li>
+				{% if not current_user.username %}
+					
+					<li><a  class="black-text" href="{{ url_for('users.login') }}">Login</a></li>
+					<li><a  class="black-text" href="{{ url_for('users.register') }}">Regiser</a></li>
+				{% else %}
+					<li><a class="dropdown-button" href="" data-activates="user-dropdown">Hi, {{current_user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
+				{% endif %}
+				
+			</ul>
+			
+			<ul id="mobile-demo" class="side-nav">
+				
+				<li><a href="{{ url_for('main.home') }}">Home</a></li>
+				<li><a href="{{ url_for('quest.submit') }}">Add Questions</a></li>
+				<li><a href="{{ url_for('quest.editquestions') }}">Edit Questions</a></li>
+				{% if not current_user.username %}
+					<li><a href="{{ url_for('users.login') }}">Login</a></li>
+					<li><a href="{{ url_for('users.register') }}">Register</a></li>
+				{% else %}
+					<li><a class="dropdown-button black-text" href="" data-activates="user-dropdown">Hi, {{current_user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
+
+				{% endif %}
+				
+			</ul>
+		</div>
+	</nav>
+</div>
+{% endblock %}
+
+{% block content %}
+	<h5 class="mhead">Add Questions to the system:</h5>
+		<br>
+
+<br>
+<div id="gallery" class="section lb">
+	<div class="container">
+	
+
+		<div class="card-tabs">
+			<ul class="tabs">                  
+				<li class="tab"><a class="active" href="#test1">MCQ</a></li>
+				<li class="tab"><a href="#test2">Numeric Response</a></li>
+			</ul>
+		</div>
+		<br>
+		<div class="card-content grey lighten-4" id="highlight">
+			<div  id="test1">
+			<form action="" method='POST'>
+				{{ form.csrf_token }}
+				<div class="row">
+					<div class="input-field col s12">
+						{{ form.question(placeholder="Question") }}
+						<label class="active" for="question">Question:</label>
+						<span class="error">
+							{% if form.question.errors %}
+							{% for error in form.question.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						{{ form.a(placeholder="Option A") }}
+						<label class="active" for="a">A:</label>
+						<span class="error">
+							{% if form.a.errors %}
+							{% for error in form.a.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+					<div class="input-field col s6">
+						{{ form.b(placeholder="Option B") }}
+						<label class="active" for="b">B:</label>
+						<span class="error">
+							{% if form.b.errors %}
+							{% for error in form.b.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						{{ form.c(placeholder="Option C") }}
+						<label class="active" for="c">C:</label>
+						<span class="error">
+							{% if form.c.errors %}
+							{% for error in form.c.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+					<div class="input-field col s6">
+						{{ form.d(placeholder="Option D") }}
+						<label class="active" for="d">D:</label>
+						<span class="error">
+							{% if form.d.errors %}
+							{% for error in form.d.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field  col s12">
+						{{ form.answer(placeholder="Answer") }}
+						<label class="active" for="answer">Correct Answer:</label>
+						<span class="error">
+							{% if form.answer.errors %}
+							{% for error in form.answer.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<div class="row">
+
+					<div class="input-field col s6">
+						{{ form.category(placeholder="Category") }}
+						<label class="active" for="category">Category:</label>
+						<span class="error">
+							{% if form.category.errors %}
+							{% for error in form.category.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+					<div class="input-field col s6">
+						{{ form.difficulty(placeholder="Difficulty") }}
+						<label class="active" for="difficulty">Difficulty:</label>
+						<span class="error">
+							{% if form.difficulty.errors %}
+							{% for error in form.difficulty.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field inf col s12">
+						<select multiple  id="select_tag" name="select_tag">
+							<option value="" disabled selected style="background-color: white;">Choose your option</option>
+							{% for tag in tag %}
+								<option value="{{tag}}">{{tag}}</option>
+							{% endfor %}	
+						</select>
+						<label class="active tf" for="tags"> Select Tags</label>
+					
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-field  col s12">
+						{{ form.comment(placeholder="Comment") }}
+						<label class="active" for="comment">Comment/Solution (optional):</label>
+						<span class="error">
+							{% if form.comment.errors %}
+							{% for error in form.comment.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<div class="valign-wrapper">
+					<button class="valign btn-large waves-effect waves-light" type="submit">Add the Question <i
+							class="material-icons">send</i></button>
+				</div>
+				<div>
+					<br>
+				</div>
+				
+			</form>
+			</div>
+			<div id="test2">
+			<form action="" method='POST'>
+				{{ form1.csrf_token }}
+				<div class="row">
+					<div class="input-field  col s12">
+						{{ form1.question1(placeholder="Question") }}
+						<label class="active" for="question">Question:</label>
+						<span class="error">
+							{% if form1.question1.errors %}
+							{% for error in form1.question1.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<div class="row"> 
+					<div class="input-field  col s12">
+						{{ form1.answer1(placeholder="Answer") }}
+						<label class="active" for="answer">Correct Answer:</label>
+						<span class="error">
+							{% if form1.answer1.errors %}
+							{% for error in form1.answer1.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						{{ form1.category1(placeholder="Category") }}
+						<label class="active" for="category">Category:</label>
+						<span class="error">
+							{% if form1.category1.errors %}
+							{% for error in form1.category1.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+					<div class="input-field col s6">
+						{{ form1.difficulty1(placeholder="Difficulty") }}
+						<label class="active" for="difficulty">Difficulty:</label>
+						<span class="error">
+							{% if form1.difficulty1.errors %}
+							{% for error in form1.difficulty1.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="input-field inf col s12">
+						<select multiple  id="select_tag" name="select_tag">
+							<option value="" disabled selected style="background-color: white;">Choose your option</option>
+							{% for tag in tag %}
+								<option value="{{tag}}">{{tag}}</option>
+							{% endfor %}	
+						</select>
+						<label class="active tf" for="tags"> Select Tags</label>
+					
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-field  col s12">
+						{{ form1.comment1(placeholder="Comment") }}
+						<label class="active" for="comment">Comment (optional) :</label>
+						<span class="error">
+							{% if form1.comment1.errors %}
+							{% for error in form1.comment1.errors %}
+							{{ error }}
+							{% endfor %}
+							{% endif %}
+						</span>
+					</div>
+				</div>
+		
+				<div class="valign-wrapper">
+					<button class="valign btn-large waves-effect waves-light" type="submit">Add the Question<i
+							class="material-icons">send</i></button>
+				</div>
+
+				<div>
+					<br>
+				</div>
+
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Camera Slider -->
+<script src="{{url_for('static',filename='../static/js/jquery.easing.1.3.js') }}"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/js/materialize.min.js"></script>
+		
+<script>
+	(function($){
+		$(function(){
+			// Plugin initialization
+			$('select').not('.disabled').formSelect();
+		}); 
+	})(jQuery); // end of jQuery name space
+</script>
+
+{% endblock content %}

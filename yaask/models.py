@@ -99,7 +99,8 @@ class Test(db.Model):
 	selected = db.Column(db.PickleType)
 	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow() + timedelta(hours=5.5))
 
-	def __init__(self, selected):
+	def __init__(self,testid, selected):
+		self.testid = testid
 		self.selected = selected
 	
 	def __repr__(self):
@@ -144,7 +145,8 @@ class Test_info(db.Model):
 class Student_test_info(db.Model):
 	__tablename__ = 'studenttestinfo'
 
-	username = db.Column(db.String, primary_key=True)
+	id = db.Column(db.Integer, primary_key= True, autoincrement=True)
+	username = db.Column(db.String, nullable= False)
 	testid = db.Column(db.String, nullable=False)
 	time_left = db.Column(db.Integer, nullable=False)
 	completed = db.Column(db.Boolean, default=False)

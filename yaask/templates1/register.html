@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Register| Yaask labs</title>
+    <link rel="icon" sizes="192x192" href="{{url_for('static',filename='../static/assets/yaask.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{url_for('static',filename='../static/css/register.css') }}">
+    <!-- JQUERY import -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+        .header {
+            grid-row: 1 / 2;
+            grid-column: 2 / 3;
+            line-height: 12vh;
+            font-size: 6vh;
+            justify-self: center;
+            background-image: url({{url_for('static',filename='../static/assets/yaask.png')}});
+            background-size: 20%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .mhead {
+            grid-row: 2 / 3;
+            grid-column: 2 / 3;
+            font-size: 5vh;
+            line-height: 5vh;
+            background: yellow;
+            color: #131313;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            font-size: 1.65rem;
+        }
+
+        input[type="text"]+label::after,
+        input[type="email"]+label::after,
+        input[type="password"]+label::after {
+            top: 70px !important;
+        }
+        .btn, label, input{
+            letter-spacing: 1px!important;
+        }
+        label {
+            font-size: 1rem!important;
+        }
+            a.uncolour {
+                color: white;
+            }
+
+            a.uncolour:hover {
+                color: grey;
+            }
+
+            .right a {
+                padding: 1vmin;
+            }
+
+            .foot {
+                background-color: black !important;
+                position: fixed;
+                bottom: 0;
+                padding: 1vmin;
+                margin-top: 2vmin;
+                font-family: 'Bangers', sans-serif;
+                width: 100vw;
+                z-index: 99;
+            }
+
+            .foot a {
+                padding: 0px 1vmin;
+            }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+    <div class="header"><a href="/">Yaask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Labs&nbsp;&nbsp;&nbsp;</a></div>
+    <div class="mhead">Register</div>
+    <div class="mcontent row">
+        <div class="col s12 m6">
+            <form action="" method='POST'>
+                {{ form.csrf_token }}
+                <div class="row">
+                        <div class="input-field col s12">
+                        <i class="material-icons prefix" style="font-size: 2.0rem!important;">sentiment_satisfied</i>
+                        <label for="name">Name:</label>
+                        {{ form.name(placeholder="What you are called on documents") }}
+                        <span class="error">
+                            {% if form.name.errors %}
+                            {% for error in for.name.errors %}
+                            {{ error }}
+                            {% endfor %}
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix" style="font-size: 2.0rem!important;">perm_identity</i>
+                        {{ form.username(placeholder="What you wished people call you") }}
+                        <label for="username">Username:</label>
+                        <span class="error">
+                            {% if form.username.errors %}
+                            {% for error in for.username.errors %}
+                            {{ error }}
+                            {% endfor %}
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix" style="font-size: 2.0rem!important;">email</i>
+                        {{ form.email(placeholder="Enter your email address") }}
+                        <label for="username">Email:</label>
+                        <span class="error">
+                            {% if form.username.errors %}
+                            {% for error in for.username.errors %}
+                            {{ error }}
+                            {% endfor %}
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix" style="font-size: 2.0rem!important;">call</i>
+                        {{ form.phone_no(placeholder="Enter your phone number with country code") }}
+                        <label for="username">Phone Number:</label>
+                        <span class="error">
+                            {% if form.username.errors %}
+                            {% for error in for.username.errors %}
+                            {{ error }}
+                            {% endfor %}
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix" style="font-size: 2.0rem!important;">lock_outline</i>
+                        {{ form.password(placeholder="Something easy to remember but hard to guess") }}
+                        <label for="password">Password:</label>
+                        <span class="error">
+                            {% if form.password.errors %}
+                            {% for error in for.password.errors %}
+                            {{ error }}
+                            {% endfor %}
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix" style="font-size: 2.0rem!important;">security</i>
+                        <label for="confirm">Confirm:</label>
+                        {{ form.confirm(placeholder="Same as above") }}
+                        <span class="error">
+                            {% if form.confirm.errors %}
+                            {% for error in form.confirm.errors %}
+                            {{ error }}
+                            {% endfor %}
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="valign-wrapper">
+                    <button class="btn  valign  waves-effect waves-light" type="submit">Register!<i
+                            style="padding-left: 20px;" class="material-icons">send</i></button>
+                    {{error}}
+                </div>
+            </form>
+        </div>
+        <div class="reg col s12 m6">
+            <a class="btn-text" href={{ url_for( 'users.oauth_authorize', provider='google' ) }}>
+                <div class="google-btn">
+                    <div class="google-icon-wrapper">
+                        <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                    </div>
+                    <p class="btn-text">
+                        <b>
+                                Sign-in with google
+                            <!-- </a> -->
+                        </b>
+                    </p>
+                </div>
+            </a>
+            <div class="row"></div>
+            <div class="row">OR</div>
+            <div class="row"></div>
+            <a href="/login" class="bounce">
+                Already registered?
+            </a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+<div class="foot">
+    <a class="uncolour" href="#">Terms and Conditions</a></li>
+    <a class="uncolour" href="#">Contact Us</a></li>
+    <div class="right">
+        <a class="uncolour" href="#"><i class="fa fa-lg fa-facebook-square"></i></a>
+        <a class="uncolour" href="#"><i class="fa fa-lg fa-twitter-square"></i></a>
+        <a class="uncolour" href="#"><i class="fa fa-lg fa-instagram"></i></a>
+        <a class="uncolour" href="#"><i class="fa fa-lg fa-youtube-play"></i></a>
+</div>
+
+</div>
+</body>
+</html>
