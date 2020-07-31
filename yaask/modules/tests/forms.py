@@ -31,11 +31,17 @@ class RandomTest(Form):
 	number_of_questions = IntegerField(
 		'number of questions', validators=[DataRequired()]
 	)
-	avg_difficulty = SelectField(
-		'average difficulty',
-		choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
+	topic = SelectField(
+		'topic',
+		choices=[('Human Health  and Disease', 'Human Health and Disease')],
 		validators=[DataRequired()]
 	)
+
+	# avg_difficulty = SelectField(
+	# 	'average difficulty',
+	# 	choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
+	# 	validators=[DataRequired()]
+	# )
 
 
 class UploadForm(FlaskForm):

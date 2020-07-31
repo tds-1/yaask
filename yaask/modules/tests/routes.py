@@ -216,39 +216,53 @@ def create_test(username, testid):
         categoryList = [
             'biology',]
         #To allow sorting by username just do an ajax request back to score board with argument (like /score/#username then /score/#score)
-        form=RandomTest()
-        
+        form=RandomTest(request.form)
         if request.method == 'GET':
             db.session.commit()
             questions_to_display = Questions.query.filter().all()
             return render_template('test.html',form=form, questions_to_display=questions_to_display, categoryList=categoryList)
 
-        if request.method == 'POST':		
-            questions_to_display = Questions.query.filter().all()
-            selected=[]
-            for question in questions_to_display:
-                check=request.form.get(str(question.questionid))
-                if check=="checked":
-                    selected.append(question.questionid)
-            # category=form.subject.data
-            # avg=form.avg_difficulty.data
-            # n=form.number_of_questions.data
-            # print (category, avg, n)
-            # temp=Questions.query.filter( ~Questions.questionid.in_(selected)).filter(Questions.category==category).all()
-            # arr=[]
-            # for x in temp:
-            #     arr.append((int(x.difficulty), x.question_score, x.questionid))
-        
-            # random_questions=choosequestions(arr, avg, n)
-            # print (random_questions)
-            # for question in random_questions:
-            #     selected.append(question[2])
-            #update score
+        if request.method == 'POST':
+            selected = []
+            try:
+                subject = form.subject.data
+                number = form.number_of_questions.data
+                tag = form.topic.data
+                tag = [tag]
+                print (subject, number, tag)
+                questions_to_display = Questions.query.filter(Questions.category== subject).order_by(Questions.questionid.asc())
+                c=0
+                for x in questions_to_display:
+                    if x.tags==tag:
+                        selected.append(x.questionid)
+                        c+=1
+                        if (c==number):
+                            break
+            except:            
+                questions_to_display = Questions.query.filter().all()
+                for question in questions_to_display:
+                    check=request.form.get(str(question.questionid))
+                    if check=="checked":
+                        selected.append(question.questionid)
+                # category=form.subject.data
+                # avg=form.avg_difficulty.data
+                # n=form.number_of_questions.data
+                # print (category, avg, n)
+                # temp=Questions.query.filter( ~Questions.questionid.in_(selected)).filter(Questions.category==category).all()
+                # arr=[]
+                # for x in temp:
+                #     arr.append((int(x.difficulty), x.question_score, x.questionid))
+            
+                # random_questions=choosequestions(arr, avg, n)
+                # print (random_questions)
+                # for question in random_questions:
+                #     selected.append(question[2])
+                #update score
             questions_to_display = Questions.query.filter( Questions.questionid.in_(selected) ).all()
             for x in questions_to_display:
                 x.question_score=x.question_score+1
                 db.session.commit()
-
+            print (selected)
             testdata = Test(
                 testid = testid,
                 selected=selected
@@ -356,7 +370,7 @@ def give_test_auth():
                                     if len(results) > 0:
                                         for row in results:
                                             marked_ans[row['qid']] = row.ans
-                                        marked_ans = json.dumps(marked_ans)
+                                    marked_ans = json.dumps(marked_ans)
                         
                 else:
                     if datetime.strptime(start,"%Y-%m-%d %H:%M:%S") > now:
@@ -434,8 +448,8 @@ def test_portal(testid):
                 db.session.commit()
             except:
                 pass
-        else:			
-            info = Student_test_info.query.filter(Student_test_info.username==current_user.username).filter(testid== testid).one()
+        else:
+            info = Student_test_info.query.filter(Student_test_info.username==current_user.username).filter(Student_test_info.testid == testid).one()
             info.time_left=0
             info.completed= True
             db.session.commit()
@@ -488,7 +502,7 @@ def tests_given(username):
 @app.route('/<username>/tests-given/result/<testid>')
 @login_required
 def tests_result(username, testid):
-    completed = Student_test_info.query.filter(Student_test_info.username == username).one()
+    completed = Student_test_info.query.filter(Student_test_info.username == username).filter(Student_test_info.testid== testid).one()
     if username == current_user.username and completed.completed==True :
         # add a condition if test is given 
         result = Test.query.filter(Test.testid== testid).one()
@@ -503,9 +517,9 @@ def tests_result(username, testid):
             qid= result[0].questionid
             try:
                 marked = Students.query.filter(Students.testid== str(testid)).filter(Students.username == username).filter(Students.quid == str(qid)).one()
+                marked= marked.ans               
             except:
                 marked = '#'
-            marked= marked.ans               
             result.append(marked)
         return render_template('tests_result.html', results= results)
     else:

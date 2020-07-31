@@ -24,6 +24,27 @@ def dashboard():
 @app.route('/upload')
 @login_required
 def upload():
+	print (current_user.username)
+	f1 = open("yaask/answer.txt", "r")
+	ans= (f1.read())
+	answer = []
+	for i in range (0,len(ans)):
+		if(ans[i].isdigit() and ans[i+1]==' '):
+			answer.append(ans[i+2])
+		if(ans[i].isdigit() and ans[i+1].isdigit() and ans[i+1]==' '):
+			answer.append(ans[i+3])
+	f2 = open("yaask/comment.txt", "r")
+	ans= (f2.read())
+	comment = []
+	l=0
+	for i in range (10,len(ans)):
+		if(ans[i].isdigit() and ans[i+1]==' ' and ans[i+2]=='('):
+			comment.append(ans[l+2:i])
+			l = i
+		if(ans[i].isdigit() and ans[i+1].isdigit() and ans[i+2]==' ' and ans[i+2]=='('):
+			comment.append(ans[l+3:i])
+			l = i
+	comment.append(ans[l+3:])
 	f = open("yaask/question.txt", "r")
 	x= (f.read())
 	s=[]
@@ -45,15 +66,17 @@ def upload():
 	#s is full question
 	question=[]
 	count=0
-
+	co=0
 	for y in s:
 		br=[]
 		l=0
 		fl=0
 		if (len(y)==0):
 			continue
+		co+=1
+		# print (co,y)
 		# print (y)
-		for i in range(0,len(y)-15):
+		for i in range(0,len(y)-3):
 			if(y[i]=='\n' and y[i+1]=='A' and y[i+2]==' '):
 				br.append(y[l:i])
 				l=i+3
@@ -70,35 +93,31 @@ def upload():
 				br.append(y[l:i])
 				l=i+3
 				i=i+2
-			if(y[i]=='\n' and y[i+1]=='A' and y[i+2]=='n' and y[i+3]=='s' and y[i+4]=='w'):
-				br.append(y[l:i])
-				br.append(y[i+17:i+18])
+				br.append(y[l:])
 				break
 		if (len(br)==0):
 			continue
-		question.append(br)
 		i=br
-		print (count)
-		count+=1
-
+		comment[count]=comment[count][:-1]
+		print (comment[count], br, answer[count], count)
 		questiondata = Questions(
 			question=i[0],
 			a=i[1],
 			b=i[2],
 			c=i[3],
 			d=i[4],
-			answer=i[5],
+			answer=answer[count].upper(),
 			creatorid=current_user.id,
 			category='biology',
 			difficulty='1',
 			question_score=0,
-			comment='',
-			tags=[]
+			comment=comment[count],
+			tags=['Human Health  and Disease']
 		)
-		print (questiondata)
 		db.session.add(questiondata)
 		db.session.commit()
-
+		print (questiondata)
+		count+=1
 
 	return 'hello world'
 

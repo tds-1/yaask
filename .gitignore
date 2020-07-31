@@ -4,3 +4,5 @@ config.py
 migrations/
 .vscode
 yaask/question.txt
+yaask/comment.txt
+yaask/answer.txt
