@@ -1,6 +1,3 @@
-label {
-    float: left;
-}
 .thim-link-login{
    font-size: 14px;
    padding-left: 20px;
@@ -18,6 +15,7 @@ label {
    -moz-border-radius: 20px; */
    border-radius: 20px;
 }
+
 .loginlink{
 
    color: #6a63dd !important;
@@ -27,20 +25,27 @@ h1{
    margin-top: 2%;
    text-align: center;
    color: white;
-/*   padding-top: 20%;
-   margin-top:  100px; 
-   color:#ff6666; 
+/*   margin-top:  100px; 
+   color:#6a63dd; 
    height: 300px;
    width: 750px; */
 }
 
 .form-group{
+
    margin-top: 2%;
    width: 75%;
+
+}
+
+#up{
+   position: left;
+   padding-right: 475px;
 }
 
 .login-box{
    border: #6a63dd solid 5px;
+   padding-top: 2%;
    border-radius: 0px 0px 20px 20px;
 }
 
@@ -49,7 +54,7 @@ h1{
    border: #6a63dd solid 5px;
    background-color: #6a63dd;
    /*padding-top: 20%; */ 
-   margin-top: 50px;
+   margin-top: 200px;
 }
 
 .btn{
@@ -58,15 +63,24 @@ h1{
    width: 150px;
 }
 
+
+
 #acc{
    margin: 3% 0px 0px 0px ; 
 }
-
 #register{
    margin: 3% 0px 0px 0px;
    color: #6a63dd !important;
 }
 
-p {
-   margin-top: 2%;
+.icon {
+   float: right;
+   margin-right: 10px;
+   margin-top: -26px;
+   position: relative;
+   z-index: 2;
+}
+
+ul, li{
+   display: inline;
 }

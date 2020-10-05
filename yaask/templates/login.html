@@ -1,106 +1,70 @@
-{% extends 'layout.html' %}
-
+{% extends "layout.html" %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="static/mylogin.css">
-<link rel="stylesheet" type="text/css" href="static/google.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title class="links"></title>
+    <link rel="stylesheet" type="text/css" href="static/mylogin.css">
+    <style>
+        .rad {
+            margin: 20px 0px 20px 20px !important;
+            display: flex;
+            list-style-type: none;
+        }
 
+        label {
+            margin: 20px;
+        }
+        .toggle-btn{
+            font-family: revert;
+            font-size: revert;
+        }
+    </style>
 {% endblock %}
+{% block wwbody %}
+
+    <div class="form">
+        <div class="form-box">
+            <div class="fobtn-box" style="display:flex">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log in</button>
+                <button type="button" class="toggle-btn" onclick="register()">Register</button>
+            </div>
+            <div class="social-icons">
+                <a class="btn-text" href={{ url_for( 'users.oauth_authorize', provider='google' ) }}>
+                    <img
+                        src="data:image/jpeg;base64,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">
+                    Sign In With google
+                </a>
 
 
-{% block body %}
+            </div>
+            <form action="" method="POST" id="login" class="input-group">
+                {{ form.csrf_token }}
+                {{ form.username(placeholder="Your ID", class="datainput validate") }}
+                {{ form.password(placeholder="Password", class="datainput validate") }}
+                {{ form1.role(placeholder="", class="check rad validate") }}
+                <button type="submit" class="submit">Log in</button>
+            </form>
 
-<div class="container" align="center" id="login">
-  <div class="row">
-    <div class="col-sm">
-      <h1>Login</h1>
-    </div>
-  </div>
-  <div class="login-box well">
-    <form action="" method="POST">
-      {{ form.csrf_token }}
-          <div class="col s12 input-field">
-              <i class="material-icons prefix" style="font-size: 2.0rem!important;">perm_identity</i> {{ form.username(placeholder="What you wished people called you", class="validate") }}
-              <label for="username" style="font-size: 1.0rem!important;">Username</label>
-              <span class="error">
-              {% if form.username.errors %}
-                  {% for error in form.username.errors %}
-                      {{ error }}
-                  {% endfor %}
-              {% endif %}
-          </span>
-          </div>
-          <div class="col s12 input-field">
-              <i class="material-icons prefix" style="font-size: 2.0rem!important;">lock_outline</i> {{ form.password(placeholder="Something easy to remember but hard to guess", class="validate") }}
-              <label for="password" data-error="wrong" data-success="right" style="font-size: 1.0rem!important;">Password</label>
-              <span class="error">
-              {% if form.password.errors %}
-                  {% for error in form.password.errors %}
-                      {{ error }}
-                  {% endfor %}
-              {% endif %}
-              </span>
-          </div>
-          <br>
-          <div class="col s12 ">
-            <label for="role" data-error="wrong" data-success="right" style="font-size: 1.0rem!important;">Role</label>
-            {{ form.role(placeholder="", class="validate") }}
-            <span class="error">
-            {% if form.role.errors %}
-                {% for error in form.role.errors %}
-                    {{ error }}
-                {% endfor %}
-            {% endif %}
-            </span>
+            <form action="" method="POST" id="register" class="input-group">
+                {{ form.csrf_token }}
+                {{ form1.name(placeholder="What you are called on documents", class="datainput validate") }}
+                {{ form1.username(placeholder="What you wished people call you", class="datainput validate") }}
+                {{ form1.email(placeholder="Enter your email address", class="datainput validate") }}
+                {{ form1.phone_no(placeholder="Enter your phone number with country code", class="datainput validate") }}
+                {{ form1.password(placeholder="Something easy to remember but hard to guess", class="datainput validate") }}
+                {{ form1.confirm(placeholder="Same as above", class="datainput") }}
+                {{ form1.role(placeholder="", class="check rad") }}
+                <button type="submit" class="submit">Register</button>
+            </form>
         </div>
-      
-          <div class="valign-wrapper">
-              <button class="valign btn waves-effect waves-light" type="submit"> Sign In  
-              <i class="material-icons">done</i></button>
-              {{ error }}
-          </div>
-          <div>
-            <p>Don't have an account?
-              <a href="/register" id="register">Click here</a>.
-            </p>
-          </div>
-          <b>OR</b>
-          <div style="padding: 10px;">
-            <a class="btn-text" href={{ url_for( 'users.oauth_authorize', provider='google' ) }}>
-              <button type="button" class="google-button">
-                <span class="google-button__icon">
-                  <svg viewBox="0 0 366 372" xmlns="http://www.w3.org/2000/svg"><path d="M125.9 10.2c40.2-13.9 85.3-13.6 125.3 1.1 22.2 8.2 42.5 21 59.9 37.1-5.8 6.3-12.1 12.2-18.1 18.3l-34.2 34.2c-11.3-10.8-25.1-19-40.1-23.6-17.6-5.3-36.6-6.1-54.6-2.2-21 4.5-40.5 15.5-55.6 30.9-12.2 12.3-21.4 27.5-27 43.9-20.3-15.8-40.6-31.5-61-47.3 21.5-43 60.1-76.9 105.4-92.4z" id="Shape" fill="#EA4335"/><path d="M20.6 102.4c20.3 15.8 40.6 31.5 61 47.3-8 23.3-8 49.2 0 72.4-20.3 15.8-40.6 31.6-60.9 47.3C1.9 232.7-3.8 189.6 4.4 149.2c3.3-16.2 8.7-32 16.2-46.8z" id="Shape" fill="#FBBC05"/><path d="M361.7 151.1c5.8 32.7 4.5 66.8-4.7 98.8-8.5 29.3-24.6 56.5-47.1 77.2l-59.1-45.9c19.5-13.1 33.3-34.3 37.2-57.5H186.6c.1-24.2.1-48.4.1-72.6h175z" id="Shape" fill="#4285F4"/><path d="M81.4 222.2c7.8 22.9 22.8 43.2 42.6 57.1 12.4 8.7 26.6 14.9 41.4 17.9 14.6 3 29.7 2.6 44.4.1 14.6-2.6 28.7-7.9 41-16.2l59.1 45.9c-21.3 19.7-48 33.1-76.2 39.6-31.2 7.1-64.2 7.3-95.2-1-24.6-6.5-47.7-18.2-67.6-34.1-20.9-16.6-38.3-38-50.4-62 20.3-15.7 40.6-31.5 60.9-47.3z" fill="#34A853"/></svg>
-                </span>
-                <span class="google-button__text">Sign in with Google</span>
-              </button>
-            </a>
-      
-          </div>
-          
-    </form>
-  </div>
-</div> 
-
-<script>
-  var flag = true;
-  $('.icon').on('click', function(){
-    if(flag){
-      $('#pass').prop('type','text');
-      flag = false;
-    } else {
-      $('#pass').prop('type', 'password');
-      flag = true;
-    }
-  }); 
-</script>
-
-<script>
-  function onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  }
-</script>
+    </div>
+    <script src="static/login.js"></script>
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+    </script>
 {% endblock %}

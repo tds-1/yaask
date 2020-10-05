@@ -148,13 +148,13 @@ class Student_test_info(db.Model):
 	id = db.Column(db.Integer, primary_key= True, autoincrement=True)
 	username = db.Column(db.String, nullable= False)
 	testid = db.Column(db.String, nullable=False)
-	time_left = db.Column(db.Integer, nullable=False)
+	time_started = db.Column(db.String, nullable=True)
 	completed = db.Column(db.Boolean, default=False)
 
-	def __init__(self,username, testid, time_left, completed):
+	def __init__(self,username, testid, time_started, completed):
 		self.username = username
 		self.testid = testid
-		self.time_left = time_left
+		self.time_started = time_started
 		self.completed = completed
 		
 	def __repr__(self):

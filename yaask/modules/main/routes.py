@@ -13,7 +13,6 @@ def home():
 def about():
 	return render_template('about.html')
 
-
 @app.route('/dashboard')
 @login_required
 def dashboard():

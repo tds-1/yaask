@@ -64,60 +64,57 @@ def oauth_callback(provider):
 @users.route('/login', methods=['GET', 'POST'])
 def login():
 	error=""
-	if current_user is not None and current_user.is_authenticated():
-		return redirect(url_for('main.home'))				
 	form = LoginForm(request.form)
+	form1 = RegisterForm(request.form)
 	if request.method == 'POST':
-		if form.validate_on_submit():
-			user = User.query.filter_by(username=request.form['username']).first()
-			if form.role.data == user.role:
-				if user is not None and pwd_context.verify(request.form['password'], user.password):
+		try:
+			if form.validate_on_submit():
+				user = User.query.filter_by(username=request.form['username']).first()
+				if user is not None and pwd_context.verify(request.form['password'], user.password) and form.role.data == user.role:
 					login_user(user)
 					return redirect(url_for('main.home'))
 				else:
 					error = ' * Invalid Credentials'
 			else:
 				error = ' * Invalid Credentials'
-		else:
-			error = ' * Invalid Credentials'
-			render_template('login.html', form=form, error=error)
-	return render_template('login.html', form=form)
+				return render_template('login.html', form=form, error=error , form1=form1)
+			return render_template('login.html', form=form , form1=form1)
 
-@users.route('/register', methods=['GET', 'POST'])
-def register():
-	form = RegisterForm(request.form)
-	if request.method == 'POST':
-		print (form.validate_on_submit())
-		if form.validate_on_submit():
-			user = User(
-				name=form.name.data,
-				username=form.username.data,
-				email=form.email.data,
-				phone_no=form.phone_no.data,
-				password=form.password.data,
-				phone_verified=False,
-				role= form.role.data,
-				score=0
-			)
-			email_query=User.query.filter(User.email == user.email).first()
-			username_query=User.query.filter(User.username == user.username).first()
-			if(email_query is not None):
-				error=" * email already registered"
-				flash (error, 'danger')
-				form.password.data=''
-				return render_template('register.html', form=form)
-			elif(username_query is not None):
-				error=" * username already taken"
-				flash (error, 'danger')
-				form.password.data=''
-				return render_template('register.html', form=form)
-			else:
-				db.session.add(user)
-				db.session.commit()
-				login_user(user)
-				return redirect(url_for('main.home'))
+		except:
+			print (form.validate_on_submit())
+			if form.validate_on_submit():
+				user = User(
+					name=form.name.data,
+					username=form.username.data,
+					email=form.email.data,
+					phone_no=form.phone_no.data,
+					password=form.password.data,
+					phone_verified=False,
+					role= form.role.data,
+					score=0
+				)
+				email_query=User.query.filter(User.email == user.email).first()
+				username_query=User.query.filter(User.username == user.username).first()
+				if(email_query is not None):
+					error=" * email already registered"
+					flash (error, 'danger')
+					form.password.data=''
+					return render_template('login.html', form=form , form1=form1)
+				elif(username_query is not None):
+					error=" * username already taken"
+					flash (error, 'danger')
+					form.password.data=''
+					return render_template('login.html', form=form , form1=form1)
+				else:
+					db.session.add(user)
+					db.session.commit()
+					login_user(user)
+					return redirect(url_for('main.home'))
 
-	return render_template('register.html', form=form)
+	return render_template('login.html', form=form , form1=form1)
+
+
+
 
 @users.route('/logout')
 @login_required

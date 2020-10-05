@@ -331,15 +331,13 @@ def give_test_auth():
                         results = results[0]
                         is_completed = results.completed
                         if is_completed == False:
-                            # change in seconds
-                            time_left = results.time_left
+                            time_left = max(0, duration - (now-datetime.strptime(results.time_started,"%Y-%m-%d %H:%M:%S")).total_seconds())
                             if time_left <= duration:
                                 duration = time_left
                                 results = Students.query.filter(Students.username == current_user.username).filter(Students.testid == test_id).all()
                                 marked_ans = {}
                                 if len(results) > 0:
                                     for row in results:
-                                        print ("row",row.quid)
                                         marked_ans[row.quid] = row.ans
                                 marked_ans = json.dumps(marked_ans)
                         else:
@@ -349,7 +347,7 @@ def give_test_auth():
                         student_test_info_data = Student_test_info(
                             username= current_user.username,
                             testid = test_id,
-                            time_left = duration,
+                            time_started = now,
                             completed = False
                         )
                         db.session.add(student_test_info_data)
@@ -361,8 +359,8 @@ def give_test_auth():
                             is_completed = results.completed
                             print (is_completed)
                             if is_completed == False:
-                                # change in seconds
-                                time_left = results.time_left
+                                time_left = max(0,duration -  ( now-datetime.strptime(results.time_started,"%Y-%m-%d %H:%M:%S")).total_seconds())
+
                                 if time_left <= duration:
                                     duration = time_left
                                     results = Students.query.filter(Students.username == current_user.username).filter(Students.testid == test_id).all()
@@ -405,8 +403,12 @@ def test_portal(testid):
     global duration,marked_ans
     if request.method == 'GET':
         try:
+            now = datetime.now()
+            now = now.strftime("%Y-%m-%d %H:%M:%S")
+            now = datetime.strptime(now,"%Y-%m-%d %H:%M:%S")
             info = Student_test_info.query.filter(Student_test_info.testid == testid).filter(Student_test_info.username == current_user.username).one()
-            data = {'duration': info.time_left, 'marks': '', 'q': '', 'a': "", 'b':"",'c':"",'d':"" }
+            time_left = max(0,duration - ( now-datetime.strptime(info.time_started,"%Y-%m-%d %H:%M:%S")).total_seconds())
+            data = {'duration': time_left, 'marks': '', 'q': '', 'a': "", 'b':"",'c':"",'d':"" }
             return render_template('quiz.html' ,**data, answers=marked_ans)
         except:
             return redirect(url_for('give_test_auth'))
@@ -421,10 +423,10 @@ def test_portal(testid):
         elif flag=='mark':
             qid = request.form['qid']
             ans = request.form['ans']
+            print (qid, ans)
             marked_ans = eval (marked_ans)
             marked_ans[qid]=ans
             marked_ans = json.dumps(marked_ans)
-                
             results = Students.query.filter(Students.testid== testid).filter(Students.quid== qid).filter(Students.username== current_user.username).all()
             if len(results) == 0:
                 studentdata = Students(
@@ -439,15 +441,6 @@ def test_portal(testid):
                 studentdata=Students.query.filter(Students.username== current_user.username).filter(Students.testid== testid).filter(Students.quid== qid).one()
                 studentdata.ans=ans
                 db.session.commit()
-            
-        elif flag=='time':
-            time_left = request.form['time']
-            try:
-                info = Student_test_info.query.filter(Student_test_info.username==current_user.username).filter(Student_test_info.testid == testid).one()
-                info.time_left= time_left
-                db.session.commit()
-            except:
-                pass
         else:
             info = Student_test_info.query.filter(Student_test_info.username==current_user.username).filter(Student_test_info.testid == testid).one()
             info.time_left=0
@@ -455,7 +448,7 @@ def test_portal(testid):
             db.session.commit()
             flash("Test submitted successfully", 'info')
             return json.dumps({'sql':'fired'})
-
+    return ('', 204)
 
 @app.route('/randomize', methods = ['POST'])
 def random_gen():
@@ -466,7 +459,11 @@ def random_gen():
         if len(results) > 0:
             nos = results
             random.Random(id).shuffle(nos)
-            return json.dumps(nos)
+            data = {}
+            for id in nos:
+                question = Questions.query.filter(Questions.questionid == id).one()
+                data[question.questionid]=(question.question,question.a,question.b,question.c,question.d)
+            return json.dumps(data)
 
 def marks_obtained(testid, username):
     reports = Students.query.filter(Students.testid == testid).filter(Students.username== username).all()
@@ -475,6 +472,8 @@ def marks_obtained(testid, username):
         correct = Questions.query.filter(Questions.questionid == report.quid).one()
         if(correct.answer == report.ans.upper()):
             marks += 4
+        elif (report.ans == '#'):
+            marks += 0
         else:
             marks -= 1
     return marks
