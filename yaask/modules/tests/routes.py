@@ -357,7 +357,6 @@ def give_test_auth():
                         if len(results)>0 :
                             results = results[0]
                             is_completed = results.completed
-                            print (is_completed)
                             if is_completed == False:
                                 time_left = max(0,duration -  ( now-datetime.strptime(results.time_started,"%Y-%m-%d %H:%M:%S")).total_seconds())
 

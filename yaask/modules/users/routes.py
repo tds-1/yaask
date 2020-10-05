@@ -8,6 +8,7 @@ from yaask.modules.users.auth import OAuthSignIn, GoogleSignIn
 import math
 from yaask.models import *
 from yaask import app
+import os
 
 users = Blueprint('users',__name__)
 
@@ -31,6 +32,7 @@ def oauth_authorize(provider):
 
 @users.route('/callback/<provider>')
 def oauth_callback(provider):
+	print ("callback",provider)
 	if not current_user.is_anonymous():
 		return redirect(url_for('main.home'))
 	oauth = OAuthSignIn.get_provider(provider)
@@ -50,6 +52,7 @@ def oauth_callback(provider):
 			username=username,
 			email=email,
 			phone_no="",
+			phone_verified=False,
 			password=os.getrandom(10, os.GRND_NONBLOCK),
 			role = "student",
 			score=0
@@ -67,7 +70,7 @@ def login():
 	form = LoginForm(request.form)
 	form1 = RegisterForm(request.form)
 	if request.method == 'POST':
-		try:
+		if form.validate_on_submit() != form1.validate_on_submit():
 			if form.validate_on_submit():
 				user = User.query.filter_by(username=request.form['username']).first()
 				if user is not None and pwd_context.verify(request.form['password'], user.password) and form.role.data == user.role:
@@ -75,22 +78,25 @@ def login():
 					return redirect(url_for('main.home'))
 				else:
 					error = ' * Invalid Credentials'
+					form.password.data=''
+					form.username.data=''
+					form.role.data=''
+					return render_template('login.html', form=form, error=error , form1=form1)
 			else:
 				error = ' * Invalid Credentials'
 				return render_template('login.html', form=form, error=error , form1=form1)
 			return render_template('login.html', form=form , form1=form1)
 
-		except:
-			print (form.validate_on_submit())
-			if form.validate_on_submit():
+		else:
+			if form1.validate_on_submit():
 				user = User(
-					name=form.name.data,
-					username=form.username.data,
-					email=form.email.data,
-					phone_no=form.phone_no.data,
-					password=form.password.data,
+					name=form1.name.data,
+					username=form1.username.data,
+					email=form1.email.data,
+					phone_no=form1.phone_no.data,
+					password=form1.password.data,
 					phone_verified=False,
-					role= form.role.data,
+					role= form1.role.data,
 					score=0
 				)
 				email_query=User.query.filter(User.email == user.email).first()
@@ -98,12 +104,12 @@ def login():
 				if(email_query is not None):
 					error=" * email already registered"
 					flash (error, 'danger')
-					form.password.data=''
+					form1.password.data=''
 					return render_template('login.html', form=form , form1=form1)
 				elif(username_query is not None):
 					error=" * username already taken"
 					flash (error, 'danger')
-					form.password.data=''
+					form1.password.data=''
 					return render_template('login.html', form=form , form1=form1)
 				else:
 					db.session.add(user)
