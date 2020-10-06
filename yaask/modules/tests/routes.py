@@ -183,6 +183,12 @@ def create_test_info(username):
             try:
                 start = str(form.start_date.data) + " " + str(form.start_time.data)
                 end = str(form.end_date.data) + " " + str(form.end_time.data)
+                start = datetime.strptime(start , "%Y-%m-%d %H:%M:%S")- timedelta(hours=5, minutes=30)
+                start = str(start)
+                end = datetime.strptime(end , "%Y-%m-%d %H:%M:%S")-  timedelta(hours=5, minutes=30)
+                end = str(end)
+                
+                print (start, end)
                 test_info =  Test_info(
                     creatorid = current_user.id,
                     subject = form.subject.data,
@@ -355,7 +361,7 @@ def give_test_auth():
                             results = results[0]
                             is_completed = results.completed
                             if is_completed == False:
-                                time_left = max(0,duration -  ( now-datetime.strptime(results.time_started,"%Y-%m-%d %H:%M:%S")).total_seconds())
+                                time_left = max(0,duration -( now-datetime.strptime(results.time_started,"%Y-%m-%d %H:%M:%S")).total_seconds())
 
                                 if time_left <= duration:
                                     duration = time_left
