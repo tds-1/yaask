@@ -11,6 +11,7 @@
 </div>
 <div class="login-box well">
   <form method="POST" action="" enctype="multipart/form-data">
+    {{ form.csrf_token }}
     <div class="form-group">
       {{render_field(form.subject, class="form-control")}}
     </div>

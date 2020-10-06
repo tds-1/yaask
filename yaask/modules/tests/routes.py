@@ -181,15 +181,14 @@ def create_test_info(username):
         form = UploadForm()
         if request.method == 'POST':
             try:
-                print (form.data)
+                start = str(form.start_date.data) + " " + str(form.start_time.data)
+                end = str(form.end_date.data) + " " + str(form.end_time.data)
                 test_info =  Test_info(
                     creatorid = current_user.id,
                     subject = form.subject.data,
                     topic = form.topic.data,
-                    start_date = form.start_date.data,
-                    end_date = form.end_date.data,
-                    start_time = form.start_time.data,
-                    end_time = form.end_time.data,
+                    start_time = start,
+                    end_time = end,
                     show_result = form.show_result.data,
                     neg_mark = form.neg_mark.data,
                     duration = int(form.duration.data)*60,
@@ -315,12 +314,9 @@ def give_test_auth():
             data = results[0]
             password = data.password
             duration = int(data.duration)
-            start_date = data.start_date
-            start_time = data.start_time
-            end_date = data.end_date
-            end_time = data.end_time
-            start = str(start_date) + " " + str(start_time)
-            end = str(end_date) + " " + str(end_time)
+            start = str(data.start_time)
+            end = str(data.end_time)
+            print (start, end)
             if password == password_candidate:
                 now = datetime.now()
                 now = now.strftime("%Y-%m-%d %H:%M:%S")
@@ -344,6 +340,7 @@ def give_test_auth():
                             flash('Test already given', 'success')
                             return redirect(url_for('give_test_auth'))
                     else:
+                        print (now)
                         student_test_info_data = Student_test_info(
                             username= current_user.username,
                             testid = test_id,

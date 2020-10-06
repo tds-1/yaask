@@ -114,23 +114,19 @@ class Test_info(db.Model):
 	creatorid = db.Column(db.Integer, nullable=False)
 	subject = db.Column(db.String, nullable=False)
 	topic = db.Column(db.String, nullable=False)
-	start_date = db.Column(db.Date, nullable=False)
-	start_time = db.Column(db.Time, nullable=False)
-	end_date = db.Column(db.Date, nullable=False)
-	end_time = db.Column(db.Time, nullable=False)
+	start_time = db.Column(db.String, nullable=False)
+	end_time = db.Column(db.String, nullable=False)
 	duration = db.Column(db.Integer, nullable=False)
 	password = db.Column(db.String, nullable=False)
 	show_result = db.Column(db.Boolean, nullable=False)
 	neg_mark = db.Column(db.Boolean, nullable=False)
 	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-	def __init__(self,creatorid , subject, topic, start_date, start_time, end_date, end_time, duration, password, neg_mark, show_result):
+	def __init__(self,creatorid , subject, topic, start_time, end_time, duration, password, neg_mark, show_result):
 		self.creatorid = creatorid
 		self.subject = subject
 		self.topic = topic
-		self.start_date = start_date
 		self.start_time = start_time
-		self.end_date = end_date
 		self.end_time = end_time
 		self.duration = duration
 		self.password = password
