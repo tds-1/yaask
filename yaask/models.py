@@ -93,7 +93,7 @@ class Questions(db.Model):
 		return "<Question id is %s and creatorid is %s" % (self.questionid, self.creatorid)
 
 class Test(db.Model):
-	__tablename__ = 'test1'
+	__tablename__ = 'test'
 
 	testid = db.Column(db.Integer, primary_key=True)
 	selected = db.Column(db.PickleType)
@@ -146,12 +146,13 @@ class Student_test_info(db.Model):
 	testid = db.Column(db.String, nullable=False)
 	time_started = db.Column(db.String, nullable=True)
 	completed = db.Column(db.Boolean, default=False)
-
-	def __init__(self,username, testid, time_started, completed):
+	time_taken = db.Column(db.PickleType)
+	def __init__(self,username, testid, time_started, completed, time_taken):
 		self.username = username
 		self.testid = testid
 		self.time_started = time_started
 		self.completed = completed
+		self.time_taken = time_taken
 		
 	def __repr__(self):
 		return "<Test id is %s " % (self.testid)
@@ -162,13 +163,13 @@ class Students(db.Model):
 	__tablename__ = 'students'
 
 	id = db.Column(db.Integer, primary_key= True)
-	username = db.Column(db.String, nullable=True)
+	userid = db.Column(db.Integer, nullable=True)
 	testid = db.Column(db.String, nullable=False)
 	quid = db.Column(db.String, nullable=False)
 	ans = db.Column(db.String, nullable=False)
 
-	def __init__(self,username, testid, quid, ans):
-		self.username = username
+	def __init__(self,userid, testid, quid, ans):
+		self.userid = userid
 		self.testid = testid
 		self.quid = quid
 		self.ans = ans

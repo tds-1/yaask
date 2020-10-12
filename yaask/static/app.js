@@ -10,6 +10,9 @@ const SUBMITTED = 4;
 const SUBMITTED_BOOKMARKED = 5;
 var map_quest = {};
 var answer = {};
+var present,present_time;
+var past,past_time;
+var time_taken=[];
 
 $(document).ready(function () {
     var url = window.location.href;
@@ -24,12 +27,14 @@ $(document).ready(function () {
                 load_all_questions(temp);
                 make_array();
                 display_ques(1);
+                present = 0;
             }
         });
     }
     var time = parseInt($('#time').text()), display = $('#time');
+    present_time = time;
     startTimer(time, display);
-    sendTime();
+    // sendTime();
     flag_time = true;
 })
 
@@ -61,10 +66,12 @@ var display_ques = function (move) {
 
 }
 var flag_time = true;
+var global_time;
 function startTimer(duration, display) {
     var timer = duration, hours, minutes, seconds;
-
+    global_time=timer;
     var interval = setInterval(function () {
+        global_time=timer;
         hours = parseInt(timer / 3600, 10);
         minutes = parseInt((timer % 3600) / 60, 10);
         seconds = parseInt(timer % 60, 10);
@@ -85,10 +92,12 @@ function startTimer(duration, display) {
 function finish_test() {
     $('#msg').addClass('alert-info');
     $('#msg').append("Test submitted successfully");
+    past=present;
+    time_taken[past]+=(present_time-global_time);
     $.ajax({
         type: "POST",
         dataType: "json",
-        data: { flag: 'completed' },
+        data: { flag: 'completed', time_taken: time_taken },
         success: function (data) {
             window.location.replace('/dashboard');
         }
@@ -96,33 +105,18 @@ function finish_test() {
 }
 
 
-// function sendTime() {
-//     var intervalTime = setInterval(function () {
-//         if (flag_time == false) {
-//             clearInterval(intervalTime);
-//         }
-//         var time = $('#time').text();
-//         var [hh, mm, ss] = time.split(':');
-//         hh = parseInt(hh);
-//         mm = parseInt(mm);
-//         ss = parseInt(ss);
-//         var seconds = hh * 3600 + mm * 60 + ss;
-//         $.ajax({
-//             type: 'POST',
-//             dataType: "json",
-//             data: { flag: 'time', time: seconds },
-//         });
-//         if (flag_time == false) {
-//             clearInterval(intervalTime);
-//         }
-//     }, 5000);
-// }
 
 $(document).on('click', '#next', function (e) {
     e.preventDefault();
     curr += 1;
     if (curr >= nos.length) {
         curr -= 1;
+    }
+    else{
+        past=present;
+        present=curr;
+        time_taken[past]+=(present_time-global_time);
+        present_time=global_time;
     }
     display_ques(curr + 1);
 
@@ -133,6 +127,12 @@ $(document).on('click', '#prev', function (e) {
     curr -= 1;
     if (curr < 0) {
         curr = 0;
+    }
+    else{
+        past=present;
+        present=curr;
+        time_taken[past]+=(present_time-global_time);
+        present_time=global_time;
     }
     display_ques(curr + 1);
 
@@ -272,6 +272,7 @@ var marked = function () {
 var make_array = function () {
     for (var i = 0; i < nos.length; i++) {
         data[i + 1] = { marked: null, status: NOT_MARKED };
+        time_taken.push(0);
     }
     var txt = document.createElement('textarea');
     txt.innerHTML = answers;
@@ -288,6 +289,7 @@ var make_array = function () {
         data[store + 1].marked = answers[key]
         data[store + 1].status = SUBMITTED;
     }
+
 }
 
 // window.addEventListener('blur', function() { 

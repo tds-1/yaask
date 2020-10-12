@@ -188,7 +188,6 @@ def create_test_info(username):
                 end = datetime.strptime(end , "%Y-%m-%d %H:%M:%S")-  timedelta(hours=5, minutes=30)
                 end = str(end)
                 
-                print (start, end)
                 test_info =  Test_info(
                     creatorid = current_user.id,
                     subject = form.subject.data,
@@ -223,7 +222,6 @@ def create_test(username, testid):
         #To allow sorting by username just do an ajax request back to score board with argument (like /score/#username then /score/#score)
         form=RandomTest(request.form)
         if request.method == 'GET':
-            db.session.commit()
             questions_to_display = Questions.query.filter().all()
             return render_template('test.html',form=form, questions_to_display=questions_to_display, categoryList=categoryList)
 
@@ -234,7 +232,6 @@ def create_test(username, testid):
                 number = form.number_of_questions.data
                 tag = form.topic.data
                 tag = [tag]
-                print (subject, number, tag)
                 questions_to_display = Questions.query.filter(Questions.category== subject).order_by(Questions.questionid.asc())
                 c=0
                 for x in questions_to_display:
@@ -249,25 +246,10 @@ def create_test(username, testid):
                     check=request.form.get(str(question.questionid))
                     if check=="checked":
                         selected.append(question.questionid)
-                # category=form.subject.data
-                # avg=form.avg_difficulty.data
-                # n=form.number_of_questions.data
-                # print (category, avg, n)
-                # temp=Questions.query.filter( ~Questions.questionid.in_(selected)).filter(Questions.category==category).all()
-                # arr=[]
-                # for x in temp:
-                #     arr.append((int(x.difficulty), x.question_score, x.questionid))
-            
-                # random_questions=choosequestions(arr, avg, n)
-                # print (random_questions)
-                # for question in random_questions:
-                #     selected.append(question[2])
-                #update score
             questions_to_display = Questions.query.filter( Questions.questionid.in_(selected) ).all()
             for x in questions_to_display:
                 x.question_score=x.question_score+1
                 db.session.commit()
-            print (selected)
             testdata = Test(
                 testid = testid,
                 selected=selected
@@ -299,10 +281,9 @@ def questions(username, testid):
 def tests_created(username):
     
     if username == current_user.username :
-        results = Test_info.query.filter(Test_info.creatorid == current_user.id).all()
+        results = Test_info.query.filter(Test_info.creatorid == str(current_user.id)).all()
         return render_template('tests_created.html', tests=results)
     else:
-        # flash('You are not authorized', 'danger')
         return redirect(url_for('dashboard'))
 
 
@@ -322,7 +303,6 @@ def give_test_auth():
             duration = int(data.duration)
             start = str(data.start_time)
             end = str(data.end_time)
-            print (start, end)
             if password == password_candidate:
                 now = datetime.now()
                 now = now.strftime("%Y-%m-%d %H:%M:%S")
@@ -336,7 +316,7 @@ def give_test_auth():
                             time_left = max(0, duration - (now-datetime.strptime(results.time_started,"%Y-%m-%d %H:%M:%S")).total_seconds())
                             if time_left <= duration:
                                 duration = time_left
-                                results = Students.query.filter(Students.username == current_user.username).filter(Students.testid == test_id).all()
+                                results = Students.query.filter(Students.userid == str(current_user.id)).filter(Students.testid == test_id).all()
                                 marked_ans = {}
                                 if len(results) > 0:
                                     for row in results:
@@ -346,12 +326,12 @@ def give_test_auth():
                             flash('Test already given', 'success')
                             return redirect(url_for('give_test_auth'))
                     else:
-                        print (now)
                         student_test_info_data = Student_test_info(
                             username= current_user.username,
                             testid = test_id,
                             time_started = now,
-                            completed = False
+                            completed = False,
+                            time_taken = [],
                         )
                         db.session.add(student_test_info_data)
                         db.session.commit()
@@ -365,7 +345,7 @@ def give_test_auth():
 
                                 if time_left <= duration:
                                     duration = time_left
-                                    results = Students.query.filter(Students.username == current_user.username).filter(Students.testid == test_id).all()
+                                    results = Students.query.filter(Students.userid == str(current_user.id)).filter(Students.testid == test_id).all()
                                     marked_ans = {}
                                     if len(results) > 0:
                                         for row in results:
@@ -387,18 +367,6 @@ def give_test_auth():
         cur.close()
     return render_template('give_test.html', form = form)
 
-from flask_marshmallow import Marshmallow
-
-ma = Marshmallow(app)
-
-class PhotoShareSchema(ma.Schema):
-    class Meta:
-        fields = ('a','b','c','d','question','questionid')
-
-photo_share_schema = PhotoShareSchema()
-photos_share_schema = PhotoShareSchema(many=True)
-
-
 @app.route('/give-test/<testid>', methods=['GET','POST'])
 @login_required
 def test_portal(testid):
@@ -416,37 +384,36 @@ def test_portal(testid):
             return redirect(url_for('give_test_auth'))
     else:
         flag = request.form['flag']
-        if flag == 'get':
-            num = request.form['no']
-            results = Questions.query.filter(Questions.questionid== num).one()
-            data = photo_share_schema.dump(results)
-            data['marked']= eval(marked_ans)
-            return json.dumps(data)
-        elif flag=='mark':
+        if flag=='mark':
             qid = request.form['qid']
             ans = request.form['ans']
-            print (qid, ans)
-            marked_ans = eval (marked_ans)
+            try:
+                marked_ans = eval (marked_ans)
+            except:
+                marked_ans = "{}"
+                marked_ans = eval (marked_ans)
             marked_ans[qid]=ans
             marked_ans = json.dumps(marked_ans)
-            results = Students.query.filter(Students.testid== testid).filter(Students.quid== qid).filter(Students.username== current_user.username).all()
+            results = Students.query.filter(Students.testid== testid).filter(Students.quid== qid).filter(Students.userid== str(current_user.id)).all()
             if len(results) == 0:
                 studentdata = Students(
                     ans= ans,
                     testid=testid,
-                    username= current_user.username,
-                    quid = qid
+                    quid = qid,
+                    userid = current_user.id,
                 )
                 db.session.add(studentdata)
                 db.session.commit()
             else:
-                studentdata=Students.query.filter(Students.username== current_user.username).filter(Students.testid== testid).filter(Students.quid== qid).one()
+                studentdata=Students.query.filter(Students.userid== str(current_user.id)).filter(Students.testid== testid).filter(Students.quid== qid).one()
                 studentdata.ans=ans
                 db.session.commit()
         else:
+            time_taken = request.form.getlist('time_taken[]')
             info = Student_test_info.query.filter(Student_test_info.username==current_user.username).filter(Student_test_info.testid == testid).one()
             info.time_left=0
             info.completed= True
+            info.time_taken= time_taken
             db.session.commit()
             flash("Test submitted successfully", 'info')
             return json.dumps({'sql':'fired'})
@@ -468,7 +435,7 @@ def random_gen():
             return json.dumps(data)
 
 def marks_obtained(testid, username):
-    reports = Students.query.filter(Students.testid == testid).filter(Students.username== username).all()
+    reports = Students.query.filter(Students.testid == testid).filter(Students.userid== str(current_user.id)).all()
     marks = 0
     for report in reports:
         correct = Questions.query.filter(Questions.questionid == report.quid).one()
@@ -484,7 +451,7 @@ def marks_obtained(testid, username):
 @login_required
 def tests_given(username):
     if username == current_user.username:
-        test_given = Students.query.with_entities(Students.testid).filter(Students.username==username).distinct()
+        test_given = Students.query.with_entities(Students.testid).filter(Students.userid==str(current_user.id)).distinct()
         results=[]
         for testid in test_given:
             result={}
@@ -505,7 +472,7 @@ def tests_given(username):
 def tests_result(username, testid):
     completed = Student_test_info.query.filter(Student_test_info.username == username).filter(Student_test_info.testid== testid).one()
     if username == current_user.username and completed.completed==True :
-        # add a condition if test is given 
+        time_taken = completed.time_taken
         result = Test.query.filter(Test.testid== testid).one()
         results = []
         for qid in result.selected:
@@ -513,16 +480,22 @@ def tests_result(username, testid):
             quer = Questions.query.filter(Questions.questionid == qid).one()
             l.append(quer)
             results.append(l)
-            
+        
+
         for result in results:
             qid= result[0].questionid
             try:
-                marked = Students.query.filter(Students.testid== str(testid)).filter(Students.username == username).filter(Students.quid == str(qid)).one()
+                marked = Students.query.filter(Students.testid== str(testid)).filter(Students.userid == str(current_user.id)).filter(Students.quid == str(qid)).one()
                 marked= marked.ans               
             except:
                 marked = '#'
             result.append(marked)
-        return render_template('tests_result.html', results= results)
+
+        for i in range(0,len(results)):
+            results[i].append(time_taken[i])
+
+
+        return render_template('tests_result.html', results= results, time_taken=time_taken)
     else:
         flash('You are not authorized', 'danger')
         return redirect(url_for('dashboard'))
@@ -556,4 +529,3 @@ def student_results(username, testid):
                 writer = csv.writer(f)
                 writer.writerow(fields)
                 writer.writerows(final)
-            #return send_file('/static/' + testid + '.csv', as_attachment=True)
