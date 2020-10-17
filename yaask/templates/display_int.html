@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='disp.css') }}">
+{% endblock %}
+
+{% block body %}
+<script type="text/javascript"> var answers = "{{answers}}";</script>
+<div id="time">{{duration}}</div>
+<table>
+    <tr>
+        <td id='queid'>Question No.</td>
+        <td id='mark'>Marks: {{ 4 }}</td>
+    </tr>
+</table>
+<pre class="prettyprint" id="pretest">
+  <p id="que">{{ question_to_display.question | safe }}</p>
+</pre>
+
+<table id="options">
+    <tr>
+        <td id='a'>𝐀. {{ question_to_display.a }}</td>
+        <td id='b'>𝐁. {{ question_to_display.b }}</td>
+    </tr>
+    <tr>
+        <td id='c'>𝐂. {{ question_to_display.c }}</td>
+        <td id='d'>𝐃. {{ question_to_display.d }}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><b>Explanation</b>: {{question_to_display.comment}} </td>
+    </tr>
+</table>
+{% endblock %}

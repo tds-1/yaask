@@ -21,8 +21,10 @@ except:
 	app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 	app.config["WTF_CSRF_SECRET_KEY"] = app.config["SECRET_KEY"]
 
+app.config['CKEDITOR_PKG_TYPE'] = 'full'
+app.config['CKEDITOR_SERVE_LOCAL'] = True
+app.config['CKEDITOR_ENABLE_CODESNIPPET'] = True
 
-app.config['CKEDITOR_PKG_TYPE'] = 'basic'
 db = SQLAlchemy(app)
 ckeditor = CKEditor(app)
 

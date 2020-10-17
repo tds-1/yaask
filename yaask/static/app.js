@@ -43,6 +43,9 @@ var load_all_questions = function (temp) {
     var keys = Object.keys(temp);
     map_quest = temp;
     nos = keys;
+    for(var x=0;x<nos.length;x++){
+        time_taken.push(parseInt(map_quest[nos[x]][5]));
+    }
 }
 
 
@@ -54,6 +57,10 @@ var unmark_all = function () {
 
 var display_ques = function (move) {
     unmark_all();
+    past=present;
+    present= move-1;
+    time_taken[past]+=(present_time-global_time);
+    present_time=global_time;
     $('#que').text(map_quest[nos[move - 1]][0]);
     $('#a').text('𝐀.  ' + map_quest[nos[move - 1]][1]);
     $('#b').text('𝐁.  ' + map_quest[nos[move - 1]][2]);
@@ -158,7 +165,6 @@ $('#submit').on('click', function (e) {
     if (count == 4) {
         data[curr + 1].marked = null;
         data[curr + 1].status = NOT_MARKED;
-        console.log('data')
         $.ajax({
             type: "POST",
             dataType: 'json',
@@ -272,7 +278,6 @@ var marked = function () {
 var make_array = function () {
     for (var i = 0; i < nos.length; i++) {
         data[i + 1] = { marked: null, status: NOT_MARKED };
-        time_taken.push(0);
     }
     var txt = document.createElement('textarea');
     txt.innerHTML = answers;
@@ -295,3 +300,21 @@ var make_array = function () {
 // window.addEventListener('blur', function() { 
 //     window.location.replace('/dashboard');
 //  });
+
+
+
+window.addEventListener('beforeunload', (event) => {
+    // Cancel the event as stated by the standard.
+    event.preventDefault();
+    // Older browsers supported custom message
+    event.returnValue = 'hell';
+    past=present;
+    time_taken[past]+=(present_time-global_time);
+    present_time=global_time;
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        data: { flag: 'close', time_taken: time_taken },
+    });
+
+});

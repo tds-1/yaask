@@ -14,6 +14,7 @@ from coolname import generate_slug
 import random
 from yaask.modules.tests.utils import choosequestions
 from datetime import timedelta, datetime
+from sqlalchemy.orm.attributes import QueryableAttribute
 
 tests = Blueprint('tests',__name__)
 
@@ -212,7 +213,32 @@ def create_test_info(username):
     else:
         return ("you are not authorized to access this page")
 
-        
+
+@app.route('/quest', methods = ['POST'])
+def all_quest():
+    if request.method == "POST":
+        questions_to_display = Questions.query.filter().all()
+        ques = []
+        for question_to_display in questions_to_display:
+            q={}
+            q['question']=question_to_display.question
+            q['question_id']=question_to_display.questionid
+            q['a']=question_to_display.a
+            q['b']=question_to_display.b
+            q['c']=question_to_display.c
+            q['d']=question_to_display.d
+            q['subject']=question_to_display.category
+            q['explaination']=question_to_display.comment
+            q['answer']=question_to_display.answer
+            try:
+                q['topic']=question_to_display.tags[0]
+            except:
+                q['topic']=""
+            ques.append(q) 
+        return json.dumps(ques)
+    return ('', 204)
+
+
 @app.route('/<username>/create-test/<testid>', methods = ['GET', 'POST'])
 @login_required
 def create_test(username, testid):
@@ -221,9 +247,10 @@ def create_test(username, testid):
             'biology',]
         #To allow sorting by username just do an ajax request back to score board with argument (like /score/#username then /score/#score)
         form=RandomTest(request.form)
+
         if request.method == 'GET':
-            questions_to_display = Questions.query.filter().all()
-            return render_template('test.html',form=form, questions_to_display=questions_to_display, categoryList=categoryList)
+            data = {'question':'' , 'questionid': '', 'a': "", 'b': "",'c': "",'d': "" ,'comment':''}
+            return render_template('test.html' ,**data, form =form)
 
         if request.method == 'POST':
             selected = []
@@ -279,7 +306,6 @@ def questions(username, testid):
 @app.route('/<username>/tests-created')
 @login_required
 def tests_created(username):
-    
     if username == current_user.username :
         results = Test_info.query.filter(Test_info.creatorid == str(current_user.id)).all()
         return render_template('tests_created.html', tests=results)
@@ -408,6 +434,12 @@ def test_portal(testid):
                 studentdata=Students.query.filter(Students.userid== str(current_user.id)).filter(Students.testid== testid).filter(Students.quid== qid).one()
                 studentdata.ans=ans
                 db.session.commit()
+        elif flag=='close':
+            time_taken = request.form.getlist('time_taken[]')
+            if(len(time_taken)!=0):
+                info = Student_test_info.query.filter(Student_test_info.username==current_user.username).filter(Student_test_info.testid == testid).one()
+                info.time_taken= time_taken
+                db.session.commit()
         else:
             time_taken = request.form.getlist('time_taken[]')
             info = Student_test_info.query.filter(Student_test_info.username==current_user.username).filter(Student_test_info.testid == testid).one()
@@ -427,11 +459,15 @@ def random_gen():
         results = results.selected
         if len(results) > 0:
             nos = results
-            random.Random(id).shuffle(nos)
             data = {}
-            for id in nos:
+            time_taken = Student_test_info.query.filter(Student_test_info.username == current_user.username).one()
+            time_taken = time_taken.time_taken
+            if(len(time_taken) == 0 ):
+                time_taken = [0]*len(nos) 
+            for i in range(0,len(nos)):
+                id = nos[i]
                 question = Questions.query.filter(Questions.questionid == id).one()
-                data[question.questionid]=(question.question,question.a,question.b,question.c,question.d)
+                data[question.questionid]=(question.question,question.a,question.b,question.c,question.d,time_taken[i])
             return json.dumps(data)
 
 def marks_obtained(testid, username):
@@ -451,7 +487,7 @@ def marks_obtained(testid, username):
 @login_required
 def tests_given(username):
     if username == current_user.username:
-        test_given = Students.query.with_entities(Students.testid).filter(Students.userid==str(current_user.id)).distinct()
+        test_given = Student_test_info.query.with_entities(Student_test_info.testid).filter(Student_test_info.username==str(current_user.username)).distinct()
         results=[]
         for testid in test_given:
             result={}

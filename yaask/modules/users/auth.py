@@ -69,5 +69,4 @@ class GoogleSignIn(OAuthSignIn):
         )
                 
         me = oauth_session.get('').json()
-        print ("ans=-------------------->>>>>>> ",me)
         return (me['name'],me['given_name'],me['email'])

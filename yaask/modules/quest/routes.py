@@ -71,8 +71,6 @@ def submit():
             x=x.replace("{/tex}","\]")
             questiondata.question=x
             
-            print ("question data-------------> ",questiondata.question)
-            
             db.session.add(questiondata)
             db.session.commit()
             return render_template('display_mcq.html', question_to_display=questiondata)

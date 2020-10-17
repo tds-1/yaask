@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='disp.css') }}">
+{% endblock %}
+
+{% block body %}
+<table style="margin-bottom: 40px;">
+    <tr>
+        <td>Question </td>
+        <td>Marks: 4</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            {{question_to_display.question|safe}}
+
+        </td>
+    </tr>
+    <tr>
+        <td id='a'>𝐀. {{ question_to_display.a }}</td>
+        <td id='b'>𝐁. {{ question_to_display.b }}</td>
+    </tr>
+    <tr>
+        <td id='c'>𝐂. {{ question_to_display.c }}</td>
+        <td id='d'>𝐃. {{ question_to_display.d }}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><b>Explanation</b>: {{question_to_display.comment}} </td>
+    </tr>
+</table>
+
+{% endblock %}
