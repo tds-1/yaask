@@ -38,9 +38,10 @@ from yaask.modules.users.routes import users
 from yaask.modules.tests.routes import tests
 from yaask.modules.quest.routes import quest
 from yaask.modules.main.routes import main
-
+from yaask.modules.practice_test.routes import practice
 
 app.register_blueprint(users)
 app.register_blueprint(tests)
 app.register_blueprint(quest)
 app.register_blueprint(main)
+app.register_blueprint(practice)

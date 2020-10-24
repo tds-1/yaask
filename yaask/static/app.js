@@ -44,7 +44,7 @@ var load_all_questions = function (temp) {
     map_quest = temp;
     nos = keys;
     for(var x=0;x<nos.length;x++){
-        time_taken.push(parseInt(map_quest[nos[x]][5]));
+        time_taken.push(parseInt(map_quest[x][5]));
     }
 }
 
@@ -156,7 +156,7 @@ $('#submit').on('click', function (e) {
     $('#options td').each(function (i) {
         if ($(this).css("background-color") != 'rgba(0, 0, 0, 0)') {
             marked = $(this).attr('id');
-            answer[nos[curr]] = marked
+            answer[map_quest[nos[curr]][6]] = marked
             data[curr + 1].marked = marked;
             data[curr + 1].status = SUBMITTED;
             count = count + 1;
@@ -168,14 +168,14 @@ $('#submit').on('click', function (e) {
         $.ajax({
             type: "POST",
             dataType: 'json',
-            data: { flag: 'mark', qid: nos[curr], ans: marked },
+            data: { flag: 'mark', qid: map_quest[nos[curr]][6], ans: marked },
         });
     }
     else{
         $.ajax({
             type: "POST",
             dataType: 'json',
-            data: { flag: 'mark', qid: nos[curr], ans: marked },
+            data: { flag: 'mark', qid: map_quest[nos[curr]][6], ans: marked },
         });
     }
     $('#next').trigger('click');

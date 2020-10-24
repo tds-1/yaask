@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename= 'common.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="/practice-test" method="POST">
+    Id - {{test_info.testid}}<br>
+    Password - {{test_info.password}}<br>
+    *Note - Start a test within 30 minutes.<br>
+    <input class='button' type="submit" value="Start test" style="color: black;">
+</form>
+{% endblock %}

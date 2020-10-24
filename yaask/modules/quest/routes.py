@@ -22,9 +22,7 @@ def submit():
         form = SubmitForm()
         form1= SubmitForm2()
         if form1.validate_on_submit():
-            print ("idhr")
             tags=request.form.getlist('select_tag')
-            print(tags)
             questiondata = Questions(
                 question=form1.question1.data,
                 a=-1,
@@ -49,9 +47,7 @@ def submit():
             return render_template('display_int.html', question_to_display=questiondata)
             
         if form.validate_on_submit():
-            print ("udhr")
             tags=request.form.getlist('select_tag')
-            print(tags)
             questiondata = Questions(
                 question=form.question.data,
                 a=form.a.data,

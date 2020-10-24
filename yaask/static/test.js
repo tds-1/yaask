@@ -88,7 +88,6 @@ function form_submit() {
 	var f1 = document.getElementById("filter1").value;
 	var f2 = document.getElementById("filter2").value;
 	var f3 = document.getElementById("filter3").value;
-	console.log(f1, f2, f3);
 	if (f1 == "") {
 		delete filtersObject["make"];
 	} else {
@@ -108,24 +107,20 @@ function form_submit() {
 	var filters = "";
 
 	for (var key in filtersObject) {
-		console.log(key);
 		if (filtersObject.hasOwnProperty(key)) {
 			filters += "[data-" + key + "='" + filtersObject[key] + "']";
 		}
 	}
-	console.log(filters);
 	if (filters == "") {
 		$(".quests").show();
 	} else {
-		console.log("hide")
 		$(".quests").hide();
 		$(".quests").hide().filter(filters).show();
 	}
 }
 $("#search-form").on('click', function (e) {
 	e.preventDefault();
-	console.log("hello");
-
+	
 	$(".quest").hide();
 	$(".quest").each(function () {
 		var make = $(this).data("make").toLowerCase(),

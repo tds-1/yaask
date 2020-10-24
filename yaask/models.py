@@ -121,8 +121,9 @@ class Test_info(db.Model):
 	show_result = db.Column(db.Boolean, nullable=False)
 	neg_mark = db.Column(db.Boolean, nullable=False)
 	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+	type = db.Column(db.Integer, nullable=False)
 
-	def __init__(self,creatorid , subject, topic, start_time, end_time, duration, password, neg_mark, show_result):
+	def __init__(self,creatorid , subject, topic, start_time, end_time, duration, password, neg_mark, show_result, type):
 		self.creatorid = creatorid
 		self.subject = subject
 		self.topic = topic
@@ -132,7 +133,8 @@ class Test_info(db.Model):
 		self.password = password
 		self.neg_mark=neg_mark
 		self.show_result=show_result
-		
+		self.type = type
+
 	def __repr__(self):
 		return "<Test id is %s " % (self.testid)
 
@@ -176,5 +178,42 @@ class Students(db.Model):
 		
 	def __repr__(self):
 		return "<Test id is %s " % (self.testid)
+
+
+class Random_test_id(db.Model):
+	__tablename__ = 'random_test_id'
+
+	id = db.Column(db.Integer, primary_key= True)
+	student_id = db.Column(db.Integer, nullable=False)
+	subject = db.Column(db.String, nullable=False)
+	topic = db.Column(db.String, nullable=False)
+
+	def __init__(self, student_id, subject, topic):
+		self.student_id = student_id
+		self.subject = subject
+		self.topic = topic
+		
+	def __repr__(self):
+		return "<Id is %s " % (self.id)
+
+class Random_test_question(db.Model):
+	__tablename__ = 'random_test_question'
+
+	id = db.Column(db.Integer, primary_key= True)
+	random_test_id = db.Column(db.Integer, nullable=False)
+	question_id = db.Column(db.Integer, nullable=False)
+	score = db.Column(db.Integer, nullable=False)
+	correct = db.Column(db.Integer, nullable=False)
+	incorrect = db.Column(db.Integer, nullable=False)
+	
+	def __init__(self, random_test_id, question_id, score, correct, incorrect):
+		self.random_test_id = random_test_id
+		self.question_id = question_id
+		self.score = score
+		self.correct = correct
+		self.incorrect = incorrect
+		
+	def __repr__(self):
+		return "<Id is %s " % (self.id)
 
 

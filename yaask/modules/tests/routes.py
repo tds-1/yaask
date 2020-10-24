@@ -8,6 +8,7 @@ import json
 from yaask.modules.tests.forms import  QuizForm, GenerateForm, RandomTest, UploadForm, TestForm
 import operator
 import math
+from collections import OrderedDict 
 from yaask.models import *
 from yaask import app
 from coolname import generate_slug
@@ -198,7 +199,8 @@ def create_test_info(username):
                     show_result = form.show_result.data,
                     neg_mark = form.neg_mark.data,
                     duration = int(form.duration.data)*60,
-                    password = form.password.data
+                    password = form.password.data,
+                    type = 0,
                 )
                 
                 db.session.add(test_info)
@@ -333,7 +335,8 @@ def give_test_auth():
                 now = datetime.now()
                 now = now.strftime("%Y-%m-%d %H:%M:%S")
                 now = datetime.strptime(now,"%Y-%m-%d %H:%M:%S")
-                if datetime.strptime(start,"%Y-%m-%d %H:%M:%S") < now and datetime.strptime(end,"%Y-%m-%d %H:%M:%S") > now:
+                print (start, end)
+                if (datetime.strptime(start,"%Y-%m-%d %H:%M:%S") < now) and (datetime.strptime(end,"%Y-%m-%d %H:%M:%S") > now):
                     results = Student_test_info.query.filter(Student_test_info.username == current_user.username).filter(Student_test_info.testid == test_id).all()
                     if len(results)>0 :
                         results = results[0]
@@ -447,6 +450,70 @@ def test_portal(testid):
             info.completed= True
             info.time_taken= time_taken
             db.session.commit()
+            randid = Test_info.query.filter(Test_info.testid == testid).one()
+            if randid.type == 1:
+                temp = Random_test_id.query.filter(Random_test_id.student_id == current_user.id).filter(Random_test_id.subject == randid.subject).filter(Random_test_id.topic == randid.topic).one()
+                tid = temp.id
+                qlist = Test.query.filter(Test.testid == testid).one()
+                qlist = qlist.selected
+                for i in range(0,len(qlist)):
+                    quest = qlist[i]
+                    rst = Random_test_question.query.filter(Random_test_question.question_id == quest).filter(Random_test_question.random_test_id == tid).one()
+                    time = time_taken[i]
+                    speed = 1
+                    diff = 1
+                    if(int(time)<=40):
+                        speed = 1
+                    elif(int(time)>=80):
+                        speed = 3
+                    else:
+                        speed = 2
+
+                    try:                    
+                        s = Students.query.filter(Students.testid == testid).filter(Students.userid == current_user.id).filter(Students.quid == quest).one()
+                        t = Questions.query.filter(Questions.questionid == quest).one()
+                        if (s.ans == t.answer):
+                            diff = 1
+                        else:
+                            diff = 3
+                    except:
+                        diff = 2
+                        
+                    db.session.commit()
+                    score = 1
+                    if(speed == 1 and diff == 1):
+                        score = 1
+                    elif(speed == 1 and diff == 2):
+                        score = 3
+                    elif(speed == 1 and diff == 3):
+                        score = 5
+                    elif(speed == 2 and diff == 1):
+                        score = 2
+                    elif(speed == 2 and diff == 2):
+                        score = 3
+                    elif(speed == 2 and diff == 3):
+                        score = 4
+                    elif(speed == 3 and diff == 1):
+                        score = 3
+                    elif(speed == 3 and diff == 2):
+                        score = 4
+                    else:
+                        score = 5
+
+                    
+                    if(score == 1):
+                        rst.score += 220
+                    elif(score == 2):
+                        rst.score += 160
+                    elif(score == 3):
+                        rst.score += 100
+                    elif(score == 4):
+                        rst.score += 70
+                    else:
+                        rst.score += 25
+
+                    db.session.commit()
+
             flash("Test submitted successfully", 'info')
             return json.dumps({'sql':'fired'})
     return ('', 204)
@@ -457,18 +524,20 @@ def random_gen():
         id = request.form['id']
         results = Test.query.filter(Test.testid== id).one()
         results = results.selected
+        print (results) 
         if len(results) > 0:
             nos = results
             data = {}
-            time_taken = Student_test_info.query.filter(Student_test_info.username == current_user.username).one()
+            time_taken = Student_test_info.query.filter(Student_test_info.username == current_user.username).filter(Student_test_info.testid == id).one()
             time_taken = time_taken.time_taken
             if(len(time_taken) == 0 ):
                 time_taken = [0]*len(nos) 
             for i in range(0,len(nos)):
                 id = nos[i]
                 question = Questions.query.filter(Questions.questionid == id).one()
-                data[question.questionid]=(question.question,question.a,question.b,question.c,question.d,time_taken[i])
-            return json.dumps(data)
+                data[i]=(question.question,question.a,question.b,question.c,question.d,time_taken[i],question.questionid)
+            print (data)
+            return json.dumps(data, sort_keys=False)
 
 def marks_obtained(testid, username):
     reports = Students.query.filter(Students.testid == testid).filter(Students.userid== str(current_user.id)).all()
@@ -513,6 +582,7 @@ def tests_result(username, testid):
         results = []
         for qid in result.selected:
             l = []
+            print (qid)
             quer = Questions.query.filter(Questions.questionid == qid).one()
             l.append(quer)
             results.append(l)
@@ -544,6 +614,7 @@ def student_results(username, testid):
         final = []
         count=1
         data = []
+
         for user in results:
             score = marks_obtained(testid,user.username)
             name = User.query.filter(User.username == user.username)
