@@ -17,12 +17,28 @@
         </td>
     </tr>
     <tr>
-        <td id='a'>𝐀. {{ question_to_display.a }}</td>
-        <td id='b'>𝐁. {{ question_to_display.b }}</td>
+        {% if question_to_display.answer|string() == 'A' %}
+            <td id='a' style="background-color: rgba(0,255,0,0.4);">𝐀. {{ question_to_display.a }}</td>
+        {% else %}
+            <td id='a'>𝐀. {{ question_to_display.a }}</td>
+        {% endif %}
+        {% if question_to_display.answer|string() == 'B' %}
+            <td id='a' style="background-color: rgba(0,255,0,0.4);">𝐁. {{ question_to_display.b }}</td>
+        {% else %}
+            <td id='a'>𝐁. {{ question_to_display.b }}</td>
+        {% endif %}
     </tr>
     <tr>
-        <td id='c'>𝐂. {{ question_to_display.c }}</td>
-        <td id='d'>𝐃. {{ question_to_display.d }}</td>
+        {% if question_to_display.answer|string() =='C' %}
+            <td id='a' style="background-color: rgba(0,255,0,0.4);">𝐂. {{ question_to_display.c }}</td>
+        {% else %}
+            <td id='a'>𝐂. {{ question_to_display.c }}</td>
+        {% endif %}
+        {% if question_to_display.answer|string() == 'D' %}
+            <td id='a' style="background-color: rgba(0,255,0,0.4);">𝐃. {{ question_to_display.d }}</td>
+        {% else %}
+            <td id='a'>𝐃. {{ question_to_display.d }}</td>
+        {% endif %}
     </tr>
     <tr>
         <td colspan="2"><b>Explanation</b>: {{question_to_display.comment}} </td>

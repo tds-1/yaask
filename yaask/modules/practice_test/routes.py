@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Blueprint, url_for, redirect, request
+from flask import Flask, render_template, Blueprint, url_for, redirect, request, flash
 from yaask import app
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, user_logged_in
 from yaask.models import *
@@ -34,7 +34,6 @@ def practice_test():
 			c = 1
 			for question in questions:
 				if question.tags == l:
-					print ("here")
 					data = Random_test_question(
 						random_test_id = id,
 						question_id = question.questionid,
@@ -46,6 +45,9 @@ def practice_test():
 					
 					db.session.add(data)
 					db.session.commit()
+			if c == 1 :
+				flash("Sorry! No Questions Available for this topic. We will update it shortly.","Info")
+				return render_template('practice_test.html',form= form)
 		
 		temp = Random_test_id.query.filter(Random_test_id.subject == subject).filter(Random_test_id.topic == topic).one()
 		id = temp.id
@@ -54,21 +56,18 @@ def practice_test():
 		l = []
 		for x in temp:
 			l.append(x[0])
-		print (l)
 		password = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 6)) 
 		now = datetime.now()
-		print (now)
 		now = now.strftime("%Y-%m-%d %H:%M:%S")
 		now = datetime.strptime(now,"%Y-%m-%d %H:%M:%S")
 		end = datetime.strptime(str(now), "%Y-%m-%d %H:%M:%S")+  timedelta( minutes=20)
-		print (now, end)
 		test_info =  Test_info(
 			creatorid = current_user.id,
 			subject = subject,
 			topic = topic,
 			start_time = now,
 			end_time = end,
-			duration = 1200,
+			duration = 600,
 			password = password,
 			neg_mark = True,
 			show_result = True,
@@ -94,7 +93,7 @@ def start_practice_test(testid):
 	if request.method == 'GET':
 		test_info = Test_info.query.filter(Test_info.testid == testid).one()
 		form = TestForm(test_id=test_info.testid, password=test_info.password)
-		return render_template('give_test.html', form = form)
+		return render_template('give_test.html', form = form, note = "Please note down the credentials, in case of unexpected window close, which can be used to restart the test.")
 
 	return render_template('practice_test.html',form= form)
 

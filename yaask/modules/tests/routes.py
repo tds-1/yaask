@@ -219,7 +219,7 @@ def create_test_info(username):
 @app.route('/quest', methods = ['POST'])
 def all_quest():
     if request.method == "POST":
-        questions_to_display = Questions.query.filter().all()
+        questions_to_display = Questions.query.filter().order_by(Questions.created_date.desc()).all()
         ques = []
         for question_to_display in questions_to_display:
             q={}
@@ -462,9 +462,9 @@ def test_portal(testid):
                     time = time_taken[i]
                     speed = 1
                     diff = 1
-                    if(int(time)<=40):
+                    if(int(time)<=20):
                         speed = 1
-                    elif(int(time)>=80):
+                    elif(int(time)>=35):
                         speed = 3
                     else:
                         speed = 2
@@ -502,15 +502,15 @@ def test_portal(testid):
 
                     
                     if(score == 1):
-                        rst.score += 220
+                        rst.score += random.randint(200, 500)
                     elif(score == 2):
-                        rst.score += 160
+                        rst.score += random.randint(140, 180)
                     elif(score == 3):
-                        rst.score += 100
+                        rst.score += random.randint(100, 140)
                     elif(score == 4):
-                        rst.score += 70
+                        rst.score += random.randint(70, 110)
                     else:
-                        rst.score += 25
+                        rst.score += random.randint(50, 70)
 
                     db.session.commit()
 

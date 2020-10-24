@@ -47,7 +47,6 @@ def submit():
             return render_template('display_int.html', question_to_display=questiondata)
             
         if form.validate_on_submit():
-            tags=request.form.getlist('select_tag')
             questiondata = Questions(
                 question=form.question.data,
                 a=form.a.data,
@@ -60,7 +59,7 @@ def submit():
                 difficulty=form.difficulty.data,
                 question_score=0,
                 comment=form.comment.data,
-                tags=tags,
+                tags=[form.tags.data],
             )
             x=questiondata.question
             x=x.replace("{tex}","\[")
@@ -88,7 +87,7 @@ def submit():
 @login_required
 def display():
     form= FilterForm()
-    questions_to_display = Questions.query.filter().all()
+    questions_to_display = Questions.query.filter().order_by(Questions.questionid.desc()).all()
     return render_template('disp_questions.html', results=questions_to_display)
     
 

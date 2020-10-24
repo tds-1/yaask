@@ -61,7 +61,7 @@ var display_ques = function (move) {
     present= move-1;
     time_taken[past]+=(present_time-global_time);
     present_time=global_time;
-    $('#que').text(map_quest[nos[move - 1]][0]);
+    document.getElementById("que").innerHTML = (map_quest[nos[move - 1]][0]);
     $('#a').text('𝐀.  ' + map_quest[nos[move - 1]][1]);
     $('#b').text('𝐁.  ' + map_quest[nos[move - 1]][2]);
     $('#c').text('𝐂.  ' + map_quest[nos[move - 1]][3]);

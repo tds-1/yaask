@@ -4,6 +4,17 @@ from wtforms.validators import DataRequired
 from flask_ckeditor import CKEditor, CKEditorField
 from wtforms import validators
 
+f = open("yaask/tag.txt", "r")
+x= (f.read())
+ini=0
+tag=[]
+tag.append(('all','All Tags'))
+for i in range (0,len(x)):
+	if (x[i]=='\n'):
+		tag.append((x[ini:i],x[ini:i]))
+		ini=i+1
+tag.append((x[ini:len(x)],x[ini:len(x)]))
+
 
 class SubmitForm(Form):
 	question = CKEditorField('question', validators=[DataRequired()])
@@ -26,6 +37,11 @@ class SubmitForm(Form):
 		choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
 		validators=[DataRequired()]
 	)
+	tags = SelectField(
+		'Tags', 
+		choices=tag,
+		validators=[DataRequired()]
+	)
 	comment = TextField('comment')
 
 
@@ -45,16 +61,6 @@ class SubmitForm2(Form):
 	comment1 = TextField('comment')
 
 class FilterForm(Form):
-	f = open("yaask/tag.txt", "r")
-	x= (f.read())
-	ini=0
-	tag=[]
-	tag.append(('all','All Tags'))
-	for i in range (0,len(x)):
-		if (x[i]=='\n'):
-			tag.append((x[ini:i],x[ini:i]))
-			ini=i+1
-	tag.append((x[ini:len(x)],x[ini:len(x)]))
 	subject = SelectField(
 		'Subject', 
 		choices=[('all','All Subjects'), ('math', 'Math'), ('chemistry', 'Chemistry'), ('physics', 'Physics'), ('biology', 'Biology'), ('other', 'Other')], 
