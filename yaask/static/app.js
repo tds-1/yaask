@@ -286,7 +286,7 @@ var make_array = function () {
     for (var key in answers) {
         var store;
         for (var j = 0; j < nos.length; j++) {
-            if (key == nos[j]) {
+            if (key == map_quest[nos[j]][6]) {
                 store = j;
                 break;
             }
