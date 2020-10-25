@@ -18,7 +18,7 @@ def practice_test():
 	if request.method == 'POST':
 		topic = form.topic.data
 		subject = form.subject.data
-		temp = Random_test_id.query.filter(Random_test_id.subject == subject).filter(Random_test_id.topic == topic).all()
+		temp = Random_test_id.query.filter(Random_test_id.subject == subject).filter(Random_test_id.topic == topic).filter(Random_test_id.student_id == current_user.id).all()
 		if len(temp)==0 :
 			data = Random_test_id(
 				student_id = current_user.id,
@@ -27,8 +27,7 @@ def practice_test():
 			)
 			db.session.add(data)
 			db.session.commit()
-			temp = Random_test_id.query.filter(Random_test_id.subject == subject).filter(Random_test_id.topic == topic).one()
-			id = temp.id
+			id = data.id
 			l = [topic]
 			questions = Questions.query.filter(Questions.category == subject).all()
 			c = 1

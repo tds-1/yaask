@@ -335,7 +335,6 @@ def give_test_auth():
                 now = datetime.now()
                 now = now.strftime("%Y-%m-%d %H:%M:%S")
                 now = datetime.strptime(now,"%Y-%m-%d %H:%M:%S")
-                print (start, end)
                 if (datetime.strptime(start,"%Y-%m-%d %H:%M:%S") < now) and (datetime.strptime(end,"%Y-%m-%d %H:%M:%S") > now):
                     results = Student_test_info.query.filter(Student_test_info.username == current_user.username).filter(Student_test_info.testid == test_id).all()
                     if len(results)>0 :
@@ -524,7 +523,6 @@ def random_gen():
         id = request.form['id']
         results = Test.query.filter(Test.testid== id).one()
         results = results.selected
-        print (results) 
         if len(results) > 0:
             nos = results
             data = {}
@@ -536,7 +534,6 @@ def random_gen():
                 id = nos[i]
                 question = Questions.query.filter(Questions.questionid == id).one()
                 data[i]=(question.question,question.a,question.b,question.c,question.d,time_taken[i],question.questionid)
-            print (data)
             return json.dumps(data, sort_keys=False)
 
 def marks_obtained(testid, username):
@@ -556,7 +553,7 @@ def marks_obtained(testid, username):
 @login_required
 def tests_given(username):
     if username == current_user.username:
-        test_given = Student_test_info.query.with_entities(Student_test_info.testid).filter(Student_test_info.username==str(current_user.username)).distinct()
+        test_given = Student_test_info.query.with_entities(Student_test_info.testid).filter(Student_test_info.username==str(current_user.username)).order_by(Student_test_info.testid.desc()).distinct()
         results=[]
         for testid in test_given:
             result={}
@@ -582,7 +579,6 @@ def tests_result(username, testid):
         results = []
         for qid in result.selected:
             l = []
-            print (qid)
             quer = Questions.query.filter(Questions.questionid == qid).one()
             l.append(quer)
             results.append(l)

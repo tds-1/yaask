@@ -31,8 +31,9 @@ class User(db.Model):
 	score = db.Column(db.Integer, nullable=False)
 	answered = db.Column(db.PickleType)
 	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-	
-	def __init__(self, name, username, email, phone_no, password, score, role, phone_verified):
+	picture = db.Column(db.String)
+
+	def __init__(self, name, username, email, phone_no, password, score, role, phone_verified, picture):
 		self.name = name
 		self.username = username
 		self.email = email
@@ -41,6 +42,7 @@ class User(db.Model):
 		self.score = score
 		self.phone_verified= phone_verified
 		self.role = role
+		self.picture = picture
 
 	def is_authenticated(self):
 		return True

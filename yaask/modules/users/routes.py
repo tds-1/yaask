@@ -36,7 +36,7 @@ def oauth_callback(provider):
 	if not current_user.is_anonymous():
 		return redirect(url_for('main.home'))
 	oauth = OAuthSignIn.get_provider(provider)
-	name,username,email = oauth.callback()
+	name,username,email,picture = oauth.callback()
 
 	if email is None:
 	# I need a valid email address for my user identification
@@ -55,7 +55,8 @@ def oauth_callback(provider):
 			phone_verified=False,
 			password=os.getrandom(10, os.GRND_NONBLOCK),
 			role = "student",
-			score=0
+			score=0,
+			picture= picture
 		)
 		db.session.add(user)
 		db.session.commit()

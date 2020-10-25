@@ -8,17 +8,19 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         {% if current_user.is_authenticated() %}
-        <li class="nav-item ">
-          <a href="/dashboard" class="nav-link">Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a href="/logout" class="nav-link">Logout</a>
-        </li>
+          <li class="nav-item ">
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a href="/logout" class="nav-link">Logout</a>
+          </li>
+          <li class="nav-item ">
+            <img src="{{current_user.picture}}" alt="Avatar" width="40px" style="border-radius: 50%;">
+          </li>
         {% else %}
-        
-        <li class="nav-item">
-          <a href="/login" class="nav-link">Login/Register</a>
-        </li>
+          <li class="nav-item">
+            <a href="/login" class="nav-link">Login/Register</a>
+          </li>
         {% endif %}
       </ul>
     </div>
