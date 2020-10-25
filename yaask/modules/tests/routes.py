@@ -501,15 +501,15 @@ def test_portal(testid):
 
                     
                     if(score == 1):
-                        rst.score += random.randint(200, 500)
+                        rst.score += random.randint(150, 300)
                     elif(score == 2):
-                        rst.score += random.randint(140, 180)
+                        rst.score += random.randint(120, 150)
                     elif(score == 3):
-                        rst.score += random.randint(100, 140)
+                        rst.score += random.randint(80, 120)
                     elif(score == 4):
-                        rst.score += random.randint(70, 110)
+                        rst.score += random.randint(60, 90)
                     else:
-                        rst.score += random.randint(50, 70)
+                        rst.score += random.randint(40, 60)
 
                     db.session.commit()
 
