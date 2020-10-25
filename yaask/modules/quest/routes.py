@@ -86,41 +86,20 @@ def submit():
 @quest.route('/display', methods=['GET', 'POST'])
 @login_required
 def display():
-    form= FilterForm()
-    questions_to_display = Questions.query.filter().order_by(Questions.questionid.desc()).all()
-    return render_template('disp_questions.html', results=questions_to_display)
-    
-
-@quest.route('/display/<string:category>')
-@login_required
-def categorywise(category):
-    categoryList = ['math',
-        'chemistry',
-        'physics',
-        'biology',
-        'other',]
-    page=request.args.get('page')
-    pg=page
-    if category in categoryList:
-        if(page is None):
-            questions_to_display = Questions.query.filter().filter( Questions.category == category ).paginate(page=1).items
-            limit= math.ceil(Questions.query.filter().count()/20)
-            return render_template('display.html', questions_to_display=questions_to_display, cat=category, pg=1,limit=limit)
-        else:
-            questions_to_display = Questions.query.filter().filter( Questions.category == category ).all()
-            limit= len(questions_to_display)/20
-            questions_to_display=questions_to_display[0:20]
-            return render_template('display.html', questions_to_display=questions_to_display, cat=category, pg=1,limit=limit)
-            page=int(page)
-            page-=1
-            page*=20
-            questions_to_display=questions_to_display[page:page+20]
-            return render_template('display.html', questions_to_display=questions_to_display, cat=category, pg=pg,limit=limit)
-            
+    form= FilterForm(request.form)
+    if request.method == 'GET':
+        questions_to_display = Questions.query.filter().order_by(Questions.questionid.desc()).all()
+        return render_template('disp_questions.html',form = form, results=questions_to_display)
     else:
-        questions_to_display = Questions.query.filter().all()
-        flash('Please enter a url where the category is any one of' + str(categoryList))
-        return redirect(url_for('display', questions_to_display=questions_to_display))
+        subject = form.subject.data
+        topic = form.tags.data
+        questions_to_display = Questions.query.filter()
+        if( subject != "all"):
+            questions_to_display = questions_to_display.filter(Questions.category == subject)
+        if( topic != "all"):
+            questions_to_display = questions_to_display.filter(Questions.tags == [topic])
+        questions_to_display = questions_to_display.all()
+        return render_template('disp_questions.html',form = form, results=questions_to_display)
 
 @quest.route('/editquestions', methods=['GET', 'POST'])
 @login_required

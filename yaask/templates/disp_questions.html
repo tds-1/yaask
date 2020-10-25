@@ -2,68 +2,76 @@
 
 
 {% macro show_opt(result,opt) %}
-  <!-- if correct option -- green -->
-  {% if opt == 'a' %}
-    {% if result.answer|string() == opt|upper %}
-        <td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.a}}</td>
-    {% else %}
-        <td > <b>{{opt|upper}}</b>. {{result.a}}</td>
-    {% endif %}
+<!-- if correct option -- green -->
+{% if opt == 'a' %}
+{% if result.answer|string() == opt|upper %}
+<td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.a}}</td>
+{% else %}
+<td> <b>{{opt|upper}}</b>. {{result.a}}</td>
+{% endif %}
 
-  {% elif opt == 'b' %}
-    {% if result.answer|string() == opt|upper %}
-        <td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.b}}</td>
-    {% else %}
-        <td > <b>{{opt|upper}}</b>. {{result.b}}</td>
-    {% endif %}
+{% elif opt == 'b' %}
+{% if result.answer|string() == opt|upper %}
+<td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.b}}</td>
+{% else %}
+<td> <b>{{opt|upper}}</b>. {{result.b}}</td>
+{% endif %}
 
-  {% elif opt == 'c' %}
-    {% if result.answer|string() == opt|upper %}
-        <td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.c}}</td>
-    {% else %}
-        <td > <b>{{opt|upper}}</b>. {{result.c}}</td>
-    {% endif %}
+{% elif opt == 'c' %}
+{% if result.answer|string() == opt|upper %}
+<td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.c}}</td>
+{% else %}
+<td> <b>{{opt|upper}}</b>. {{result.c}}</td>
+{% endif %}
 
-  {% elif opt == 'd' %}
-    {% if result.answer|string() == opt|upper %}
-        <td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.d}}</td>
-    {% else %}
-        <td > <b>{{opt|upper}}</b>. {{result.d}}</td>
-    {% endif %}
-  {% endif %}
+{% elif opt == 'd' %}
+{% if result.answer|string() == opt|upper %}
+<td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.d}}</td>
+{% else %}
+<td> <b>{{opt|upper}}</b>. {{result.d}}</td>
+{% endif %}
+{% endif %}
 {% endmacro %}
 
 
 <!-- diff color for nt attemptd -->
 
 {% block body %}
-    {% for result in results%}
-        <table style="margin-bottom: 40px;">
-            <tr>
-                <td>Question No. {{ loop.index }}</td>
-                <td>Marks: 4</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    {{result.question | safe}}
-                </td>
-            </tr>
-            <tr>
-                {{ show_opt(result,'a') }}
-                {{ show_opt(result,'b') }}
-            </tr>
-            <tr>
-                {{ show_opt(result,'c') }}
-                {{ show_opt(result,'d') }}
-            </tr>
-            <tr>
-                <td colspan="2"><b>Explanation</b>:  {{result.comment}} </td>
-    
-            </tr>
-        </table> 
-    {% endfor %}
+{% from "includes/_formhelpers.html" import render_field %}
+<form method="Post">
+    <dl>
+        {{ render_field(form.subject) }}
+        {{ render_field(form.tags) }}
+        <input type="submit" value="Submit">
+    </dl>
+</form>
+{% for result in results%}
+<table style="margin-bottom: 40px;">
+    <tr>
+        <td>Question No. {{ loop.index }}</td>
+        <td>Marks: 4</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            {{result.question | safe}}
+        </td>
+    </tr>
+    <tr>
+        {{ show_opt(result,'a') }}
+        {{ show_opt(result,'b') }}
+    </tr>
+    <tr>
+        {{ show_opt(result,'c') }}
+        {{ show_opt(result,'d') }}
+    </tr>
+    <tr>
+        <td colspan="2"><b>Explanation</b>: {{result.comment}} </td>
 
-    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='disp.css') }}">
+    </tr>
+</table>
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='disp.css') }}">
 
 {% endblock %}

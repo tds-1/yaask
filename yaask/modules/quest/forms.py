@@ -8,7 +8,7 @@ f = open("yaask/tag.txt", "r")
 x= (f.read())
 ini=0
 tag=[]
-tag.append(('all','All Tags'))
+tag.append(('all','All Topics'))
 for i in range (0,len(x)):
 	if (x[i]=='\n'):
 		tag.append((x[ini:i],x[ini:i]))
@@ -67,13 +67,8 @@ class FilterForm(Form):
 		validators=[DataRequired()]
 	)
 	tags = SelectField(
-		'Tags', 
+		'Topic', 
 		choices=tag,
 		validators=[DataRequired()]
 	)
-	difficulty = SelectField(
-		'Difficulty', 
-		choices=[('all','All Difficulties'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
-		validators=[DataRequired()]
-	)
-	
+
