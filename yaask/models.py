@@ -205,16 +205,18 @@ class Random_test_question(db.Model):
 	random_test_id = db.Column(db.Integer, nullable=False)
 	question_id = db.Column(db.Integer, nullable=False)
 	score = db.Column(db.Integer, nullable=False)
-	correct = db.Column(db.Integer, nullable=False)
-	incorrect = db.Column(db.Integer, nullable=False)
+	correct = db.Column(db.Integer, nullable=False, default = 0)
+	incorrect = db.Column(db.Integer, nullable=False, default = 0)
+	left = db.Column(db.Integer, nullable=True, default = 0)
 	
-	def __init__(self, random_test_id, question_id, score, correct, incorrect):
+	def __init__(self, random_test_id, question_id, score, correct, incorrect, left):
 		self.random_test_id = random_test_id
 		self.question_id = question_id
 		self.score = score
 		self.correct = correct
 		self.incorrect = incorrect
-		
+		self.left = left
+
 	def __repr__(self):
 		return "<Id is %s " % (self.id)
 

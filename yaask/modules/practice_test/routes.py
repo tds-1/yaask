@@ -7,8 +7,8 @@ import pickle
 import string
 import random
 from datetime import timedelta, datetime
-
-
+from sqlalchemy import func
+from yaask import db
 practice = Blueprint('practice',__name__)
 
 @practice.route('/practice-test', methods=['GET', 'POST'])
@@ -39,6 +39,7 @@ def practice_test():
 						score = c,
 						correct = 0,
 						incorrect = 0,
+						left = 0
 					)
 					c += 1
 					
@@ -96,5 +97,28 @@ def start_practice_test(testid):
 
 	return render_template('practice_test.html',form= form)
 
+@practice.route('/<userid>/achievements', methods=['GET','POST'])
+@login_required
+def achievements(userid):
+	qry = db.session.query(
+		Random_test_question.random_test_id,
+		func.sum(Random_test_question.correct).label("sum_correct"),
+		func.sum(Random_test_question.incorrect).label("sum_incorrect"),
+		func.sum(Random_test_question.left).label("sum_left")
+		)
+	qry = qry.group_by(Random_test_question.random_test_id)
+	l = []
+	for _res in qry.all():
+		sum = _res[1]+_res[2]+_res[3]
+		try:
+			l.append((_res[1]/sum,_res[0]))
+		except:
+			l.append((0,_res[0]))
+	l.sort()
+	worst = l[0]
+	l.reverse()
+	best = l[0]
+	best = Random_test_id.query.filter(Random_test_id.student_id == current_user.id).filter(Random_test_id.id == best[1]).one()
+	worst = Random_test_id.query.filter(Random_test_id.student_id == current_user.id).filter(Random_test_id.id == worst[1]).one()
 
-
+	return render_template("achievement.html",best = best, worst = worst )

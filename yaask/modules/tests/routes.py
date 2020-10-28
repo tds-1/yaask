@@ -448,6 +448,8 @@ def test_portal(testid):
             info.time_left=0
             info.completed= True
             info.time_taken= time_taken
+            
+
             db.session.commit()
             randid = Test_info.query.filter(Test_info.testid == testid).one()
             if randid.type == 1:
@@ -468,14 +470,20 @@ def test_portal(testid):
                     else:
                         speed = 2
 
-                    try:                    
-                        s = Students.query.filter(Students.testid == testid).filter(Students.userid == current_user.id).filter(Students.quid == quest).one()
+                    try:
+                        s = Students.query.filter(Students.testid == testid).filter(Students.userid == current_user.id).filter(Students.quid == str(quest)).one()
                         t = Questions.query.filter(Questions.questionid == quest).one()
                         if (s.ans == t.answer):
+                            rst.correct += 1
+                            db.session.commit()
                             diff = 1
                         else:
+                            rst.incorrect += 1
+                            db.session.commit()
                             diff = 3
                     except:
+                        rst.left += 1
+                        db.session.commit()
                         diff = 2
                         
                     db.session.commit()
