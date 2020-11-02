@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "38550f2e7795be11f46a27bd2c49bd67dd6c3664a6e71a648b5ccf690c267bc4"
+            "sha256": "5b18ffdc0cd5f6716777d719170360fc464105d088956b195660fa506201a673"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -404,10 +404,10 @@
         },
         "sqlalchemy": {
             "hashes": [
-                "sha256:99a8a54bec4988f704c54ee9f769aa196db43a5ef7ed655b78a80a129c9c65f3"
+                "sha256:11ead7047ff3f394ed0d4b62aded6c5d970a9b718e1dc6add9f5e79442cc5b14"
             ],
             "index": "pypi",
-            "version": "==1.0.6"
+            "version": "==1.3.0"
         },
         "tinycss2": {
             "hashes": [
@@ -425,10 +425,10 @@
         },
         "weasyprint": {
             "hashes": [
-                "sha256:c809ee2807b714a57a6f05ccf9e9ca950295e009bbce7c8c26ac5f45129b4509",
-                "sha256:fa91c71cd5ddf2a6c8d10ab5bac7b5e09df27f9f93aab0502547f310c2208e67"
+                "sha256:2f59a1908f363088ba210fc742b376139d4e594b35d02a9bbabb32c2d8f0b384",
+                "sha256:98602288ddc5345fcbd5008702f53da03cd07cec6f335de20f41c03a62715ddf"
             ],
-            "version": "==52"
+            "version": "==52.1"
         },
         "webencodings": {
             "hashes": [
@@ -447,10 +447,7 @@
         },
         "wkhtmltopdf": {
             "hashes": [
-                "sha256:530fffb5d1faf4f4cd5248c14fd1b4b7fe311541d0660dc2c2272c32b3c72211",
-                "sha256:60c84c327f949a256c6c0752a0a5d8a63daa08d6158f650d6379be9aaa536a94",
-                "sha256:eea6f42dccf58ded01980ae77e52017230db06b508e69fdb4f57c91054f543e0",
-                "sha256:f14972abdecf5ddb6e397e7b4910dad31516c0e146145753ce18144ba73be1a1"
+                "sha256:530fffb5d1faf4f4cd5248c14fd1b4b7fe311541d0660dc2c2272c32b3c72211"
             ],
             "index": "pypi",
             "version": "==0.2"
