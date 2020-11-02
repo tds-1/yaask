@@ -471,18 +471,18 @@ def test_portal(testid):
                         speed = 2
 
                     try:
-                        s = Students.query.filter(Students.testid == testid).filter(Students.userid == current_user.id).filter(Students.quid == str(quest)).one()
+                        s = Students.query.filter(Students.testid == str(testid)).filter(Students.userid == str(current_user.id)).filter(Students.quid == str(quest)).one()
                         t = Questions.query.filter(Questions.questionid == quest).one()
                         if (s.ans == t.answer):
-                            rst.correct += 1
+                            rst.correct = rst.correct +1
                             db.session.commit()
                             diff = 1
                         else:
-                            rst.incorrect += 1
+                            rst.incorrect = rst.incorrect + 1
                             db.session.commit()
                             diff = 3
                     except:
-                        rst.left += 1
+                        rst.left = rst.left + 1
                         db.session.commit()
                         diff = 2
                         

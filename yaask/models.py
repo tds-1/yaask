@@ -30,8 +30,9 @@ class User(db.Model):
 	role = db.Column(db.String, nullable=False)
 	score = db.Column(db.Integer, nullable=False)
 	answered = db.Column(db.PickleType)
-	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 	picture = db.Column(db.String)
+	prime = db.Column(db.Boolean, nullable = True)
+	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
 	def __init__(self, name, username, email, phone_no, password, score, role, phone_verified, picture):
 		self.name = name
