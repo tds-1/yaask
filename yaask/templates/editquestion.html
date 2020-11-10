@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% block head %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<script type="text/javascript" src="//media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor/ckeditor/ckeditor.js"></script>
+<style>
+	.cke {
+		visibility: hidden;
+	}
+
+	.input-field label {
+		position: relative !important;
+	}
+</style>
+<script type="text/javascript">
+	CKEDITOR.config.customConfig = '//media-mycbseguide.s3.amazonaws.com/v1.8.4/ckeditor-plugins/create_question.editor.config.js';
+</script>
+
+<style>
+	.container {
+		max-width: 960px;
+		width: 100%;
+	}
+    select{
+        display: flex!important;
+    }
+</style>
+
+{% endblock %}
+
+<!-- Dropdown Structure -->
+
+{% block body %}
+<h5 class="mhead">Edit Question:</h5>
+<br>
+
+<br>
+
+
+<br>
+<div class="card-content grey lighten-4" id="highlight">
+	<div id="test1">
+		<form action="" method='POST'>
+			{{ form.csrf_token }}
+			<div class="form-group">
+				{{ form.question(placeholder="Question", class='form-control') }}
+			</div>
+			<div class="row">
+				<div class="form-group col-6">
+					{{ form.a(placeholder="Option A", class='form-control') }}
+				</div>
+				<div class="form-group col-6">
+					{{ form.b(placeholder="Option B", class='form-control') }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-6">
+					{{ form.c(placeholder="Option C", class='form-control') }}
+				</div>
+				<div class="form-group col-6">
+					{{ form.d(placeholder="Option D", class='form-control') }}
+				</div>
+			</div>
+			<div class="input-field  col s12">
+				{{ form.answer(placeholder="Answer") }}
+			</div>
+			<div class="row">
+				<div class="input-field col s6">
+					{{ form.category(placeholder="Category") }}
+				</div>
+				<div class="input-field col s6">
+					{{ form.difficulty(placeholder="Difficulty") }}
+				</div>
+			</div>
+			<div class="input-field  col s12">
+				{{ form.tags(placeholder='Topic')}}
+			</div>
+			<div class="form-group">
+				{{ form.comment(placeholder="Comment", class='form-control') }}
+			</div>
+			<div class="valign-wrapper">
+				<button class="valign btn-large waves-effect waves-light" type="submit">Edit the Question <i
+						class="material-icons">send</i></button>
+			</div>
+			<div>
+				<br>
+			</div>
+
+		</form>
+	</div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/js/materialize.min.js"></script>
+
+{% endblock %}

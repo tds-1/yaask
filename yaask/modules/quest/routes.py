@@ -101,19 +101,43 @@ def display():
         questions_to_display = questions_to_display.all()
         return render_template('disp_questions.html',form = form, results=questions_to_display)
 
-@quest.route('/editquestions', methods=['GET', 'POST'])
+@quest.route('/editquestion/<questionid>', methods=['GET', 'POST'])
 @login_required
-def editquestions():
-    try:
-        qid=request.args.get('qid')
-        print (qid)
-        delet=Questions.query.filter(Questions.questionid==qid).one()
-        db.session.delete(delet)
-        db.session.commit()
-        questions_to_display = Questions.query.filter(Questions.creatorid == str(current_user.id)).all()
-        return render_template('individual_questions.html', questions_to_display=questions_to_display)
-    except:
-        questions_to_display = Questions.query.filter(Questions.creatorid == str(current_user.id)).all()
-        return render_template('individual_questions.html', questions_to_display=questions_to_display)
-
-
+def editquestions(questionid):
+    form = SubmitForm()
+    if request.method == 'GET':
+        query = Questions.query.filter(Questions.questionid == questionid).one()
+        form.question.data = query.question
+        form.a.data = query.a
+        form.b.data = query.b
+        form.c.data = query.c
+        form.d.data = query.d
+        form.answer.data = query.answer
+        form.category.data = query.category
+        form.difficulty.data = query.difficulty
+        try:
+            form.tags.data = query.tags[0]
+        except:
+            form.tags.data = ""
+        
+        form.comment.data = query.comment
+        return render_template('editquestion.html', form = form)
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            query = Questions.query.filter(Questions.questionid == questionid).one()
+            x=form.question.data
+            x=x.replace("{tex}","\[")
+            x=x.replace("{/tex}","\]")
+            query.question = x            
+            query.a = form.a.data
+            query.b = form.b.data
+            query.c = form.c.data
+            query.d = form.d.data
+            query.answer = form.answer.data
+            query.comment=form.comment.data
+            query.tags=[form.tags.data]
+            db.session.commit()
+            return redirect(url_for('main.home'))
+        else:
+            flash('incorrect submission')
+            return render_template('editquestion.html', form = form)

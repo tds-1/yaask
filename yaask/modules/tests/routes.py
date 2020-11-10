@@ -180,37 +180,33 @@ def print_test():
 @login_required
 def create_test_info(username):
     if username == current_user.username and current_user.role == 'teacher':
-        form = UploadForm()
+        form = UploadForm(request.form)
         if request.method == 'POST':
-            try:
-                start = str(form.start_date.data) + " " + str(form.start_time.data)
-                end = str(form.end_date.data) + " " + str(form.end_time.data)
-                start = datetime.strptime(start , "%Y-%m-%d %H:%M:%S")- timedelta(hours=5, minutes=30)
-                start = str(start)
-                end = datetime.strptime(end , "%Y-%m-%d %H:%M:%S")-  timedelta(hours=5, minutes=30)
-                end = str(end)
-                
-                test_info =  Test_info(
-                    creatorid = current_user.id,
-                    subject = form.subject.data,
-                    topic = form.topic.data,
-                    start_time = start,
-                    end_time = end,
-                    show_result = form.show_result.data,
-                    neg_mark = form.neg_mark.data,
-                    duration = int(form.duration.data)*60,
-                    password = form.password.data,
-                    type = 0,
-                )
-                
-                db.session.add(test_info)
-                db.session.commit()
-                test_id = test_info.testid
-                flash(f'Test ID: {test_id}', 'success')       
-                return redirect(url_for('create_test', username=current_user.username, testid=test_id))
-            except:
-                flash("all fields are required", 'danger')
-                return render_template('create_test.html' , form = form)
+            start = str(form.start_date.data) + " " + str(form.start_time.data)
+            end = str(form.end_date.data) + " " + str(form.end_time.data)
+            start = datetime.strptime(start , "%Y-%m-%d %H:%M:%S")- timedelta(hours=5, minutes=30)
+            start = str(start)
+            end = datetime.strptime(end , "%Y-%m-%d %H:%M:%S")-  timedelta(hours=5, minutes=30)
+            end = str(end)
+            
+            test_info =  Test_info(
+                creatorid = current_user.id,
+                subject = form.subject.data,
+                topic = form.topic.data,
+                start_time = start,
+                end_time = end,
+                show_result = form.show_result.data,
+                neg_mark = form.neg_mark.data,
+                duration = int(form.duration.data)*60,
+                password = form.password.data,
+                type = 0,
+            )
+            
+            db.session.add(test_info)
+            db.session.commit()
+            test_id = test_info.testid
+            flash(f'Test ID: {test_id}', 'success')       
+            return redirect(url_for('create_test', username=current_user.username, testid=test_id))
         return render_template('create_test.html' , form = form)
     else:
         return ("you are not authorized to access this page")
