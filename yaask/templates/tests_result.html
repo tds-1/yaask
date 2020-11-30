@@ -1,103 +1,103 @@
 {% extends 'layout.html' %}
 
 
-
 {% macro show_opt(result,opt) %}
-    {% if opt == 'a' %}
-        {% if result[0].answer|string() == opt|upper %}
-            {% if result[1]|string() ==  opt %}
-                <td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].a}}</td>
-            {% else %}
-                <td style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].a}}</td>
-            {% endif %}            
-        {% else %}
-            {% if result[1]|string() ==  opt %}
-                <td style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].a}}</td>
-            {% else %}
-                <td > <b>{{opt|upper}}</b>. {{result[0].a}}</td>
-            {% endif %}            
+{% if opt == 'a' %}
+{% if result[0].answer|string() == opt|upper %}
+{% if result[1]|string() ==  opt %}
+<td colspan="2" style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].a}}</td>
+{% else %}
+<td colspan="2" style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].a}}</td>
+{% endif %}
+{% else %}
+{% if result[1]|string() ==  opt %}
+<td colspan="2" style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].a}}</td>
+{% else %}
+<td colspan="2"> <b>{{opt|upper}}</b>. {{result[0].a}}</td>
+{% endif %}
 
-        {% endif %}
+{% endif %}
 
-    {% elif opt == 'b' %}
-        {% if result[0].answer|string() == opt|upper %}
-            {% if result[1]|string() ==  opt %}
-                <td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].b}}</td>
-            {% else %}
-                <td style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].b}}</td>
-            {% endif %}            
-        {% else %}
-            {% if result[1]|string() ==  opt %}
-                <td style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].b}}</td>
-            {% else %}
-                <td > <b>{{opt|upper}}</b>. {{result[0].b}}</td>
-            {% endif %}            
+{% elif opt == 'b' %}
+{% if result[0].answer|string() == opt|upper %}
+{% if result[1]|string() ==  opt %}
+<td colspan="2" style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].b}}</td>
+{% else %}
+<td colspan="2" style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].b}}</td>
+{% endif %}
+{% else %}
+{% if result[1]|string() ==  opt %}
+<td colspan="2" style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].b}}</td>
+{% else %}
+<td colspan="2"> <b>{{opt|upper}}</b>. {{result[0].b}}</td>
+{% endif %}
 
-        {% endif %}
+{% endif %}
 
-    {% elif opt == 'c' %}
-        {% if result[0].answer|string() == opt|upper %}
-            {% if result[1]|string() ==  opt %}
-                <td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].c}}</td>
-            {% else %}
-                <td style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].c}}</td>
-            {% endif %}            
-        {% else %}
-            {% if result[1]|string() ==  opt %}
-                <td style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].c}}</td>
-            {% else %}
-                <td > <b>{{opt|upper}}</b>. {{result[0].c}}</td>
-            {% endif %}            
+{% elif opt == 'c' %}
+{% if result[0].answer|string() == opt|upper %}
+{% if result[1]|string() ==  opt %}
+<td colspan="2" style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].c}}</td>
+{% else %}
+<td colspan="2" style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].c}}</td>
+{% endif %}
+{% else %}
+{% if result[1]|string() ==  opt %}
+<td colspan="2" style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].c}}</td>
+{% else %}
+<td colspan="2"> <b>{{opt|upper}}</b>. {{result[0].c}}</td>
+{% endif %}
 
-        {% endif %}
+{% endif %}
 
-    {% elif opt == 'd' %}
-        {% if result[0].answer|string() == opt|upper %}
-            {% if result[1]|string() ==  opt %}
-                <td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].d}}</td>
-            {% else %}
-                <td style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].d}}</td>
-            {% endif %}            
-        {% else %}
-            {% if result[1]|string() ==  opt %}
-                <td style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].d}}</td>
-            {% else %}
-                <td > <b>{{opt|upper}}</b>. {{result[0].d}}</td>
-            {% endif %}            
-        {% endif %}
+{% elif opt == 'd' %}
+{% if result[0].answer|string() == opt|upper %}
+{% if result[1]|string() ==  opt %}
+<td colspan="2" style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].d}}</td>
+{% else %}
+<td colspan="2" style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].d}}</td>
+{% endif %}
+{% else %}
+{% if result[1]|string() ==  opt %}
+<td colspan="2" style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].d}}</td>
+{% else %}
+<td colspan="2"> <b>{{opt|upper}}</b>. {{result[0].d}}</td>
+{% endif %}
+{% endif %}
 
-    {% endif %}
+{% endif %}
 {% endmacro %}
 
 
 {% block body %}
-    {% for result in results%}
-        <table style="margin-bottom: 40px;">
-            <tr>
-                <td>Question No. {{ loop.index }}</td>
-                <td>Time spent: {{ result[2] }} sec</td>
-                <td>Marks: {{ 4 }}</td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                     {{result[0].question|safe}} 
-                </td>
-            </tr>
-            <tr>
-                {{ show_opt(result,'a') }}
-                {{ show_opt(result,'b') }}
-            </tr>
-            <tr>
-                {{ show_opt(result,'c') }}
-                {{ show_opt(result,'d') }}
-            </tr>
-            <tr>
-                <td colspan="3"><b>Explanation</b>:  {{result[0].comment}} </td>
-            </tr>
-        </table> 
-    {% endfor %}
+{% for result in results%}
+
+<table style="margin-bottom: 40px;">
+    <tr>
+        <td>Question No. {{ loop.index }}</td>
+        <td colspan="2">Time spent: {{ result[2] }} sec</td>
+        <td>Marks: {{ 4 }}</td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            {{result[0].question|safe}}
+        </td>
+    </tr>
+    <tr>
+        {{ show_opt(result,'a') }}
+        {{ show_opt(result,'b') }}
+    </tr>
+    <tr>
+        {{ show_opt(result,'c') }}
+        {{ show_opt(result,'d') }}
+    </tr>
+    <tr>
+        <td colspan="4"><b>Explanation</b>: {{result[0].comment}} </td>
+    </tr>
+</table>
+{% endfor %}
 
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='disp.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='disp.css') }}">
 
 {% endblock %}

@@ -579,6 +579,7 @@ def tests_given(username):
 @app.route('/<username>/tests-given/result/<testid>')
 @login_required
 def tests_result(username, testid):
+    print (testid, username)
     completed = Student_test_info.query.filter(Student_test_info.username == username).filter(Student_test_info.testid== testid).one()
     if username == current_user.username and completed.completed==True :
         time_taken = completed.time_taken
