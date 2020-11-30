@@ -6,3 +6,4 @@ migrations/
 yaask/question.txt
 yaask/comment.txt
 yaask/answer.txt
+yaask/config.py

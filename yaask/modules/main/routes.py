@@ -2,6 +2,7 @@ from flask import Flask, render_template, Blueprint, url_for, redirect
 from yaask import app
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, user_logged_in
 from yaask.models import *
+from .decorators import check_confirmed
 
 main = Blueprint('main',__name__)
 
@@ -20,6 +21,7 @@ def about():
 
 @app.route('/dashboard')
 @login_required
+@check_confirmed
 def dashboard():
 	return render_template('dashboard.html')
 

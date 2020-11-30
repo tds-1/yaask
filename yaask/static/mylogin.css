@@ -16,7 +16,7 @@
 
 .form-box
 {
-    width: 380px;
+    width: 450px;
     height: 700px;
     position: relative;
     margin: 5% auto;
@@ -77,7 +77,7 @@
 {
     top: 180px;
     position: absolute;
-    width: 280px;
+    width: 350px;
     transition: 1.4s;
 }
 

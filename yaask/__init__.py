@@ -4,12 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager
 from flask_ckeditor import CKEditor, CKEditorField
 from os import environ
+from flask_mail import Mail
 import os
 
 
 app = Flask(__name__, template_folder='templates' , static_folder="static")
 
 try:
+	from yaask.config import MAIL_ID, MAIL_PASSWORD
 	app.config.from_object('yaask.config.DevelopmentConfig')
 	print ("try")
 except:
@@ -19,12 +21,23 @@ except:
 	app.config["TESTING"] = False
 	app.config["SQLALCHEMY_DATABASE_URI"] = environ['DATABASE_URL']
 	app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-	app.config["WTF_CSRF_SECRET_KEY"] = app.config["SECRET_KEY"]
+	app.config.update(dict(
+		DEBUG = True,
+		MAIL_SERVER = 'smtp.googlemail.com',
+		MAIL_PORT = 465,
+		MAIL_USE_TLS = False,
+		MAIL_USE_SSL = True,
+		MAIL_USERNAME = environ['MAIL_ID'],
+		MAIL_PASSWORD = environ['MAIL_PASSWORD'],
+	))
+
 
 app.config['CKEDITOR_PKG_TYPE'] = 'full'
 app.config['CKEDITOR_SERVE_LOCAL'] = True
 app.config['CKEDITOR_ENABLE_CODESNIPPET'] = True
 
+
+mail = Mail(app)
 db = SQLAlchemy(app)
 ckeditor = CKEditor(app)
 

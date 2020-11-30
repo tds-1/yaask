@@ -24,6 +24,8 @@ class User(db.Model):
 	name = db.Column(db.String, nullable=False)
 	username = db.Column(db.String, nullable=False)
 	email = db.Column(db.String, nullable=False)
+	email_verified = db.Column(db.Boolean, nullable=False, default=False)
+	email_verified_on = db.Column(db.DateTime, nullable=True)
 	phone_no = db.Column(db.String, nullable=False)
 	phone_verified = db.Column(db.Boolean, nullable=True)
 	password = db.Column(db.String, nullable=False)
@@ -34,10 +36,11 @@ class User(db.Model):
 	prime = db.Column(db.Boolean, nullable = True)
 	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-	def __init__(self, name, username, email, phone_no, password, score, role, phone_verified, picture):
+	def __init__(self, name, username, email, email_verified, phone_no, password, score, role, phone_verified, picture):
 		self.name = name
 		self.username = username
-		self.email = email
+		self.email = email		
+		self.email_verified = email_verified
 		self.phone_no = phone_no
 		self.password = pwd_context.encrypt(password) 
 		self.score = score
