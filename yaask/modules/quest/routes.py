@@ -33,9 +33,10 @@ def submit():
                 creatorid=current_user.id,
                 category=form1.category1.data,
                 difficulty=form1.difficulty1.data,
-                question_score=0,
+                question_score=(int(form1.difficulty1.data))*20,
                 comment=form1.comment1.data,
                 tags=tags,
+                attempts=50,
             )
             x=questiondata.question
             x=x.replace("{tex}","\[")
@@ -57,10 +58,12 @@ def submit():
                 creatorid=current_user.id,
                 category=form.category.data,
                 difficulty=form.difficulty.data,
-                question_score=0,
+                question_score=(int(form.difficulty.data))*20,
                 comment=form.comment.data,
                 tags=[form.tags.data],
+                attempts=50,
             )
+
             x=questiondata.question
             x=x.replace("{tex}","\[")
             x=x.replace("{/tex}","\]")
