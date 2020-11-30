@@ -58,11 +58,6 @@ def test():
         random_questions=choosequestions(arr, avg, n)
         for question in random_questions:
             selected.append(question[2])
-        #update score
-        questions_to_display = Questions.query.filter( Questions.questionid.in_(selected) ).all()
-        for x in questions_to_display:
-            x.question_score=x.question_score+1
-            db.session.commit()
 
         testdata = Test(
             creatorid=current_user.id,
@@ -180,7 +175,7 @@ def print_test():
 @login_required
 def create_test_info(username):
     if username == current_user.username and current_user.role == 'teacher':
-        form = UploadForm()
+        form = UploadForm(request.form)
         if request.method == 'POST':
             try:
                 start = str(form.start_date.data) + " " + str(form.start_time.data)
@@ -257,10 +252,13 @@ def create_test(username, testid):
         if request.method == 'POST':
             selected = []
             try:
+                print ("random")
                 subject = form.subject.data
                 number = form.number_of_questions.data
                 tag = form.topic.data
                 tag = [tag]
+                if(subject == None or number == None or tag == None):
+                    print (1/0)
                 questions_to_display = Questions.query.filter(Questions.category== subject).order_by(Questions.questionid.asc())
                 c=0
                 for x in questions_to_display:
@@ -270,15 +268,13 @@ def create_test(username, testid):
                         if (c==number):
                             break
             except:            
+                print ("selected")
                 questions_to_display = Questions.query.filter().all()
                 for question in questions_to_display:
                     check=request.form.get(str(question.questionid))
                     if check=="checked":
                         selected.append(question.questionid)
-            questions_to_display = Questions.query.filter( Questions.questionid.in_(selected) ).all()
-            for x in questions_to_display:
-                x.question_score=x.question_score+1
-                db.session.commit()
+                print (selected)
             testdata = Test(
                 testid = testid,
                 selected=selected
@@ -294,13 +290,11 @@ def create_test(username, testid):
 @login_required
 def questions(username, testid):
     if username == current_user.username:
-        try:
-            results = Test.query.filter(Test.testid == testid).one()
-            results = results.selected
-            questions_to_display = Questions.query.filter( Questions.questionid.in_(results) ).all()
-        except:
-            questions_to_display={}
-        return render_template('disp_questions.html', results=questions_to_display)
+        results = Test.query.filter(Test.testid == testid).one()
+        print (results.selected)
+        results = results.selected
+        questions_to_display = Questions.query.filter( Questions.questionid.in_(results) ).all()
+        return render_template('disp_questions_wo_filter.html', results=questions_to_display)
     else:
         return redirect(url_for('dashboard'))
      
@@ -451,6 +445,7 @@ def test_portal(testid):
             
 
             db.session.commit()
+
             randid = Test_info.query.filter(Test_info.testid == testid).one()
             if randid.type == 1:
                 temp = Random_test_id.query.filter(Random_test_id.student_id == current_user.id).filter(Random_test_id.subject == randid.subject).filter(Random_test_id.topic == randid.topic).one()
@@ -507,7 +502,11 @@ def test_portal(testid):
                     else:
                         score = 5
 
-                    
+                    t = Questions.query.filter(Questions.questionid == quest).one()                    
+                    if(diff != 2 ):
+                        t.question_score = (t.question_score * t.attempts + score*20 )/(t.attempts+1)
+                        t.attempts = t.attempts +1
+                        
                     if(score == 1):
                         rst.score += random.randint(150, 300)
                     elif(score == 2):
@@ -580,6 +579,7 @@ def tests_given(username):
 @app.route('/<username>/tests-given/result/<testid>')
 @login_required
 def tests_result(username, testid):
+    print (testid, username)
     completed = Student_test_info.query.filter(Student_test_info.username == username).filter(Student_test_info.testid== testid).one()
     if username == current_user.username and completed.completed==True :
         time_taken = completed.time_taken

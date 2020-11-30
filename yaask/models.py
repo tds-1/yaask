@@ -63,6 +63,7 @@ class User(db.Model):
 class Questions(db.Model):
 	__tablename__ = 'questions'
 
+	questionid = db.Column(db.Integer, primary_key=True)
 	question = db.Column(db.String, nullable=False)
 	a = db.Column(db.String, nullable=False)
 	b = db.Column(db.String, nullable=False)
@@ -70,15 +71,15 @@ class Questions(db.Model):
 	d = db.Column(db.String, nullable=False)
 	answer = db.Column(db.String, nullable=False)
 	creatorid = db.Column(db.String, nullable=False)
-	questionid = db.Column(db.Integer, primary_key=True)
 	category = db.Column(db.String, nullable=False)
 	difficulty = db.Column(db.String, nullable=False)
 	question_score=db.Column(db.Integer,nullable=False)
+	attempts = db.Column(db.Integer,nullable=True)
 	comment=db.Column(db.String,nullable=True)
 	tags = db.Column(db.PickleType)
 	created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 	
-	def __init__(self, question, a, b, c, d, answer, creatorid, category, difficulty,question_score,comment,tags):
+	def __init__(self, question, a, b, c, d, answer, creatorid, category, difficulty,question_score,comment,tags,attempts):
 		self.question = question
 		self.a = a
 		self.b = b
@@ -91,6 +92,7 @@ class Questions(db.Model):
 		self.question_score=question_score
 		self.comment=comment
 		self.tags=tags
+		self.attempts=attempts
 			
 	def __repr__(self):
 		return "<Question id is %s and creatorid is %s" % (self.questionid, self.creatorid)

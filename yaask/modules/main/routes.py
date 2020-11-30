@@ -113,10 +113,11 @@ def upload():
 			answer=answer[count].upper(),
 			creatorid=current_user.id,
 			category='biology',
-			difficulty='1',
-			question_score=0,
+			difficulty='3',
+			question_score=60,
 			comment=comment[count],
-			tags=['Human Health  and Disease']
+			tags=['Human Health  and Disease'],
+			attempts=50
 		)
 		db.session.add(questiondata)
 		db.session.commit()

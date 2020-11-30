@@ -4,7 +4,7 @@ var products = "",
 	models = "",
 	types = "";
 
-function add(data){
+function add(data) {
 	for (var i = 0; i < data.length; i++) {
 		var question = data[i].question,
 			question_id = data[i].question_id,
@@ -13,35 +13,57 @@ function add(data){
 			c = data[i].c,
 			d = data[i].d,
 			explanation = data[i].explanation
-			answer = data[i].answer
-			make = data[i].subject
-			model = data[i].topic
-			//create product cards
-
-		products += "<div class=\"quests\" data-make='" + make + "' data-model='" + model + "'>\n" ;
-		products += "<input type= \"checkbox\" "+ "id= \"" + question_id + "\" name=\" " + question_id + "\" value= \"checked\" >"
+		answer = data[i].answer
+		make = data[i].subject
+		model = data[i].topic
+		//create product cards
+		var qno = i + 1;
+		products += "<div class=\"quests\" data-make='" + make + "' data-model='" + model + "'>\n";
+		products += "<input type= \"checkbox\" " + "id= \"" + question_id + "\" name=\"" + question_id + "\" value= \"checked\" >"
 
 		products += "<label for=" + question_id + ">"
 		products += "<table style =\"margin-bottom: 40px;\">\n\
 			<tr>\n\
-				<td>Question No. " + i+1 + "</td>\n\
+				<td>Question No. " + qno + "</td>\n\
 				<td>Marks: 4</td>\n\
 			</tr>\n\
 			<tr>\n\
 				<td colspan=\"2\">\n\
-					"+question+"\n\
+					"+ question + "\n\
 				</td >\n\
 			</tr >\n\
+			<tr>\n"
+		if (answer == "A") {
+			products += "<td style=\"background-color: rgba(0,255,0,0.4);\">" + a + "</td>\n"
+		}
+		else {
+			products += "<td>" + a + "</td>\n"
+		}
+		if (answer == "B") {
+			products += "<td style=\"background-color: rgba(0,255,0,0.4);\">" + b + "</td>\n"
+		}
+		else {
+			products += "<td>" + b + "</td>\n"
+		}
+
+		products += "</tr>\n\
+			<tr>\n"
+		if (answer == "C") {
+			products += "<td style=\"background-color: rgba(0,255,0,0.4);\">" + c + "</td>\n"
+		}
+		else {
+			products += "<td>" + c + "</td>\n"
+		}
+		if (answer == "D") {
+			products += "<td style=\"background-color: rgba(0,255,0,0.4);\">" + d + "</td>\n"
+		}
+		else {
+			products += "<td>" + d + "</td>\n"
+		}
+
+		products += "</tr>\n\
 			<tr>\n\
-				<td>"+a+"</td>\n\
-				<td>"+b+"</td>\n\
-			</tr>\n\
-			<tr>\n\
-			<td>"+c+"</td>\n\
-			<td>"+d+"</td>\n\
-			</tr>\n\
-			<tr>\n\
-				<td colspan=\"2\"><b>Explanation</b>: "+explanation+" </td>\n\
+				<td colspan=\"2\"><b>Explanation</b>: "+ explanation + " </td>\n\
 			</tr>\n\
 		</table>"
 		products += "</label> \n </div>"
@@ -64,21 +86,21 @@ function add(data){
 }
 
 $(document).ready(function () {
-    if (1) {
+	if (1) {
 		$.ajax({
-            type: "POST",
-            url: "/quest",
-            dataType: "json",
-            success: function (temp) {
+			type: "POST",
+			url: "/quest",
+			dataType: "json",
+			success: function (temp) {
 				add(temp);
 				$("#quest").html(products);
 				$(".filter-make").append(makes);
 				$(".filter-model").append(models);
 				$(".filter-type").append(types);
-			
+
 			}
-        });
-    }
+		});
+	}
 });
 var filtersObject = {};
 
@@ -120,7 +142,7 @@ function form_submit() {
 }
 $("#search-form").on('click', function (e) {
 	e.preventDefault();
-	
+
 	$(".quest").hide();
 	$(".quest").each(function () {
 		var make = $(this).data("make").toLowerCase(),

@@ -18,10 +18,10 @@ tag.append((x[ini:len(x)],x[ini:len(x)]))
 
 class SubmitForm(Form):
 	question = CKEditorField('question', validators=[DataRequired()])
-	a = TextField('a', validators=[DataRequired()])
-	b = TextField('b', validators=[DataRequired()])
-	c = TextField('c', validators=[DataRequired()])
-	d = TextField('d', validators=[DataRequired()])
+	a = CKEditorField('a', validators=[DataRequired()])
+	b = CKEditorField('b', validators=[DataRequired()])
+	c = CKEditorField('c', validators=[DataRequired()])
+	d = CKEditorField('d', validators=[DataRequired()])
 	answer = SelectField(
 		'answer', 
 		choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')], 

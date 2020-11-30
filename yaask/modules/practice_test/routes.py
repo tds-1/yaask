@@ -49,7 +49,7 @@ def practice_test():
 				flash("Sorry! No Questions Available for this topic. We will update it shortly.","Info")
 				return render_template('practice_test.html',form= form)
 		
-		temp = Random_test_id.query.filter(Random_test_id.subject == subject).filter(Random_test_id.topic == topic).one()
+		temp = Random_test_id.query.filter(Random_test_id.subject == subject).filter(Random_test_id.topic == topic).filter(Random_test_id.student_id == current_user.id).one()
 		id = temp.id
 
 		temp = Random_test_question.query.with_entities(Random_test_question.question_id).filter(Random_test_question.random_test_id == id).order_by(Random_test_question.score).limit(20).all()

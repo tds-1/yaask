@@ -24,7 +24,7 @@
 
 <style>
 	.container {
-		max-width: 960px;
+		max-width: 75%;
 		width: 100%;
 	}
 </style>
@@ -52,40 +52,49 @@
 		<form action="" method='POST'>
 			{{ form.csrf_token }}
 			<div class="form-group">
+				<label for="Question">Question</label>
 				{{ form.question(placeholder="Question", class='form-control') }}
 			</div>
 			<div class="row">
 				<div class="form-group col-6">
+					<label for="Option A">Option A</label>
 					{{ form.a(placeholder="Option A", class='form-control') }}
 				</div>
 				<div class="form-group col-6">
+					<label for="Option B">Option B</label>
 					{{ form.b(placeholder="Option B", class='form-control') }}
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-6">
+					<label for="Option C">Option C</label>
 					{{ form.c(placeholder="Option C", class='form-control') }}
 				</div>
 				<div class="form-group col-6">
+					<label for="Option D">Option D</label>
 					{{ form.d(placeholder="Option D", class='form-control') }}
 				</div>
 			</div>
-			<div class="input-field  col s12">
-				{{ form.answer(placeholder="Answer") }}
+			<div class="form-group">
+				<label for="Answer">Answer</label>
+				{{ form.answer(placeholder="Answer", class = 'form-control') }}
 			</div>
 			<div class="row">
-
-				<div class="input-field col s6">
-					{{ form.category(placeholder="Category") }}
+				<div class="col s6">
+					<label for="Subject">Subject</label>
+					{{ form.category(placeholder="Category", class = 'form-control') }}
 				</div>
-				<div class="input-field col s6">
-					{{ form.difficulty(placeholder="Difficulty") }}
+				<div class="col s6">
+					<label for="Difficulty">Difficulty</label>
+					{{ form.difficulty(placeholder="Difficulty", class = 'form-control') }}
 				</div>
-			</div>
-			<div class="input-field  col s12">
-				{{ form.tags(placeholder='Topic')}}
 			</div>
 			<div class="form-group">
+				<label for="Topic">Topic</label>
+				{{ form.tags(placeholder='Topic', class = 'form-control')}}
+			</div>
+			<div class="form-group">
+				<label for="Comment">Comment</label>
 				{{ form.comment(placeholder="Comment", class='form-control') }}
 			</div>
 			<div class="valign-wrapper">
@@ -148,7 +157,7 @@
 
 <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 <!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/js/materialize.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/js/materialize.min.js"></script> -->
 
 <script>
 	(function ($) {

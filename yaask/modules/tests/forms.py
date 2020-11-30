@@ -7,7 +7,6 @@ from wtforms.fields.html5 import DateField
 from wtforms.validators import ValidationError
 from validate_email import validate_email
 from datetime import timedelta, datetime
-from flask_wtf import FlaskForm
 
 
 class QuizForm(Form):
@@ -44,7 +43,7 @@ class RandomTest(Form):
 	# )
 
 
-class UploadForm(FlaskForm):
+class UploadForm(Form):
 	subject = TextField('Subject', validators=[DataRequired()])
 	topic = TextField('Topic', validators=[DataRequired()])
 	start_date = DateField('Start Date', validators=[DataRequired()])
