@@ -9,10 +9,12 @@ import random
 from datetime import timedelta, datetime
 from sqlalchemy import func
 from yaask import db
+from yaask.modules.main.decorators import check_confirmed
 practice = Blueprint('practice',__name__)
 
 @practice.route('/practice-test', methods=['GET', 'POST'])
 @login_required
+@check_confirmed
 def practice_test():
 	form = PracticeTest(request.form)
 	if request.method == 'POST':
@@ -88,6 +90,7 @@ def practice_test():
 
 @practice.route('/practice-test/start/<testid>', methods=['GET', 'POST'])
 @login_required
+@check_confirmed
 def start_practice_test(testid):
 	form = PracticeTest(request.form)
 	if request.method == 'GET':
@@ -99,6 +102,7 @@ def start_practice_test(testid):
 
 @practice.route('/<userid>/achievements', methods=['GET','POST'])
 @login_required
+@check_confirmed
 def achievements(userid):
 	qry = db.session.query(
 		Random_test_question.random_test_id,

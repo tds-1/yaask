@@ -16,6 +16,7 @@ import random
 from yaask.modules.tests.utils import choosequestions
 from datetime import timedelta, datetime
 from sqlalchemy.orm.attributes import QueryableAttribute
+from yaask.modules.main.decorators import check_confirmed
 
 tests = Blueprint('tests',__name__)
 
@@ -24,6 +25,7 @@ secret_key='hello_bhai'
 
 @app.route('/test', methods=['GET','POST'])
 @login_required
+@check_confirmed
 def test():
     categoryList = ['math',
         'chemistry',
@@ -74,6 +76,7 @@ def test():
 
 @app.route('/preview-test', methods=['GET','POST'])
 @login_required
+@check_confirmed
 def preview_test():
     if request.method=='GET':
         id=current_user.id
@@ -97,6 +100,7 @@ def preview_test():
 
 @app.route('/generated_test', methods=['GET','POST'])
 @login_required
+@check_confirmed
 def generated_test():
     testid=session.get('testid')
     z=Test.query.filter(Test.testid==testid).one()
@@ -107,6 +111,7 @@ def generated_test():
 
 @app.route('/online_test', methods=['GET','POST'])
 @login_required
+@check_confirmed
 def online_test():
     if request.method=='GET':
         id=request.args.get('id')
@@ -159,6 +164,7 @@ def online_test():
 
 @app.route('/print_test', methods=['GET','POST'])
 @login_required
+@check_confirmed
 def print_test():
     selected=session.get('selected')
     questions_to_display = Questions.query.filter( Questions.questionid.in_(selected) ).all()
@@ -173,6 +179,7 @@ def print_test():
 
 @app.route('/<username>/create-test', methods = ['GET', 'POST'])
 @login_required
+@check_confirmed
 def create_test_info(username):
     if username == current_user.username and current_user.role == 'teacher':
         form = UploadForm(request.form)
@@ -238,6 +245,7 @@ def all_quest():
 
 @app.route('/<username>/create-test/<testid>', methods = ['GET', 'POST'])
 @login_required
+@check_confirmed
 def create_test(username, testid):
     if username == current_user.username and current_user.role == 'teacher':
         categoryList = [
@@ -288,6 +296,7 @@ def create_test(username, testid):
     
 @app.route('/<username>/tests-created/<testid>/questions', methods = ['POST','GET'])
 @login_required
+@check_confirmed
 def questions(username, testid):
     if username == current_user.username:
         results = Test.query.filter(Test.testid == testid).one()
@@ -301,6 +310,7 @@ def questions(username, testid):
 
 @app.route('/<username>/tests-created')
 @login_required
+@check_confirmed
 def tests_created(username):
     if username == current_user.username :
         results = Test_info.query.filter(Test_info.creatorid == str(current_user.id)).all()
@@ -311,6 +321,7 @@ def tests_created(username):
 
 @app.route("/give-test", methods = ['GET', 'POST'])
 @login_required
+@check_confirmed
 def give_test_auth():
     global duration, marked_ans	
     marked_ans = "{}"
@@ -391,6 +402,7 @@ def give_test_auth():
 
 @app.route('/give-test/<testid>', methods=['GET','POST'])
 @login_required
+@check_confirmed
 def test_portal(testid):
     global duration,marked_ans
     if request.method == 'GET':
@@ -558,6 +570,7 @@ def marks_obtained(testid, username):
 
 @app.route('/<username>/tests-given')
 @login_required
+@check_confirmed
 def tests_given(username):
     if username == current_user.username:
         test_given = Student_test_info.query.with_entities(Student_test_info.testid).filter(Student_test_info.username==str(current_user.username)).order_by(Student_test_info.testid.desc()).distinct()
@@ -578,6 +591,7 @@ def tests_given(username):
 
 @app.route('/<username>/tests-given/result/<testid>')
 @login_required
+@check_confirmed
 def tests_result(username, testid):
     print (testid, username)
     completed = Student_test_info.query.filter(Student_test_info.username == username).filter(Student_test_info.testid== testid).one()
@@ -612,6 +626,7 @@ def tests_result(username, testid):
 
 @app.route('/<username>/tests-created/<testid>', methods = ['POST','GET'])
 @login_required
+@check_confirmed
 def student_results(username, testid):
     if username == current_user.username and current_user.role == 'teacher':
         results = Student_test_info.query.filter(Student_test_info.testid== testid).filter(Student_test_info.completed== True).all()

@@ -10,6 +10,8 @@ from yaask.models import *
 from yaask import app
 import os
 from .utils import generate_confirmation_token, confirm_token, send_email
+from yaask.modules.main.decorators import check_confirmed
+
 
 users = Blueprint('users',__name__)
 
@@ -70,6 +72,8 @@ def oauth_callback(provider):
 
 @users.route('/login', methods=['GET', 'POST'])
 def login():
+	if current_user.id:
+		return redirect(url_for('main.home'))
 	error=""
 	form = LoginForm(request.form)
 	form1 = RegisterForm(request.form)
@@ -134,12 +138,14 @@ def login():
 
 @users.route('/logout')
 @login_required
+@check_confirmed
 def logout():
 	logout_user()
 	return redirect(url_for('main.home'))
 
 @users.route('/confirm/<token>')
 @login_required
+@check_confirmed
 def confirm_email(token):
     try:
         email = confirm_token(token)

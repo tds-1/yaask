@@ -7,8 +7,7 @@ from yaask.modules.quest.forms import  SubmitForm, SubmitForm2, FilterForm
 import math
 from yaask.models import *
 from yaask import app
-
-
+from yaask.modules.main.decorators import check_confirmed
 
 quest = Blueprint('quest',__name__)
 
@@ -17,6 +16,7 @@ secret_key='hello_bhai'
 
 @quest.route('/submit', methods=['GET', 'POST'])
 @login_required
+@check_confirmed
 def submit():
     try:
         form = SubmitForm()
@@ -88,6 +88,7 @@ def submit():
 
 @quest.route('/display', methods=['GET', 'POST'])
 @login_required
+@check_confirmed
 def display():
     form= FilterForm(request.form)
     if request.method == 'GET':
@@ -106,6 +107,7 @@ def display():
 
 @quest.route('/editquestion/<questionid>', methods=['GET', 'POST'])
 @login_required
+@check_confirmed
 def editquestions(questionid):
     form = SubmitForm()
     if request.method == 'GET':
