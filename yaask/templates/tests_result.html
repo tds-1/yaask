@@ -1,19 +1,31 @@
 {% extends 'layout.html' %}
 
+{% block head %}
+<style>
+    img{
+        max-width: 100%;
+        max-height: 100%;
+        display: block; 
+        height: auto!important;
+        width: auto!important;
+    }
+
+</style>
+{% endblock %}
 
 {% macro show_opt(result,opt) %}
 {% if opt == 'a' %}
 {% if result[0].answer|string() == opt|upper %}
 {% if result[1]|string() ==  opt %}
-<td colspan="2" style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].a}}</td>
+<td colspan="2" style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].a|safe}}</td>
 {% else %}
-<td colspan="2" style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].a}}</td>
+<td colspan="2" style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].a|safe}}</td>
 {% endif %}
 {% else %}
 {% if result[1]|string() ==  opt %}
-<td colspan="2" style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].a}}</td>
+<td colspan="2" style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].a|safe}}</td>
 {% else %}
-<td colspan="2"> <b>{{opt|upper}}</b>. {{result[0].a}}</td>
+<td colspan="2"> <b>{{opt|upper}}</b>. {{result[0].a|safe}}</td>
 {% endif %}
 
 {% endif %}
@@ -21,15 +33,15 @@
 {% elif opt == 'b' %}
 {% if result[0].answer|string() == opt|upper %}
 {% if result[1]|string() ==  opt %}
-<td colspan="2" style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].b}}</td>
+<td colspan="2" style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].b|safe}}</td>
 {% else %}
-<td colspan="2" style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].b}}</td>
+<td colspan="2" style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].b|safe}}</td>
 {% endif %}
 {% else %}
 {% if result[1]|string() ==  opt %}
-<td colspan="2" style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].b}}</td>
+<td colspan="2" style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].b|safe}}</td>
 {% else %}
-<td colspan="2"> <b>{{opt|upper}}</b>. {{result[0].b}}</td>
+<td colspan="2"> <b>{{opt|upper}}</b>. {{result[0].b|safe}}</td>
 {% endif %}
 
 {% endif %}
@@ -37,15 +49,15 @@
 {% elif opt == 'c' %}
 {% if result[0].answer|string() == opt|upper %}
 {% if result[1]|string() ==  opt %}
-<td colspan="2" style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].c}}</td>
+<td colspan="2" style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].c|safe}}</td>
 {% else %}
-<td colspan="2" style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].c}}</td>
+<td colspan="2" style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].c|safe}}</td>
 {% endif %}
 {% else %}
 {% if result[1]|string() ==  opt %}
-<td colspan="2" style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].c}}</td>
+<td colspan="2" style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].c|safe}}</td>
 {% else %}
-<td colspan="2"> <b>{{opt|upper}}</b>. {{result[0].c}}</td>
+<td colspan="2"> <b>{{opt|upper}}</b>. {{result[0].c|safe}}</td>
 {% endif %}
 
 {% endif %}
@@ -53,15 +65,15 @@
 {% elif opt == 'd' %}
 {% if result[0].answer|string() == opt|upper %}
 {% if result[1]|string() ==  opt %}
-<td colspan="2" style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].d}}</td>
+<td colspan="2" style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].d|safe}}</td>
 {% else %}
-<td colspan="2" style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].d}}</td>
+<td colspan="2" style="background-color: rgba(67,99,216,0.5);"> <b>{{opt|upper}}</b>. {{result[0].d|safe}}</td>
 {% endif %}
 {% else %}
 {% if result[1]|string() ==  opt %}
-<td colspan="2" style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].d}}</td>
+<td colspan="2" style="background-color: rgba(255,0,0,0.4);"> <b>{{opt|upper}}</b>. {{result[0].d|safe}}</td>
 {% else %}
-<td colspan="2"> <b>{{opt|upper}}</b>. {{result[0].d}}</td>
+<td colspan="2"> <b>{{opt|upper}}</b>. {{result[0].d|safe}}</td>
 {% endif %}
 {% endif %}
 

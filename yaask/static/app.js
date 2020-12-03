@@ -10,9 +10,9 @@ const SUBMITTED = 4;
 const SUBMITTED_BOOKMARKED = 5;
 var map_quest = {};
 var answer = {};
-var present,present_time;
-var past,past_time;
-var time_taken=[];
+var present, present_time;
+var past, past_time;
+var time_taken = [];
 
 $(document).ready(function () {
     var url = window.location.href;
@@ -43,7 +43,7 @@ var load_all_questions = function (temp) {
     var keys = Object.keys(temp);
     map_quest = temp;
     nos = keys;
-    for(var x=0;x<nos.length;x++){
+    for (var x = 0; x < nos.length; x++) {
         time_taken.push(parseInt(map_quest[x][5]));
     }
 }
@@ -57,15 +57,15 @@ var unmark_all = function () {
 
 var display_ques = function (move) {
     unmark_all();
-    past=present;
-    present= move-1;
-    time_taken[past]+=(present_time-global_time);
-    present_time=global_time;
+    past = present;
+    present = move - 1;
+    time_taken[past] += (present_time - global_time);
+    present_time = global_time;
     document.getElementById("que").innerHTML = (map_quest[nos[move - 1]][0]);
-    $('#a').text('𝐀.  ' + map_quest[nos[move - 1]][1]);
-    $('#b').text('𝐁.  ' + map_quest[nos[move - 1]][2]);
-    $('#c').text('𝐂.  ' + map_quest[nos[move - 1]][3]);
-    $('#d').text('𝐃.  ' + map_quest[nos[move - 1]][4]);
+    document.getElementById("a").innerHTML = (map_quest[nos[move - 1]][1]);
+    document.getElementById("b").innerHTML = (map_quest[nos[move - 1]][2]);
+    document.getElementById("c").innerHTML = (map_quest[nos[move - 1]][3]);
+    document.getElementById("d").innerHTML = (map_quest[nos[move - 1]][4]);
     $('#queid').text('Question No. ' + (move));
     $('#mark').text('Marks: ' + '4');
     if (data[move].marked != null)
@@ -76,9 +76,9 @@ var flag_time = true;
 var global_time;
 function startTimer(duration, display) {
     var timer = duration, hours, minutes, seconds;
-    global_time=timer;
+    global_time = timer;
     var interval = setInterval(function () {
-        global_time=timer;
+        global_time = timer;
         hours = parseInt(timer / 3600, 10);
         minutes = parseInt((timer % 3600) / 60, 10);
         seconds = parseInt(timer % 60, 10);
@@ -99,8 +99,8 @@ function startTimer(duration, display) {
 function finish_test() {
     $('#msg').addClass('alert-info');
     $('#msg').append("Test submitted successfully");
-    past=present;
-    time_taken[past]+=(present_time-global_time);
+    past = present;
+    time_taken[past] += (present_time - global_time);
     $.ajax({
         type: "POST",
         dataType: "json",
@@ -119,11 +119,11 @@ $(document).on('click', '#next', function (e) {
     if (curr >= nos.length) {
         curr -= 1;
     }
-    else{
-        past=present;
-        present=curr;
-        time_taken[past]+=(present_time-global_time);
-        present_time=global_time;
+    else {
+        past = present;
+        present = curr;
+        time_taken[past] += (present_time - global_time);
+        present_time = global_time;
     }
     display_ques(curr + 1);
 
@@ -135,11 +135,11 @@ $(document).on('click', '#prev', function (e) {
     if (curr < 0) {
         curr = 0;
     }
-    else{
-        past=present;
-        present=curr;
-        time_taken[past]+=(present_time-global_time);
-        present_time=global_time;
+    else {
+        past = present;
+        present = curr;
+        time_taken[past] += (present_time - global_time);
+        present_time = global_time;
     }
     display_ques(curr + 1);
 
@@ -147,7 +147,7 @@ $(document).on('click', '#prev', function (e) {
 
 $('#submit').on('click', function (e) {
     e.preventDefault();
-    var marked='#';
+    var marked = '#';
     if (flag_time == false) {
         window.location.replace('/dashboard');
         return;
@@ -171,7 +171,7 @@ $('#submit').on('click', function (e) {
             data: { flag: 'mark', qid: map_quest[nos[curr]][6], ans: marked },
         });
     }
-    else{
+    else {
         $.ajax({
             type: "POST",
             dataType: 'json',
@@ -308,9 +308,9 @@ window.addEventListener('beforeunload', (event) => {
     event.preventDefault();
     // Older browsers supported custom message
     event.returnValue = 'hell';
-    past=present;
-    time_taken[past]+=(present_time-global_time);
-    present_time=global_time;
+    past = present;
+    time_taken[past] += (present_time - global_time);
+    present_time = global_time;
     $.ajax({
         type: "POST",
         dataType: "json",

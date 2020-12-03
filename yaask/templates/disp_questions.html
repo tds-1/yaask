@@ -1,34 +1,47 @@
 {% extends 'layout.html' %}
 
+{% block head %}
+
+<style>
+    img{
+        max-width: 100%;
+        max-height: 100%;
+        display: block; 
+        height: auto!important;
+        width: auto!important;
+    }
+
+</style>
+{% endblock %}
 
 {% macro show_opt(result,opt) %}
 <!-- if correct option -- green -->
 {% if opt == 'a' %}
 {% if result.answer|string() == opt|upper %}
-<td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.a}}</td>
+<td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.a| safe}}</td>
 {% else %}
-<td> <b>{{opt|upper}}</b>. {{result.a}}</td>
+<td> <b>{{opt|upper}}</b>. {{result.a| safe}}</td>
 {% endif %}
 
 {% elif opt == 'b' %}
 {% if result.answer|string() == opt|upper %}
-<td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.b}}</td>
+<td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.b| safe}}</td>
 {% else %}
-<td> <b>{{opt|upper}}</b>. {{result.b}}</td>
+<td> <b>{{opt|upper}}</b>. {{result.b| safe}}</td>
 {% endif %}
 
 {% elif opt == 'c' %}
 {% if result.answer|string() == opt|upper %}
-<td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.c}}</td>
+<td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.c| safe}}</td>
 {% else %}
-<td> <b>{{opt|upper}}</b>. {{result.c}}</td>
+<td> <b>{{opt|upper}}</b>. {{result.c| safe}}</td>
 {% endif %}
 
 {% elif opt == 'd' %}
 {% if result.answer|string() == opt|upper %}
-<td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.d}}</td>
+<td style="background-color: rgba(0,255,0,0.4);"> <b>{{opt|upper}}</b>. {{result.d| safe}}</td>
 {% else %}
-<td> <b>{{opt|upper}}</b>. {{result.d}}</td>
+<td> <b>{{opt|upper}}</b>. {{result.d| safe}}</td>
 {% endif %}
 {% endif %}
 {% endmacro %}

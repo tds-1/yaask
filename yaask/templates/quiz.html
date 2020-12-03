@@ -1,5 +1,18 @@
 {% extends 'layout.html' %}
 
+{% block head %}
+<style>
+    img{
+        max-width: 100%;
+        max-height: 100%;
+        display: block; 
+        height: auto!important;
+        width: auto!important;
+    }
+
+</style>
+{% endblock %}
+
 {% block body %}
 <script type="text/javascript"> var answers = "{{answers}}";</script>
 <div id="time">{{duration}}</div>
@@ -15,12 +28,16 @@
 
 <table id="options">
   <tr>
-    <td id='a'>𝐀. {{ a }}</td>
-    <td id='b'>𝐁. {{ b }}</td>
+    <td id='a'>{{ a }}</td>
   </tr>
   <tr>
-    <td id='c'>𝐂. {{ c }}</td>
-    <td id='d'>𝐃. {{ d }}</td>
+    <td id='b'>{{ b }}</td>
+  </tr>
+  <tr>
+    <td id='c'>{{ c }}</td>
+  </tr>
+  <tr>
+    <td id='d'>{{ d }}</td>
   </tr>
 </table>
 
@@ -29,8 +46,13 @@
   </div>
 </div>
 <div id="submit-overlay"></div>
-
-<footer class="page-footer fixed-bottom pt-4">
+<div>
+  </br>
+  </br>
+  </br>
+  </br>
+</div>
+<footer class="page-footer pt-4">
   <div class="container">
 
     <ul class="list-unstyled list-inline text-center py-2">
