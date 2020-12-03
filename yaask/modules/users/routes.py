@@ -42,7 +42,7 @@ def oauth_callback(provider):
 	name,username,email,picture = oauth.callback()
 
 	if email is None:
-	# I need a valid email address for my user identification
+		# I need a valid email address for my user identification
 		flash('Authentication failed.')
 		return redirect(url_for('main.home'))
 
