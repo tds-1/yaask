@@ -72,8 +72,6 @@ def oauth_callback(provider):
 
 @users.route('/login', methods=['GET', 'POST'])
 def login():
-	if current_user.id:
-		return redirect(url_for('main.home'))
 	error=""
 	form = LoginForm(request.form)
 	form1 = RegisterForm(request.form)
@@ -166,7 +164,7 @@ def confirm_email(token):
 @login_required
 def unconfirmed():
     if current_user.email_verified:
-        return redirect('main.home')
+	    return redirect(url_for('main.home'))
     flash('Please confirm your account!', 'warning')
     return render_template('unconfirmed.html')
 
