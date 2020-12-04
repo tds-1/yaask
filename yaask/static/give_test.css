@@ -1,38 +1,197 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6em;
+  line-height: 1.5;
+  background-color: transparent!important;
+}
 
-.login-box{
-    width: 600px;
-    border: #6a63dd solid 5px;
-    padding-top: 2%;
-    border-radius: 0px 0px 20px 20px;
- }
-
- .form-group{
-
-    margin-top: 2%;
-    width: 75%;
- 
- }
-
- .row{
-    border-radius: 20px 20px 0px 0px;
-    border: #6a63dd solid 5px;
-    width: 600px;
-    background-color: #6a63dd;
-    /*padding-top: 20%; */ 
-    margin-top: 200px;
- }
- 
- .loginlink{
-
-    color: #6a63dd !important;
- }
- 
- h1{
-    margin-top: 2%;
-    text-align: center;
-    color: white;
- /*   margin-top:  100px; 
-    color:#6a63dd; 
-    height: 300px;
-    width: 750px; */
- }
+footer,
+header,
+main {
+  display: block;
+}
+a {
+  text-decoration: none;
+  border-bottom: solid transparent 1px;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+b,
+strong {
+  font-weight: bold;
+}
+small {
+  font-size: 80%;
+}
+input {
+  font: inherit;
+  margin: 0;
+  line-height: normal;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+dl dt,
+dl dd {
+  margin: 0;
+  padding: 0;
+}
+html {
+  min-height: 100%;
+  background-image: -moz-linear-gradient(-60deg, #0bd4f7 0%, #1baff3 80%)!important;
+  background-image: -webkit-linear-gradient(-60deg, #0bd4f7 0%, #1baff3 80%)!important;
+  background-image: linear-gradient(120deg, #0bd4f7 0%, #1baff3 80%)!important;
+  color: #fff;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+  width: 90%;
+  margin: 0 auto;
+}
+body > * {
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-shadow: 0 -1px 0 rgba(243, 116, 27, 0.75)!important;
+}
+header p,
+footer p,
+header h1,
+footer h1 {
+  margin: 0;
+  padding: 3rem 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+header h1,
+footer h1 {
+  font-weight: 400;
+  font-size: 2.6rem;
+  letter-spacing: -0.05rem;
+}
+header {
+  border-bottom: dotted #f9be3c 1px;
+}
+footer {
+  border-top: dotted #f9be3c 1px;
+}
+main {
+  padding: 3rem 0;
+}
+main form {
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+main form label {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 1rem 0 0.5rem 0;
+}
+main form input[type="text"],
+main form input[type="password"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0.5rem 1rem;
+  height: 4.6rem;
+  width: 100%;
+  border: solid #f7ad0b 1px;
+  border-top: solid #f3741b 1px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+}
+main form input[type="text"]:focus,
+main form input[type="password"]:focus {
+  outline: 0;
+  border: solid #f3741b 1px;
+  background: #ffffff;
+}
+main form input[type="submit"] {
+  cursor: pointer;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5rem;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: top;
+  padding: 0;
+  height: 4.6rem;
+  line-height: 4.6rem;
+  border-radius: 4px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.01);
+  color: #fde7b8;
+  border: solid #f7ad0b 1px;
+  box-shadow: 0 0 0 2px rgba(184, 81, 10, 0.15);
+  font-size: 90%;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+main form input[type="submit"]:hover,
+main form input[type="submit"]:focus {
+  color: #fff;
+  background: #f7ad0b!important;
+  border: solid #f7ad0b 1px;
+  outline: 0;
+}
+main form input {
+  width: 100%;
+  max-width: 48rem;
+}
+@media all and (min-width: 860px) {
+  main form {
+    max-width: 70rem;
+  }
+  main form dl {
+    overflow: auto;
+  }
+  main form dl dt {
+    float: left;
+    clear: left;
+    width: 22rem;
+    text-align: right;
+    padding: 0 0 1.5rem 0;
+  }
+  main form dl dt label {
+    padding: 0 2rem 0 0;
+    line-height: 4.6rem;
+  }
+  main form dl dd {
+    float: left;
+    width: 48rem;
+    padding: 0 0 1.5rem 0;
+  }
+  main form p {
+    padding-left: 22rem;
+  }
+}
+.error-msg {
+  display: block;
+  color: #c00;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+  margin: 0;
+  height: 0;
+}
+.error-msg.open {
+  margin: 0.5rem 0 0 0;
+  height: auto;
+}

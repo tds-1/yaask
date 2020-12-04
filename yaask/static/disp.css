@@ -17,15 +17,15 @@ td{
 	word-wrap: break-word;
 }
 footer {
-    position: fixed;
+    position: relative;
     bottom: 0px;
 }
 
 #overlay {
 	position: fixed; /* Sit on top of the page content */
 	display: none; /* Hidden by default */
-	width: 100%; /* Full width (cover the whole page) */
-	height: 100%; /* Full height (cover the whole page) */
+	width: auto; /* Full width (cover the whole page) */
+	height: auto; /* Full height (cover the whole page) */
 	top: 0;
 	left: 0;
 	right: 0;
@@ -38,8 +38,8 @@ footer {
 #question-list {
 	margin-top: 100px;
 	background: white;
-	width: 100%;
-	height: 40%;
+	width: auto;
+	height: auto;
 	display: inline-block;
 	position: absolute;
 	left: 20%;

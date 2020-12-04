@@ -4,24 +4,30 @@
   <link rel="stylesheet" href="{{ url_for('static',filename='give_test.css') }}">
 {% endblock %}
 
-{% block body %}
+{% block wwbody %}
 {% from "includes/_formhelpers.html" import render_field %}
-<div class="container" align="center" id="login">
   {{note}}
-  <div class="row">
-    <div class="col-sm">
-      <h1>Login</h1>
-    </div>
-  </div>
-  <div class="login-box well">
-  <form method="POST" action="/give-test">
-    <div class="form-group">
-      {{render_field(form.test_id, class="form-control")}}
-    </div>
-    <div class="form-group">
-      {{render_field(form.password, class="form-control")}}
-    </div>
-    <p><input type="submit" class="btn btn-primary" value="Submit"></p>
-  </form>
-</div>
+<header role="banner">
+    <h1 style= "color:black">Log in</h1>
+</header>
+
+<main role="main">
+
+    <form id="login-form" method="POST" action="/give-test">
+        <dl>
+            <dt><label for="login-email">Email address</label></dt>
+            <dd>
+                {{ form.test_id(placeholder="Test ID") }}
+            </dd>
+
+            <dt><label for="login-password">Password</label></dt>
+            <dd>
+                {{ form.password(placeholder="Test Password") }}
+            </dd>
+        </dl>
+        <p><input type="submit" name="login-submit" id="login-submit" value="Submit" /></p>
+    </form>
+
+</main>
+
 {% endblock %}

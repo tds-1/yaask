@@ -9,12 +9,12 @@
 <h1 align="center">Welcome {{current_user.name}}</h1>
 {% if current_user.role == 'student'%}
 <div class="row mysec" id="student-section">
-	<div class="col-9 ">
+	<div class="col-xs-12">
 		<img src="static/undraw_student.svg" alt="" width="280px">
 	</div>
 	<div class="col-1 "></div>
-
-	<div class="col-3 box">
+	<br>
+	<div class="col-lg-3 col-md-6 col-xs-12 box">
 		<div class="card shadow">
 			<div class="card-body">
 				<img src="static/laptop.png" alt="" width="100px">
@@ -22,7 +22,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-3 box">
+	<div class="col-lg-3  col-md-6 col-xs-12 box">
 		<div class="card shadow">
 			<div class="card-body">
 				<img src="static/result.png" alt="" width="100px">
@@ -31,7 +31,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-3 box">
+	<div class="col-lg-3  col-md-6 col-xs-12 box">
 		<div class="card shadow">
 			<div class="card-body">
 				<img src="static/add-question.png" alt="" width="100px">
@@ -39,14 +39,14 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-3 box">
+	<!--div class="col-lg-3 col-md-6  col-xs-12 box">
 		<div class="card shadow">
 			<div class="card-body">
 				<img src="static/research.png" alt="" width="100px">
 				<center><a href="{{current_user.id}}/achievements" class="btn btn-primary mybtn">Achievements</a></center>
 			</div>
 		</div>
-	</div>
+	</div-->
 
 </div>
 {% else %}
@@ -55,7 +55,7 @@
 	<div class="col-12">
 		<img src="static/undraw_teacher.svg" alt="" width="300px" style="margin-bottom: 50px;">
 	</div>
-	<div class="col-3 box">
+	<div class="col-lg-3 col-md-6  col-xs-12 box">
 		<div class="card shadow">
 			<div class="card-body">
 				<img src="static/add-question.png" alt="" width="100px">
@@ -63,7 +63,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-3 box">
+	<div class="col-lg-3 col-md-6  col-xs-12 box">
 		<div class="card shadow">
 			<div class="card-body">
 				<img src="static/research.png" alt="" width="40px">
@@ -72,7 +72,7 @@
 		</div>
 	</div>
 
-	<div class="col-3 box">
+	<div class="col-lg-3 col-md-6  col-xs-12 box">
 		<div class="card shadow">
 			<div class="card-body">
 				<img src="static/notepad.png" alt="" width="100px">
@@ -81,7 +81,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-3 box">
+	<div class="col-lg-3 col-md-6  col-xs-12 box">
 		<div class="card shadow">
 			<div class="card-body">
 				<img src="static/research.png" alt="" width="100px">
