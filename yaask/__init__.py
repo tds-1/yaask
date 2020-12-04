@@ -12,9 +12,7 @@ app = Flask(__name__, template_folder='templates' , static_folder="static")
 try:
 	from yaask.config import MAIL_ID, MAIL_PASSWORD
 	app.config.from_object('yaask.config.DevelopmentConfig')
-	print ("try")
 except:
-	print ("except")
 	app.config["SECRET_KEY"] = environ['SECRET_KEY']
 	app.config["DEBUG"] = True
 	app.config["TESTING"] = False
@@ -31,7 +29,6 @@ except:
 	))
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-print (basedir)
 # app.config['CKEDITOR_PKG_TYPE'] = 'basic'
 app.config['CKEDITOR_SERVE_LOCAL'] = True
 app.config['CKEDITOR_ENABLE_CODESNIPPET'] = True

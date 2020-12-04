@@ -15,6 +15,7 @@ td{
 #que{
 	font-size: 18px;
 	word-wrap: break-word;
+	background: palegoldenrod;
 }
 footer {
     position: relative;

@@ -89,11 +89,25 @@ function startTimer(duration, display) {
         display.text(hours + ":" + minutes + ":" + seconds);
 
         if (--timer < 0) {
-            finish_test();
+            finish_test_time();
             clearInterval(interval);
             flag_time = false;
         }
     }, 1000);
+}
+
+function finish_test_time() {
+    $('#msg').append("Test submitted successfully");
+    past = present;
+    time_taken[past] += (present_time - global_time);
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        data: { flag: 'completed', time_taken: time_taken },
+        success: function (data) {
+            window.location.replace('/dashboard');
+        }
+    });
 }
 
 function finish_test() {
