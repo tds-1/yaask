@@ -16,10 +16,10 @@
 <body>
     {% include 'includes/_navbar.html' %}
     {% include 'includes/_messages.html' %}
+    {% block wwbody %}{% endblock %}
     <div class="container" style="padding-top: 25px;">
         {% block body %}{% endblock %}
     </div>
-    {% block wwbody %}{% endblock %}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

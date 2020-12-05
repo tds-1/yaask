@@ -3,51 +3,39 @@
 
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Yaask | Home Page</title>
-	<link rel="stylesheet" type="text/css" href="{{url_for("static", filename= "index.css")}}">	
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename= 'index.css')}}">
 </head>
 
 <body>
 
-<div class="wrapper">
-  <div class="Container">
-        <div class="nav">
-            <div class="logo">
-                Yaask Labs
+    <div class="wrapper">
+        <div class="Container">
+            <div class="nav">
+                <div class="logo">
+                    Yaask Labs
+                </div>
             </div>
-            <div class="menu">
-                <ul class="navMenu">
-				{% if current_user.is_authenticated() %}
-                <li class="nav-item ">
-                    <a href="/dashboard" class="nav-link">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/logout" class="nav-link">Logout</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a href="/login" class="nav-link">Login/Register</a>
-                </li>
-                {% endif %}
+            <div class="header">
+                <img src="{{url_for('static',filename='../static/assets/yaask.png') }}">
+                <p>Future of eduction</p>
+                <a href="/login" class="nav-link">
+                    <button type="button">Login/Register</button>
+                </a>
 
-                </ul>
+
             </div>
-        </div>
-        <div class="header">
-            <h1>Yaask Labs</h1>
-            <p>Future of eduction</p>
-            <button type="button">About Us</button>
         </div>
     </div>
-</div>
 
 
-    
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
- 
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </body>
-</html> 
+
+</html>

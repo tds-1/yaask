@@ -29,17 +29,7 @@ class RegisterForm(Form):
 		'confirm',
 		validators=[DataRequired(), EqualTo('password', message='Passwords must match.')]
 	)
-	role = RadioField(
-		'role',
-		choices=[('student', 'Student'), ('teacher', 'Teacher')],
-		validators=[DataRequired()]
-	) 
 
 class LoginForm(Form):
 	username = TextField('username', validators=[DataRequired()])
 	password = PasswordField('password', validators=[DataRequired()])
-	role = RadioField(
-		'role',
-		choices=[('student', 'Student'), ('teacher', 'Teacher')],
-		validators=[DataRequired()]
-	)

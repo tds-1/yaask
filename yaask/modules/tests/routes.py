@@ -260,7 +260,6 @@ def create_test(username, testid):
         if request.method == 'POST':
             selected = []
             try:
-                print ("random")
                 subject = form.subject.data
                 number = form.number_of_questions.data
                 tag = form.topic.data
@@ -276,13 +275,11 @@ def create_test(username, testid):
                         if (c==number):
                             break
             except:            
-                print ("selected")
                 questions_to_display = Questions.query.filter().all()
                 for question in questions_to_display:
                     check=request.form.get(str(question.questionid))
                     if check=="checked":
                         selected.append(question.questionid)
-                print (selected)
             testdata = Test(
                 testid = testid,
                 selected=selected
@@ -300,7 +297,6 @@ def create_test(username, testid):
 def questions(username, testid):
     if username == current_user.username:
         results = Test.query.filter(Test.testid == testid).one()
-        print (results.selected)
         results = results.selected
         questions_to_display = Questions.query.filter( Questions.questionid.in_(results) ).all()
         return render_template('disp_questions_wo_filter.html', results=questions_to_display)

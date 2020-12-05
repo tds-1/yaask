@@ -72,67 +72,70 @@ def oauth_callback(provider):
 
 @users.route('/login', methods=['GET', 'POST'])
 def login():
-	error=""
-	form = LoginForm(request.form)
-	form1 = RegisterForm(request.form)
-	if request.method == 'POST':
-		if form.validate_on_submit() != form1.validate_on_submit():
-			if form.validate_on_submit():
-				user = User.query.filter_by(username=request.form['username']).first()
-				if user is not None and pwd_context.verify(request.form['password'], user.password) and form.role.data == user.role:
-					login_user(user)
-					return redirect(url_for('users.unconfirmed'))
+	try:
+		current_user.id
+		return redirect(url_for(main.home))
+	except:
+		error=""
+		form = LoginForm(request.form)
+		form1 = RegisterForm(request.form)
+		if request.method == 'POST':
+			if form.validate_on_submit() != form1.validate_on_submit():
+				if form.validate_on_submit():
+					user = User.query.filter_by(username=request.form['username']).first()
+					if user is not None and pwd_context.verify(request.form['password'], user.password) :
+						login_user(user)
+						return redirect(url_for('users.unconfirmed'))
+					else:
+						error = ' * Invalid Credentials'
+						form.password.data=''
+						form.username.data=''
+						return render_template('login.html', form=form, error=error , form1=form1)
 				else:
 					error = ' * Invalid Credentials'
-					form.password.data=''
-					form.username.data=''
-					form.role.data=''
 					return render_template('login.html', form=form, error=error , form1=form1)
+				return render_template('login.html', form=form , form1=form1)
+
 			else:
-				error = ' * Invalid Credentials'
-				return render_template('login.html', form=form, error=error , form1=form1)
-			return render_template('login.html', form=form , form1=form1)
+				if form1.validate_on_submit():
+					user = User(
+						name=form1.name.data,
+						username=form1.username.data,
+						email=form1.email.data,
+						email_verified=False,
+						phone_no=form1.phone_no.data,
+						password=form1.password.data,
+						phone_verified=False,
+						role= "student",
+						score=0,
+						picture= ""
+					)
+					email_query=User.query.filter(User.email == user.email).first()
+					username_query=User.query.filter(User.username == user.username).first()
+					if(email_query is not None):
+						error=" * email already registered"
+						flash (error, 'danger')
+						form1.password.data=''
+						return render_template('login.html', form=form , form1=form1)
+					elif(username_query is not None):
+						error=" * username already taken"
+						flash (error, 'danger')
+						form1.password.data=''
+						return render_template('login.html', form=form , form1=form1)
+					else:
+						db.session.add(user)
+						db.session.commit()
+						token = generate_confirmation_token(user.email)
+						confirm_url = url_for('users.confirm_email', token=token, _external=True)
+						html = render_template('activate.html', confirm_url=confirm_url)
+						subject = "Please confirm your email"
+						send_email(user.email, subject, html)
+						login_user(user)
 
-		else:
-			if form1.validate_on_submit():
-				user = User(
-					name=form1.name.data,
-					username=form1.username.data,
-					email=form1.email.data,
-					email_verified=False,
-					phone_no=form1.phone_no.data,
-					password=form1.password.data,
-					phone_verified=False,
-					role= form1.role.data,
-					score=0,
-					picture= ""
-				)
-				email_query=User.query.filter(User.email == user.email).first()
-				username_query=User.query.filter(User.username == user.username).first()
-				if(email_query is not None and email_query.email_verified == True):
-					error=" * email already registered"
-					flash (error, 'danger')
-					form1.password.data=''
-					return render_template('login.html', form=form , form1=form1)
-				elif(username_query is not None):
-					error=" * username already taken"
-					flash (error, 'danger')
-					form1.password.data=''
-					return render_template('login.html', form=form , form1=form1)
-				else:
-					db.session.add(user)
-					db.session.commit()
-					token = generate_confirmation_token(user.email)
-					confirm_url = url_for('users.confirm_email', token=token, _external=True)
-					html = render_template('activate.html', confirm_url=confirm_url)
-					subject = "Please confirm your email"
-					send_email(user.email, subject, html)
-					login_user(user)
+						flash('A confirmation email has been sent via email.', 'success')
+						return redirect(url_for('users.unconfirmed'))
 
-					flash('A confirmation email has been sent via email.', 'success')
-					return redirect(url_for('users.unconfirmed'))
-
-	return render_template('login.html', form=form , form1=form1)
+		return render_template('login.html', form=form , form1=form1)
 
 @users.route('/logout')
 @login_required
@@ -144,13 +147,11 @@ def logout():
 @users.route('/confirm/<token>')
 @login_required
 def confirm_email(token):
-    print (token)
     try:
         email = confirm_token(token)
     except:
         flash('The confirmation link is invalid or has expired.', 'danger')
     user = User.query.filter(User.email == email).first_or_404()
-    print (user)
     if user.email_verified:
         flash('Account already confirmed. Please login.', 'success')
     else:

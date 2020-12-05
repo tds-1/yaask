@@ -8,7 +8,6 @@ main = Blueprint('main',__name__)
 
 @main.route('/')
 def home():
-	print ("hello")
 	try:
 		current_user.id
 		return redirect(url_for('dashboard'))
@@ -24,7 +23,6 @@ def about():
 @login_required
 @check_confirmed
 def dashboard():
-	print ("hello")
 	return render_template('dashboard.html')
 
 

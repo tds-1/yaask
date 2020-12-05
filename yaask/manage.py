@@ -5,9 +5,7 @@ from yaask import app, db
 
 try:
 	app.config.from_object('config.DevelopmentConfig')
-	print ("try")
 except:
-	print ("except")
 	app.config["SECRET_KEY"] = environ['SECRET_KEY']
 	app.config["DEBUG"] = True
 	app.config["TESTING"] = False

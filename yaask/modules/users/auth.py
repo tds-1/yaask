@@ -31,7 +31,6 @@ class OAuthSignIn(object):
 
     @classmethod
     def get_provider(self, provider_name):
-        print (self.providers)
         if self.providers is None:
             self.providers={}
             for provider_class in self.__subclasses__():
@@ -72,5 +71,4 @@ class GoogleSignIn(OAuthSignIn):
         )
                 
         me = oauth_session.get('').json()
-        print (me)
         return (me['name'],me['given_name'],me['email'],me['picture'])

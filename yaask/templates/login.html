@@ -40,7 +40,7 @@
                 {{ form.csrf_token }}
                 {{ form.username(placeholder="Your ID", class="datainput validate") }}
                 {{ form.password(placeholder="Password", class="datainput validate") }}
-                {{ form1.role(placeholder="", class="check rad validate") }}
+                <br>
                 <button type="submit" class="submit">Log in</button>
             </form>
 
@@ -52,7 +52,7 @@
                 {{ form1.phone_no(placeholder="Enter your phone number without country code", class="datainput validate") }}
                 {{ form1.password(placeholder="Something easy to remember but hard to guess", class="datainput validate") }}
                 {{ form1.confirm(placeholder="Same as above", class="datainput") }}
-                {{ form1.role(placeholder="", class="check rad") }}
+                <br>
                 <button type="submit" class="submit">Register</button>
             </form>
         </div>
