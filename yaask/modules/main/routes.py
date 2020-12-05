@@ -25,7 +25,13 @@ def about():
 def dashboard():
 	return render_template('dashboard.html')
 
+@app.route('/.well-known/acme-challenge/mun6bLHC8vRsqfySihTtuHJsJ7lPn3pZS0kVZM4LSRw')
+def ssl1():
+	return render_template('mun6bLHC8vRsqfySihTtuHJsJ7lPn3pZS0kVZM4LSRw.Xp2MeYmXgiRzVI5n8jqA6fz0PQbXMXrxgzVtH4Icu3A')
 
+@app.route('/.well-known/acme-challenge/Sk994f44162p8w-Acq5jxWt2yAuz8Ql9s9lPEcePNt8')
+def ssl2():
+	return render_template('Sk994f44162p8w-Acq5jxWt2yAuz8Ql9s9lPEcePNt8.Xp2MeYmXgiRzVI5n8jqA6fz0PQbXMXrxgzVtH4Icu3A')
 
 # @app.route('/upload')
 # @login_required
