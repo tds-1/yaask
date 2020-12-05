@@ -143,13 +143,14 @@ def logout():
 
 @users.route('/confirm/<token>')
 @login_required
-@check_confirmed
 def confirm_email(token):
+    print (token)
     try:
         email = confirm_token(token)
     except:
         flash('The confirmation link is invalid or has expired.', 'danger')
     user = User.query.filter(User.email == email).first_or_404()
+    print (user)
     if user.email_verified:
         flash('Account already confirmed. Please login.', 'success')
     else:
